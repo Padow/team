@@ -1,0 +1,226 @@
+<?php 
+  session_name('IDSESSION');
+  session_start();
+  if ((!isset($_SESSION['logged'])) || (empty($_SESSION['logged'])))
+  { 
+    header ("location: login.php");
+  }
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<title>Matchs</title>
+	<meta charset="utf-8" >
+	<link rel="shortcut icon" href="style/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="style/favicon.ico" type="image/x-icon">
+    <meta name="author" content="Padow" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="style/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+   
+    
+    <script src="jquery/jquery.js"></script>
+    <script type="text/javascript" src="jquery/index.js"></script>
+    <link rel="stylesheet" href="datepicker/css/datepicker3.css">
+    <script src="datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="datepicker/js/locales/bootstrap-datepicker.fr.js" charset="UTF-8"></script>
+	
+	<link rel="stylesheet" href="timepicker/css/bootstrap-timepicker.css">
+	<script type="text/javascript"  src="timepicker/js/bootstrap-timepicker.js"></script>
+	 <link rel="stylesheet" href="style/index.css">
+</head>
+<body>
+  <?php  
+  	require_once('php/pdo.class.php');
+  	require_once('php/week.class.php');
+  	require_once('php/player.class.php');
+  	require_once('php/dispo.class.php');
+  	require_once('php/match.class.php');
+  	require_once('php/links.class.php');
+
+	$matchObjet = new Match();
+  ?>
+<div class="wrap">
+  <div class="content">
+	<nav class="navbar navbar-inverse" role="navigation">
+	  <div class="container">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="./"><span class="glyphicon glyphicon-home"></span></a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	        <li><a href="./"><span class="glyphicon glyphicon-list"></span> Dispo</a></li>
+	        <li class="active"><a href="matchs.php"><span class="glyphicon glyphicon-wrench"></span> Matchs</a></li>
+	        <li><a href="setting.php"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+	        <li><a href="player_setting.php"><span class="glyphicon glyphicon-cog"></span> Player</a></li>
+	        <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+	<div class="container">
+		<div class="col-md-6">
+			<fieldset><legend class="legendh2">Programmer un match</legend>
+			<form method="post" role="form">
+				<div class="form-group row">
+					<div class="col-md-6"> 
+						<label class="control-label">Date</label>
+						<div class="input-group date" id="dp3" data-date="" data-date-format="dd/mm/yyyy">
+							<input class="form-control" type="text" name="date" required > 
+							<span class="input-group-addon">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</span> 
+						</div> 
+					</div> 
+					<div class="col-md-6"> 
+						<label class="control-label">Time</label>
+						 <div class="input-group time input-append bootstrap-timepicker">
+				            <input id="timepicker1" type="text" class="test form-control" name="time" required >
+				            <span class="input-group-addon add-on">
+				            	<i class="glyphicon glyphicon-time"></i>
+				            </span>
+			        	</div> 
+					</div> 
+				</div>
+				<div class="form-group row">
+					<div class="col-md-6"> 
+						<label class="control-label">League</label>
+						<select name="league" class="form-control" required>
+							<option></option>
+							<?php 
+								$matchObjet->getLeagueList();
+								foreach ($matchObjet->getLeague() as  $value) {
+									echo '<option>'.htmlspecialchars($value['name']).'</option>';
+								}
+							?>
+						</select>
+					</div> 
+					<div class="col-md-6"> 
+						<label class="control-label">Team</label>
+						<input type="text" class="form-control" name="team" required>
+					</div> 
+				</div>
+				<div class="form-group row">
+					<div class="col-md-6"> 
+						<label class="control-label">Map 1</label>
+						<select name="map1" class="form-control" required>
+							<option></option>
+							<?php  
+								$matchObjet->getMapList();
+								foreach ($matchObjet->getMap() as  $value) {
+									echo '<option>'.htmlspecialchars($value['name']).'</option>';
+								}
+							?>
+						</select>
+					</div>  
+					<div class="col-md-6"> 
+						<label class="control-label">Map 2</label>
+						<select name="map2" class="form-control" required>
+							<option></option>
+							<?php  
+								foreach ($matchObjet->getMap() as  $value) {
+									echo '<option>'.htmlspecialchars($value['name']).'</option>';
+								}
+							?>
+						</select>
+					</div>  
+				</div>
+				<div class="form-group row">
+					<div class="col-md-12"> 
+						<button name="save" type="submit" class="btn btn-default btn-primary btn-lg btn-block">Save <span class="glyphicon glyphicon-save"></span></button>
+					</div>  
+				</div>
+			</form>	
+			<?php  
+				if(isset($_POST['save'])){
+					$list = array('date'=>$_POST['date'], 'time'=>$_POST['time'], 'league'=>$_POST['league'], 'team'=>$_POST['team'], 'map1'=>$_POST['map1'], 'map2'=>$_POST['map2']);
+					$match = new Match();
+					$match->setMatch($list);
+				}
+			?>
+		</fieldset>
+		</div>
+		<div class="col-md-2">
+			&nbsp;
+		</div>
+		<div class="col-md-4">
+			<fieldset><legend class="legendh2">Supprimer un match</legend>
+			<form method="post" role="form">
+				<div class="form-group row">
+					<div class="col-md-8"> 
+						<label class="control-label">Match list</label>
+						<select name="matchdel" class="form-control" required>
+							<option></option>
+							<?php  
+								$matchObjet->getMatchList();
+								foreach ($matchObjet->getMatch() as  $value) {
+									echo '<option>'.$value['clee'].'</option>';
+								}
+							?>
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-md-8"> 
+						<button name="delete" type="submit" class="btn btn-default btn-warning btn-lg btn-block">Delete <span class="glyphicon glyphicon-trash"></span></button>
+					</div>  
+				</div>
+			</form>
+			<?php 
+				if(isset($_POST['delete'])){
+					$list = $_POST['matchdel'];
+					$match = new Match();
+					$match->DelMatch($list);
+				}
+			?>
+		</fieldset>
+		</div>
+	</div>
+</div>
+<div class="bottompage">
+    <div class="container">
+      <div class="col-md-12 padd">
+        <div class="col-md-8">  
+        <?php  
+          $links = new Links();
+        ?> 
+        </div>
+        <div class="col-md-4 pull-right">
+          © 2014 <a href="http://steamcommunity.com/id/padow/" target="_blank">Padow</a>. All rights reserved.
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+    <script type="text/javascript">
+        $('#timepicker1').timepicker({showMeridian: false, minuteStep: 5, defaultTime: false});
+    </script>
+
+	<script type="text/javascript">
+    	$(".input-group.date").datepicker({ autoclose: true, todayHighlight: true, orientation: "top", language: "fr" });
+    </script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="style/bootstrap/js/bootstrap.min.js"></script>
+    <div class="del"></div>
+</body>
+</html>

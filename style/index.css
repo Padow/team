@@ -1,0 +1,166 @@
+.red{
+	background: #D9534F;
+}
+
+.red2{
+	background: #D9534F;
+	text-align: center;
+}
+
+.green{
+	background: #5CB85C;
+}
+
+.blue{
+	background: #5BC0DE;
+}
+
+.nb1{
+	background: rgba(255, 165, 0, 0.1);
+}
+
+.nb2{
+	background: rgba(255, 165, 0, 0.2);
+}
+.nb3{
+	background: rgba(255, 165, 0, 0.3);
+}
+.nb4{
+	background: rgba(255, 165, 0, 0.6);
+}
+
+.nbd{
+	background: #333 !important;
+	color: white !important;
+}
+
+.white{
+ background: transparent;
+}
+
+.war{
+	background: orange;
+	color: #333;
+}
+
+.separateur{
+	background: black;
+	height: 5px;
+}
+
+.test{
+	border-radius: 5px 0px 0px 5px !important;
+}
+
+.legendh2{
+	font-size: 30px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	line-height: 1.1;
+	color: white;
+}
+
+.today{
+	background: orange !important;
+}
+
+html,body{
+	margin: 0;
+	padding: 0 !important;
+	height: 100%;
+	overflow: auto;
+	background: #333;
+	-webkit-background-size: cover; /* pour Chrome et Safari */
+	-moz-background-size: cover; /* pour Firefox */
+	-o-background-size: cover; /* pour Opera */
+	background-size: cover; /* version standardisée */
+}
+
+.tool:hover{
+	cursor: pointer;
+}
+
+a:hover{
+	color: rgb(0,162,232) !important;
+}
+
+.infomatch{
+	margin: 0px 0px 0px !important;
+	color: #333;
+}
+
+.log{
+	margin-top: 0.5em; 
+}
+
+.log2{
+	margin-top: -0.5em; 
+}
+
+.chkbx{
+	cursor: pointer;
+	font-size: .9em;
+}
+
+.classe_icon_group{
+	margin-top: 10px;
+}
+
+.navbar {
+    border-radius: 0px !important;
+}
+
+.wrap{
+	min-height: 100%;
+	position: relative;
+}
+
+.content{
+	padding-bottom: 100px;
+	color: white;
+}
+
+.bottompage{
+	width: 100%;
+	height: 80px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background: #151515;
+}
+
+.padd{
+	margin-top: 20px;
+}
+
+.no-padd{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.space{
+	margin-top: 20px;
+}
+
+.bckg{
+	background: #242121  !important;
+	color: #FFF ;
+}
+
+.th_dispo{
+	background: #333  !important;
+}
+
+.classe_icon{
+	height: 25px;
+	width: 25px;
+}
+
+.check_icon{
+	height: 16px;
+	width: 16px;
+}
+
+.spacebt{
+	margin-bottom: 3px;
+}
