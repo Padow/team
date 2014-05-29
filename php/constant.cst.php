@@ -1,7 +1,9 @@
 <?php
-	$config = __DIR__."../../config/config.ini";
-	if(@$ini_array = parse_ini_file($config)){
-		define("CONFIG", $config);
+	$dir = __DIR__;
+	$dir = substr($dir, 0, -3);
+	$dir .= "config/config.ini";
+	if(@$ini_array = parse_ini_file($dir)){
+		define("CONFIG", $dir);
 		foreach ($ini_array as $key => $value) {
 			if(strtoupper($key) == "DATABASELOCATION"){
 				if(!$value){
@@ -40,6 +42,6 @@
 		define("DBUSER", null);
 		define("DBPASSWORD", null);
 		define("DBNAME", null);
-		define("CONFIG", "/config/config.ini");
+		define("CONFIG", $dir);
 	}
 ?>
