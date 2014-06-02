@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `dispo` (
   CONSTRAINT `FK_dispo_players` FOREIGN KEY (`pseudo`) REFERENCES `players` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table dispo.dispo: ~10 rows (environ)
+-- Dumping data for table dispo.dispo: ~0 rows (environ)
 /*!40000 ALTER TABLE `dispo` DISABLE KEYS */;
 /*!40000 ALTER TABLE `dispo` ENABLE KEYS */;
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `leagues` (
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table dispo.leagues: ~4 rows (environ)
+-- Dumping data for table dispo.leagues: ~3 rows (environ)
 /*!40000 ALTER TABLE `leagues` DISABLE KEYS */;
 INSERT INTO `leagues` (`name`) VALUES
 	('ETF2L'),
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `maps` (
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table dispo.maps: ~3 rows (environ)
+-- Dumping data for table dispo.maps: ~0 rows (environ)
 /*!40000 ALTER TABLE `maps` DISABLE KEYS */;
 /*!40000 ALTER TABLE `maps` ENABLE KEYS */;
 
@@ -75,9 +75,25 @@ CREATE TABLE IF NOT EXISTS `matchs` (
   CONSTRAINT `FK_map2` FOREIGN KEY (`map2`) REFERENCES `maps` (`name`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table dispo.matchs: ~2 rows (environ)
+-- Dumping data for table dispo.matchs: ~0 rows (environ)
 /*!40000 ALTER TABLE `matchs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `matchs` ENABLE KEYS */;
+
+
+-- Dumping structure for table dispo.messages
+CREATE TABLE IF NOT EXISTS `messages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT '0',
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `message` text,
+  PRIMARY KEY (`id`),
+  KEY `FK_messages_players` (`name`),
+  CONSTRAINT `FK_messages_players` FOREIGN KEY (`name`) REFERENCES `players` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table dispo.messages: ~0 rows (environ)
+/*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 
 
 -- Dumping structure for table dispo.players
@@ -92,10 +108,11 @@ CREATE TABLE IF NOT EXISTS `players` (
   `Ven` varchar(10) DEFAULT NULL,
   `Sam` varchar(10) DEFAULT NULL,
   `Dim` varchar(10) DEFAULT NULL,
+  `lastmess` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table dispo.players: ~10 rows (environ)
+-- Dumping data for table dispo.players: ~2 rows (environ)
 /*!40000 ALTER TABLE `players` DISABLE KEYS */;
 /*!40000 ALTER TABLE `players` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

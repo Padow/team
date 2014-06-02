@@ -1,4 +1,5 @@
 <?php 
+  ob_start();
   session_name('IDSESSION');
   session_start();
   if ((!isset($_SESSION['logged'])) || (empty($_SESSION['logged'])))
@@ -41,6 +42,9 @@
     require_once('php/links.class.php');
     require_once('php/server.class.php');
     require_once('php/gamemode.class.php');
+    require_once('php/message.class.php');
+    $messages = new Message();
+    $page = $messages->nbpage();
 
 
   ?>
@@ -66,6 +70,7 @@
         <li><a href="matchs.php"><span class="glyphicon glyphicon-wrench"></span> Matchs</a></li>
         <li><a href="setting.php"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
         <li><a href="player_setting.php"><span class="glyphicon glyphicon-cog"></span> Player</a></li>
+        <li><a href="message_board.php?page=<?php echo $page; ?>"><span class="glyphicon glyphicon-comment"></span> Message Board <?php $messages->newMessage($_SESSION['logged']['name']); ?></a></li>
         <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -167,8 +172,7 @@
 
   // set dispo with the default dispo
   if(isset($defaultDispoInsert)){
-    $defDispo = new Dispo();
-    $defDispo->setDefaultDispo($defaultDispoInsert);
+    $dispoObjet->setDefaultDispo($defaultDispoInsert);
     echo '<script type="text/javascript">
             window.location.reload();
           </script>
@@ -301,10 +305,10 @@
                     weeks delimiter
                 */
                 if (preg_match("/Dim/i", $key)) {
-                  echo '<tr><td class="separateur"></td>';
-                  echo '<td class="separateur"></td>';
+                  echo '<tr><td class="separateur"></td>'; //date
+                  echo '<td class="separateur"></td>'; //nb dispo
                   foreach ($playerList->getPlayersname() as $value) {
-                    echo '<td class="separateur"></td>';
+                    echo '<td class="separateur"></td>'; // each player
                   }
                   echo '</tr>'; 
                 }
@@ -323,7 +327,7 @@
       ?>
       <div class="panel-group" id="accordion">
     	<?php  
-        $nbdispo = new Dispo();
+        $nbdispo = $dispoObjet;
         $matchdate = new Weeks();
         $cpt = 0;
           /**
@@ -476,3 +480,4 @@
     <div class="del"></div>
   </body>
 </html>
+<?php ob_end_flush(); ?>

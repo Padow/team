@@ -138,6 +138,11 @@ a:hover{
 	padding-right: 0px;
 }
 
+.no-marg{
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+
 .space{
 	margin-top: 20px;
 }
@@ -163,4 +168,103 @@ a:hover{
 
 .spacebt{
 	margin-bottom: 3px;
+}
+
+.textarea{
+	background-color: #333;
+	resize: none; 
+	width: 100%; 
+	height: 200px; 
+}
+
+.underline_icon{
+	height: 14px;
+	width: 10px;
+	background: transparent;
+}
+
+.btstyle{
+	background: white;
+	text-align: left;
+}
+
+.mess_board{
+	background-color: #333;
+}
+
+.nobr{
+	margin: 0px 0px 0px !important;
+}
+
+.topspace{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.botspace{
+	padding-bottom: 10px;
+}
+
+.sepmess{
+	height: 8px;
+}
+
+.bbc_standard_quote, .bbc_alternate_quote {
+    font-size: x-small;
+    color: #000;
+    line-height: 1.4em;
+    background: url('../style/images/quote.png') no-repeat scroll 0.1em 0.1em #D7DAEC;
+    border-top: 2px solid #99A;
+    border-bottom: 2px solid #99A;
+    padding: 1.1em 1.4em;
+    margin: 0.1em 0px 0.3em;
+    overflow: auto;
+}
+
+.codeheader, .quoteheader {
+    color: #666;
+    font-size: x-small;
+    font-weight: bold;
+    padding: 0px 0.3em;
+}
+
+.lipage{
+	background-color: #333;
+}
+
+.bottmess{
+	background-color: #242121;
+}
+
+.txtright{
+	text-align: right;
+}
+
+.msgbordp{
+	min-height: 1.4em;
+}
+
+.poster{
+	background-color: #242121;
+}
+
+.brdbot{
+	border-top: 1px solid grey;
+}
+
+.messbm{
+	word-wrap: break-word;
+}
+
+.messbm > p{
+	margin: 0px;
+}
+
+.avatar{
+	max-width: 100px;
+	max-height: 150px;
+}
+
+.imgmess{
+	max-width: 100%;
 }

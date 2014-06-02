@@ -95,6 +95,20 @@
 			$sql-> bindParam('name', $name, PDO::PARAM_STR);
 			$sql0-> execute();
 			$sql-> execute();
+			$dir = __DIR__;
+			$dir = substr($dir, 0, -3);
+			$dir .= "uploads/";
+			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+			    $arr = glob($dir.utf8_decode($name).".*");
+		     	foreach ($arr as $avatar) {
+		     		unlink($avatar);
+		     	}
+			} else {
+			    $arr = glob($dir.$name.".*");
+		     	foreach ($arr as $avatar) {
+		     		unlink($avatar);
+		     	}
+			}
 			echo '
 							<div class="col-md-12">
 								<div class="alert alert-success alert-dismissable">
@@ -132,6 +146,67 @@
 							</script>
 						 ';
 		}
+
+		public function setAvatar($name, $file) {
+	        /**
+	         * Charger le fichier
+	         */
+	      
+	        $dir = __DIR__;
+			$dir = substr($dir, 0, -3);
+			$dir .= "uploads/";
+	        $extensions = array('.png', '.gif', '.jpg', '.jpeg');
+	        $maxsize  = 200000;
+	        $filename = $file['tmp_name'];
+	        $extension = strrchr($file['name'], '.');
+	        $size = $file['size'];
+
+	        if (!file_exists($filename)) {
+	            $error = "Image non trouvée.";
+	        }else{
+	        	if(!in_array($extension, $extensions)){
+			   	 	$error = "Format supporté : png gif jpg jpeg .";
+				}
+				if($size > $maxsize){
+					$error = "Taille max : 100Ko ";
+				}
+	        }
+
+			if(isset($error)){
+				echo '
+					<div class="col-md-12">
+						<div class="alert alert-warning alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<strong>Attention! :</strong> '.$error.'
+						</div>
+					</div>';
+			}else{
+				if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+				    $fichier = utf8_decode($name.$extension);
+				} else {
+				   $fichier = $name.$extension;
+				}
+				
+			     if(move_uploaded_file($filename, $dir.$fichier)){
+			     	$arr = glob($dir.$name.".*");
+			     	foreach ($arr as $avatar) {
+			     		if($avatar != $dir.$fichier){
+			     			unlink($avatar);
+			     		}
+			     	}
+
+			     	echo '
+					<div class="col-md-12">
+						<div class="alert alert-success alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<strong>Well Done! :</strong> Avatar mis à jour.
+						</div>
+					</div>';
+			     }
+			}
+	        
+	    }
+	    
 
 		public function getPlayersname(){
 			return $this->_players;

@@ -1,13 +1,20 @@
 <?php 
-  ob_start();
-	session_name('IDSESSION');
+	ob_start();
+  session_name('IDSESSION');
 	session_start();
+  if ((!isset($_SESSION['logged'])) || (empty($_SESSION['logged'])))
+  { 
+    header ("location: login.php");
+  }
+  if ($_SESSION['logged']['name'] == "first_player_setting") {
+    header ("location: setting.php");
+  }
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-  	<title>Dispo team</title>
+  	<title>Message Board</title>
     <link rel="shortcut icon" href="style/favicon.ico" type="image/x-icon">
     <link rel="icon" href="style/favicon.ico" type="image/x-icon">
     <meta name="author" content="Padow" />
@@ -31,8 +38,11 @@
 <body>
   <?php  
   	require_once('php/pdo.class.php');
-    require_once('php/login.class.php');
     require_once('php/links.class.php');
+    require_once('php/message.class.php');
+    $messages = new Message();
+    $page = $messages->nbpage();
+
   ?>
 <div class="wrap">
   <div class="content">
@@ -56,52 +66,49 @@
             <li class=""><a href="matchs.php"><span class="glyphicon glyphicon-wrench"></span> Matchs</a></li>
             <li><a href="setting.php"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
             <li><a href="player_setting.php"><span class="glyphicon glyphicon-cog"></span> Player</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-comment"></span> Message Board</a></li>
+            <li><a href="message_board.php?page=<?php echo $page; ?>"><span class="glyphicon glyphicon-comment"></span> Message Board</a></li>
+            <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
 
     <div class="container">
-    <?php 
-      $login = new Login();
-      $login->checkRemind();
-    	if(isset($_POST['login'])){	
-    		
-        if(isset($_POST["checkboxe"])){
-          $remember = true;
-        }else{
-          $remember = false;
+      <?php 
+        $quote = $messages->quote($_GET['id']);
+        $mess = $quote[0]['message']; 
+        $message = str_replace("[br/]","\n",$mess);
+        $message = str_replace("[br/]","\r",$mess);
+        $message = str_replace("\r","",$message); 
+        $value = "[quote=".$quote[0]['name']."]";
+        $value .= $message;
+        $value .= "[/quote]";
+        if(isset($_POST['send'])){
+            $messages->setMessage($_SESSION['logged']['name'], $_POST['comment']);
         }
-    		$login->checkLogin($_POST['pseudo'], $_POST['password'], $remember);		
-    	}
-    ?>
-    <div class="col-md-4">
-    	<fieldset><legend class="legendh2">login</legend>
-    		<form method="post" role="form">
-    			<div class="form-group row">
-    				<div class="col-md-12 padd"> 
-    					<input type="text" class="form-control" pattern="^((?![#@;]).)*$" title="Caractères interdis: #@;" maxlength="20" placeholder="Pseudo" name="pseudo" autofocus required>
-              <div class="padd">
-                <input type="password" name="password" class="form-control" placeholder="password" data-toggle="tooltip" title="Password par defaut = pseudo, /!\ sensible à la casse" required>
-              </div>
-              
-              <label class="checkbox-inline log2" for="checkboxes-0">
-                <input id="checkboxes-0" type="checkbox" name="checkboxe">
-              </label>
-              <label class="control-label log">
-               <span class="chkbx" onClick="check()">Toujours connecté</span>
-              </label>
-      			</div>
-    			</div>
-    			<div class="form row">
-    				<div class="col-md-12"> 
-    					<button name="login" type="submit" class="btn btn-default btn-primary btn-lg btn-block">login <span class="glyphicon glyphicon-log-in"></span></button>
-    				</div>  
-    			</div>
-    		</form>
-    		</fieldset>	
-    	</div>
+      ?>
+      <div class="col-md-12">
+        <div class="col-md-12 btstyle">    
+          <button title="gras" onclick="formatText(form_Commentaire,'b','b')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-bold"></span> </button>
+          <button title="italic" onclick="formatText(form_Commentaire,'i','i')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-italic"></span> </button>
+          <button title="souligné" onclick="formatText(form_Commentaire,'u','u')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span><img class="underline_icon" src="style/images/icon_underline.png" alt=""></span> </button> 
+          <span class="infomatch">|</span> 
+          <button title="insérer image" onclick="formatText(form_Commentaire,'img','img')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-picture"></span> </button>
+          <button title="insérer lien" onclick="formatText(form_Commentaire,'url','url')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-link"></span> </button>
+          <button title="citer" onclick="formatText(form_Commentaire,'quote','quote')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-comment"></span> </button>
+        </div>
+
+        <form method="post">
+          <div class="col-md-12 no-padd">
+            <textarea id="form_Commentaire" class="textarea" wrap="soft" name="comment"  required><?php echo $value; ?></textarea>
+          </div>
+
+          <div class="col-md-3 no-padd">
+            <button type="submit" name="send" class="btn btn-sm btn-primary btn-block" style="margin-top: 10px;"><span class="glyphicon glyphicon-send"></span> Envoyer</button>
+          </div>
+
+        </form>
+      </div>
     </div>
   </div>
   <div class="bottompage">

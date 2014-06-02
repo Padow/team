@@ -1,4 +1,5 @@
 <?php 
+  ob_start();
   session_name('IDSESSION');
   session_start();
   if ((!isset($_SESSION['logged'])) || (empty($_SESSION['logged'])))
@@ -40,11 +41,11 @@
 <body>
   <?php  
   	require_once('php/pdo.class.php');
-  	require_once('php/week.class.php');
-  	require_once('php/player.class.php');
-  	require_once('php/dispo.class.php');
   	require_once('php/match.class.php');
   	require_once('php/links.class.php');
+  	require_once('php/message.class.php');
+    $messages = new Message();
+    $page = $messages->nbpage();
 
 	$matchObjet = new Match();
   ?>
@@ -70,6 +71,7 @@
 	        <li class="active"><a href="matchs.php"><span class="glyphicon glyphicon-wrench"></span> Matchs</a></li>
 	        <li><a href="setting.php"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
 	        <li><a href="player_setting.php"><span class="glyphicon glyphicon-cog"></span> Player</a></li>
+	        <li><a href="message_board.php?page=<?php echo $page; ?>"><span class="glyphicon glyphicon-comment"></span> Message Board <?php $messages->newMessage($_SESSION['logged']['name']); ?></a></li>
 	        <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
@@ -224,3 +226,4 @@
     <div class="del"></div>
 </body>
 </html>
+<?php ob_end_flush(); ?>

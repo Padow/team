@@ -19,12 +19,17 @@ function readCookie(name) {
 	return null;
 }
 
-
 function SetDispo(id){
-	var key = id;
-	createCookie('key',key,7);
-	$('#query').load('php/dispo.php').fadeIn("slow");
+  $.ajax({
+          url: "php/dispo.php",
+          type: "GET",
+          data: {key: id},
+          success: function(){
+                    window.location.reload();
+                   }
+     });
 }
+
 
 function check(){
 	if($('#checkboxes-0').prop('checked')){
@@ -33,6 +38,9 @@ function check(){
 		$('#checkboxes-0').prop('checked', true);
 	}
 }
+
+
+
 
 var image_array = new Array();
     image_array[0] = "style/background/0.jpg";
@@ -45,7 +53,9 @@ var image_array = new Array();
 $(window).ready(function(){
 	$('body').css({"background-image": 'url('+rand_path+')', "margin": '0px', "padding": '0px'});
 	$('#pass1').val("");
-})
+ });
+
+
 
 var url_array = new Array();
 	url_array[0] = "http://heyyeyaaeyaaaeyaeyaa.com/";
@@ -68,7 +78,10 @@ var url_array = new Array();
 	url_array[17] = "http://noelswf.info/swf/3065.swf";
 	url_array[18] = "http://noelswf.info/swf/831.swf";
 	url_array[19] = "http://noelswf.info/swf/58.swf";
-	url_array[20] = "http://noelswf.info/swf/3806.swf";
+  url_array[20] = "http://noelswf.info/swf/3806.swf";
+  url_array[21] = "http://welcometointernet.org/";
+  url_array[22] = "http://maninthedark.com/";
+	url_array[23] = "http://www.boohbah.tv/zone.html";
 
   if ( window.addEventListener ) {
     var kkeys = [], konami = "38,38,40,40,37,39,37,39,66,65";
@@ -108,3 +121,53 @@ var url_array = new Array();
   	}
 
   }
+
+
+    /*<![CDATA[*/
+function formatText(el,tagstart,tagend){
+
+var selectedText=document.selection?document.selection.createRange().text:el.value.substring(el.selectionStart,el.selectionEnd);// IE:Moz
+var newText='['+tagstart+']'+selectedText+'[/'+tagend+']';
+if(document.selection){//IE
+el.focus();
+var st=getCaret(el)+tagstart.length+2;
+document.selection.createRange().text=newText;
+var range=el.createTextRange();
+range.collapse(true);
+range.moveStart('character', st);
+range.moveEnd('character',selectedText.length);
+range.select();
+el.focus();
+}
+else{//Moz
+var st=el.selectionStart+tagstart.length+2;
+var end=el.selectionEnd+tagstart.length+2;
+el.value=el.value.substring(0,el.selectionStart)+newText+el.value.substring(el.selectionEnd,el.value.length);
+el.focus();
+el.setSelectionRange(st,end)
+}
+}
+
+function getCaret(el) { // IE mission is tricky :)
+    el.focus(); 
+    var r = document.selection.createRange(); 
+    if (r == null) { 
+      return 0; 
+    } 
+    var re = el.createTextRange(), 
+    rc = re.duplicate(); 
+    re.moveToBookmark(r.getBookmark()); 
+    rc.setEndPoint('EndToStart', re); 
+
+    var add_newlines = 0;
+    for (var i=0; i<rc.text.length; i++) {
+      if (rc.text.substr(i, 2) == '\r\n') {
+        add_newlines += 2;
+        i++;
+      }
+    }
+
+return rc.text.length + add_newlines; 
+}
+
+/*]]>*/

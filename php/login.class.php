@@ -92,12 +92,17 @@
 						}
 						$_SESSION['logged'] = $rows[0];
 						header('location: ./');
+						// echo '<script>
+						// 	var curent = window.location.href
+						// 	var index = curent.lastIndexOf("/");
+						// 	var url = curent.substring(0, index);
+						// 	document.location.href= url;						
+						// 	</script>';
 					}
 				}else{
 					$_SESSION['logged']['name'] = "first_player_setting";
 					header('location: ./setting.php');
 				}
-					//
 			}else{
 				echo '
 								<div class="col-md-12">
@@ -121,6 +126,14 @@
 				if(count($rows) != 0){
 					$_SESSION['logged']['name'] = $name;
 					header('location: ./');
+					echo '<script>
+							var curent = window.location.href
+							var index = curent.lastIndexOf("/");
+							var url = curent.substring(0, index);
+							console.log(curent);
+							console.log(url);
+							// document.location.href= url;						
+							</script>';
 				}
 
 				

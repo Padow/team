@@ -1,4 +1,5 @@
 <?php 
+  ob_start();
   session_name('IDSESSION');
   session_start();
   if ((!isset($_SESSION['logged'])) || (empty($_SESSION['logged'])))
@@ -37,13 +38,14 @@
 <body>  
 <?php  
   	require_once('php/pdo.class.php');
-  	require_once('php/week.class.php');
   	require_once('php/player.class.php');
-  	require_once('php/dispo.class.php');
   	require_once('php/match.class.php');
   	require_once('php/setting.class.php');
   	require_once('php/links.class.php');
   	require_once('php/gamemode.class.php');
+  	require_once('php/message.class.php');
+    $messages = new Message();
+    $page = $messages->nbpage();
 
 	$playerObjet = new Players();
 	$settingObjet = new Setting();
@@ -74,6 +76,7 @@
         <li><a href="matchs.php"><span class="glyphicon glyphicon-wrench"></span> Matchs</a></li>
         <li><a href="setting.php"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
         <li class="active"><a href="player_setting.php"><span class="glyphicon glyphicon-cog"></span> Player</a></li>
+        <li><a href="message_board.php?page=<?php echo $page; ?>"><span class="glyphicon glyphicon-comment"></span> Message Board <?php $messages->newMessage($_SESSION['logged']['name']); ?></a></li>
        	<li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -91,6 +94,10 @@
 			}
 			if(isset($_POST['changepw'])){
 				$playerObjet->changePassword($_SESSION['logged']['name'], $_POST['pass2']);
+			}
+
+			if(isset($_POST['setavatar'])){
+				$playerObjet->setAvatar($_SESSION['logged']['name'], $_FILES['avatar']);
 			}
 
 
@@ -260,7 +267,7 @@
 	<div class="col-md-2">
 		&nbsp;
 	</div>
-	<div class="col-md-4 padd">
+	<div class="col-md-5 padd">
 		<fieldset><legend class="legendh2">Changer mot de passe</legend>
 		<form method="post" role="form" name="changepassword">
 			<div class="form-group row">
@@ -276,6 +283,25 @@
 			<div class="form-group row">
 				<div class="col-md-12"> 
 					<button name="changepw" id="changepw" type="submit" class="btn btn-default btn-primary btn-lg btn-block" disabled >Changer <span class="glyphicon glyphicon-ok"></span></button>
+				</div>  
+			</div> 
+		</form>
+		</fieldset>
+	</div>	
+	<div class="col-md-2">
+		&nbsp;
+	</div>
+	<div class="col-md-5">
+		<fieldset><legend class="legendh2">Avatar</legend>
+		<form method="post" role="form" name="changeavatar" enctype="multipart/form-data">
+			<div class="form-group row">
+				<div class="col-md-12">	
+					<input name="avatar" type="file" class="btn-default" accept="image/*" title="Parcourir">
+				</div>
+			</div>	
+			<div class="form-group row">
+				<div class="col-md-12"> 
+					<button name="setavatar" type="submit" class="btn btn-default btn-primary btn-lg btn-block" >Valider <span class="glyphicon glyphicon-ok"></span></button>
 				</div>  
 			</div> 
 		</form>
@@ -302,6 +328,12 @@
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="style/bootstrap/js/bootstrap.min.js"></script>
+    <script src="jquery/bootstrapfileinput.js"></script>
+    <script type="text/javascript">
+    	$('input[type=file]').bootstrapFileInput();
+		$('.file-inputs').bootstrapFileInput()
+    </script>
     <div class="del"></div>
 </body>
 </html>
+<?php ob_end_flush(); ?>
