@@ -4,7 +4,7 @@ function SetDispo(id){
           type: "GET",
           data: {key: id},
           success: function(){
-                    $('#query').load('php/container.php').fadeIn("slow");
+                    load();
                    }
      });
 }
