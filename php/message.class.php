@@ -58,8 +58,8 @@
 		        "<a href=\"$1\" target=\"_blank\">$2</a>",
 		        "<a href=\"$1\" target=\"_blank\">$1</a>",
 		        "<strong>$1</strong>",
-		        "<p class=\"msgbordp\">$1</p>",
-		        "<p class=\"msgbordp\"></p>",
+		        "<p>$1</p>",
+		        "<p></p>",
 		        "<em>$1</em>",
 		        "<span style=\"text-decoration:underline;\">$1</span>",
 		        "<del>$1</del>",
@@ -222,6 +222,9 @@
 
 		public function pagination($curentpage){
 			$page =  $this->nbpage();
+			if($curentpage>$page){
+				header('location: message_board.php?page='.$page);
+			}
 			$prev = $curentpage-1;
 			$next = $curentpage+1;
 

@@ -100,14 +100,18 @@
 			$dir .= "uploads/";
 			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 			    $arr = glob($dir.utf8_decode($name).".*");
-		     	foreach ($arr as $avatar) {
-		     		unlink($avatar);
-		     	}
-			} else {
+			    if($arr){
+			     	foreach ($arr as $avatar) {
+			     		unlink($avatar);
+			     	}
+			    }
+			}else{
 			    $arr = glob($dir.$name.".*");
-		     	foreach ($arr as $avatar) {
-		     		unlink($avatar);
-		     	}
+			    if($arr){
+			     	foreach ($arr as $avatar) {
+			     		unlink($avatar);
+			     	}
+			    }
 			}
 			echo '
 							<div class="col-md-12">
