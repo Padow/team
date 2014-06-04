@@ -14,6 +14,10 @@ class Etf2l extends Connexion{
 	    if($etf2lteamid){
 	    	$shedull = $this->jsonparser($etf2lteamid);
 	    	if($shedull['matches']){
+	    		$etf2l = 1;
+	    		$sql = $this->_connexion->prepare("DELETE FROM matchs where etf2l = :etf2l");
+				$sql-> bindParam('etf2l', $etf2l, PDO::PARAM_STR);
+				$sql-> execute();
 	    		foreach ($shedull['matches'] as $key => $value) {
 		    		$tess[$key] = $value;
 		    		foreach ($tess as $key => $value) {
@@ -81,23 +85,18 @@ class Etf2l extends Connexion{
 		$keytime = $tmptime[0].':'.$tmptime[1];
 		$key = $keydate.'@'.$keytime;
 		$date = $list['date'];
-		$sql = $this->_connexion->prepare("SELECT clee FROM matchs where clee = :key");
-		$sql-> bindParam('key', $key, PDO::PARAM_STR);
-		$sql-> execute();
+		$etf2l = 1;
 
-		$rows = $sql->fetchAll(PDO::FETCH_ASSOC);
-		if(count($rows)==0)
-		{
-			$sql = $this->_connexion->prepare("INSERT INTO matchs (clee, date, time, league, team, map1, map2) values(:clee, :date, :time, :league, :team, :map1, :map2)");
-			$sql-> bindParam('clee', $key, PDO::PARAM_STR);
-			$sql-> bindParam('date', $date, PDO::PARAM_STR);
-			$sql-> bindParam('time', $list['time'], PDO::PARAM_STR);
-			$sql-> bindParam('league', $list['league'], PDO::PARAM_STR);
-			$sql-> bindParam('team', $list['team'], PDO::PARAM_STR);
-			$sql-> bindParam('map1', $list['map1'], PDO::PARAM_STR);
-			$sql-> bindParam('map2', $list['map2'], PDO::PARAM_STR);			
-			$sql-> execute();
-		}
+		$sql = $this->_connexion->prepare("INSERT INTO matchs (clee, date, time, league, team, map1, map2, etf2l) values(:clee, :date, :time, :league, :team, :map1, :map2, :etf2l)");
+		$sql-> bindParam('clee', $key, PDO::PARAM_STR);
+		$sql-> bindParam('date', $date, PDO::PARAM_STR);
+		$sql-> bindParam('time', $list['time'], PDO::PARAM_STR);
+		$sql-> bindParam('league', $list['league'], PDO::PARAM_STR);
+		$sql-> bindParam('team', $list['team'], PDO::PARAM_STR);
+		$sql-> bindParam('map1', $list['map1'], PDO::PARAM_STR);
+		$sql-> bindParam('map2', $list['map2'], PDO::PARAM_STR);			
+		$sql-> bindParam('etf2l', $etf2l, PDO::PARAM_STR);			
+		$sql-> execute();
 	}
 
 	public function addLeague($name){

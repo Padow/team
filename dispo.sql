@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `matchs` (
   `team` varchar(50) DEFAULT NULL,
   `map1` varchar(50) DEFAULT NULL,
   `map2` varchar(50) DEFAULT NULL,
+  `etf2l` varchar(50) DEFAULT '',
   PRIMARY KEY (`clee`),
   KEY `FK_league` (`league`),
   KEY `FK_map1` (`map1`),
@@ -112,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `players` (
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table dispo.players: ~2 rows (environ)
+-- Dumping data for table dispo.players: ~0 rows (environ)
 /*!40000 ALTER TABLE `players` DISABLE KEYS */;
 /*!40000 ALTER TABLE `players` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
