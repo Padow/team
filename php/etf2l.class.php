@@ -77,7 +77,9 @@ class Etf2l extends Connexion{
 	public function setMatch($list){
 		$tmp = explode("-", $list['date']);
 		$keydate = $tmp[2].'/'.$tmp[1].'/'.$tmp[0];
-		$key = $keydate.'@'.$list['time'];
+		$tmptime = explode(":", $list['time']);
+		$keytime = $tmptime[0].':'.$tmptime[1];
+		$key = $keydate.'@'.$keytime;
 		$date = $list['date'];
 		$sql = $this->_connexion->prepare("SELECT clee FROM matchs where clee = :key");
 		$sql-> bindParam('key', $key, PDO::PARAM_STR);
