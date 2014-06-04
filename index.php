@@ -37,6 +37,8 @@
   	require_once('php/pdo.class.php');
     require_once('php/message.class.php');
     require_once('php/links.class.php');
+    require_once('php/etf2l.class.php');
+    $etf2l = new Etf2l();
     $messages = new Message();
     $page = $messages->nbpage();
 
