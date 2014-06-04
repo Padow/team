@@ -44,6 +44,7 @@ git clone https://github.com/Padow/team.git
 * Optional
  * config/server.ini
  * config/liens.ini
+ * config/teamif.ini --> allow sync match setting with ETF2L
  
 
 --------------------------------------
