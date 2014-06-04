@@ -388,3 +388,8 @@
 ?>
     </div>
 </div>
+<span class="del"></span>
+<script type="text/javascript">
+  $('.del').nextAll().remove();
+</script>
+

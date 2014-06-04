@@ -22,9 +22,6 @@ function check(){
 	}
 }
 
-
-
-
 var image_array = new Array();
     image_array[0] = "style/background/0.jpg";
     image_array[1] = "style/background/1.jpg";
