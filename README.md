@@ -44,7 +44,7 @@ git clone https://github.com/Padow/team.git
 * Optional
  * config/server.ini
  * config/liens.ini
- * config/teamif.ini --> allow sync with ETF2L for match schedule
+ * config/teamid.ini --> allow sync with ETF2L for match schedule
 
 
 ##### Language
