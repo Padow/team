@@ -150,38 +150,39 @@
 			echo '<div class="table-responsive col-md-12 no-padd">';
 			echo '<table class="table bckg col-md-12"><tr>';
 			echo '<th>'.$arraytrad['HISTORIC_VIEW_DATE'].'</th><th>'.$arraytrad['HISTORIC_VIEW_TIME'].'</th><th>'.$arraytrad['HISTORIC_VIEW_LEAGUE'].'</th><th>'.$arraytrad['HISTORIC_VIEW_TEAM'].'</th><th>'.$arraytrad['HISTORIC_VIEW_SCORE'].'</th><th>'.$arraytrad['HISTORIC_VIEW_MAPS'].'</th><th>'.$arraytrad['HISTORIC_VIEW_LOGS'].'</th><th>'.$arraytrad['HISTORIC_VIEW_INFO'].'</th><th></th></tr>';
+			if ($rows !="") {
+				foreach ($rows as  $value) {
+					echo'<tr>';
+					echo '<td>'.$this->dateTofr($value['date']).'</td>';
+					echo '<td>'.$this->heure($value['time']).'</td>';
+					echo '<td>'.htmlspecialchars($value['league']).'</td>';
+					echo '<td>'.htmlspecialchars($value['team']).'</td>';
+					if($value['map2'] == ""){
+						$pclass1 = $this->winner($value['scoreteam1'], $value['scoreopponent1']);
+						$pclass2 = "draw";
+						echo '<td><p class="nobr '.$pclass1.'">'.$value['scoreteam1'].' - '.$value['scoreopponent1'].'</p></td>';
+					}else{
+						$pclass1 = $this->winner($value['scoreteam1'], $value['scoreopponent1']);
+						$pclass2 = $this->winner($value['scoreteam2'], $value['scoreopponent2']);
+						echo '<td><p class="nobr '.$pclass1.'">'.$value['scoreteam1'].' - '.$value['scoreopponent1'].'</p><p class="nobr '.$pclass2.'">'.$value['scoreteam2'].' - '.$value['scoreopponent2'].'</p></td>';
+					}
+					
+					echo '<td><p class="nobr '.$pclass1.'">'.htmlspecialchars($value['map1']).'</p><p class="nobr '.$pclass2.'">'.htmlspecialchars($value['map2']).'</p></td>';
+					if($value['logs1'] == "" && $value['logs2'] == "") 
+						echo '<td><p class="nobr"><span>∅</span></p><p class="nobr"><span>∅</span></p></td>';
+					elseif($value['logs1'] == "" && $value['logs2'] != "")
+						echo '<td><p class="nobr"><span>∅</span></p><p class="nobr"><a href="'.$value['logs2'].'" target="_blank">Logs</a></p></td>';
+					elseif($value['logs2'] == "" && $value['logs1'] != "")
+						echo '<td><p class="nobr"><a href="'.$value['logs1'].'" target="_blank">Logs</a></p><p class="nobr"><span>∅</span></p></td>';
+					else
+						echo '<td><p class="nobr"><a href="'.$value['logs1'].'" target="_blank">Logs</a></p><p class="nobr"><a href="'.$value['logs2'].'" target="_blank">Logs</a></p></td>';
 
-			foreach ($rows as  $value) {
-
-				echo'<tr>';
-				echo '<td>'.$this->dateTofr($value['date']).'</td>';
-				echo '<td>'.$this->heure($value['time']).'</td>';
-				echo '<td>'.htmlspecialchars($value['league']).'</td>';
-				echo '<td>'.htmlspecialchars($value['team']).'</td>';
-				if($value['map2'] == ""){
-					$pclass1 = $this->winner($value['scoreteam1'], $value['scoreopponent1']);
-					$pclass2 = "draw";
-					echo '<td><p class="nobr '.$pclass1.'">'.$value['scoreteam1'].' - '.$value['scoreopponent1'].'</p></td>';
-				}else{
-					$pclass1 = $this->winner($value['scoreteam1'], $value['scoreopponent1']);
-					$pclass2 = $this->winner($value['scoreteam2'], $value['scoreopponent2']);
-					echo '<td><p class="nobr '.$pclass1.'">'.$value['scoreteam1'].' - '.$value['scoreopponent1'].'</p><p class="nobr '.$pclass2.'">'.$value['scoreteam2'].' - '.$value['scoreopponent2'].'</p></td>';
+					echo '<td><span class="glyphicon glyphicon-info-sign tool" data-container="body" data-toggle="popover" data-placement="left" data-content="'.htmlspecialchars($value['comments']).'"></span></td>';
+					echo '<td><span id="'.urlencode($value['etf2lkey']).'" onClick="suppr(this.id);" class="glyphicon glyphicon-trash hand"></span></td></tr>';
 				}
-				
-				echo '<td><p class="nobr '.$pclass1.'">'.htmlspecialchars($value['map1']).'</p><p class="nobr '.$pclass2.'">'.htmlspecialchars($value['map2']).'</p></td>';
-				if($value['logs1'] != "" && $value['logs2'] != "") 
-					echo '<td><p class="nobr"><a href="'.$value['logs1'].'" target="_blank">Logs</a></p><p class="nobr"><a href="'.$value['logs1'].'" target="_blank">Logs</a></p></td>';
-				elseif($value['logs1'] != "")
-					echo '<td><p class="nobr"><a href="'.$value['logs1'].'" target="_blank">Logs</a></p></td>';
-				elseif($value['logs2'] != "")
-					echo '<td><p class="nobr"><a href="'.$value['logs2'].'" target="_blank">Logs</a></p></td>';
-				else
-					echo '<td></td>';
-
-				echo '<td><span class="glyphicon glyphicon-info-sign tool" data-container="body" data-toggle="popover" data-placement="left" data-content="'.htmlspecialchars($value['comments']).'"></span></td>';
-				echo '<td><span id="'.urlencode($value['etf2lkey']).'" onClick="suppr(this.id);" class="glyphicon glyphicon-trash hand"></span></td>';
 			}
-			echo '</tr></table>';
+			
+			echo '</table>';
 			echo '</div>';
 		}
 

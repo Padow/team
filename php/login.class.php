@@ -69,7 +69,6 @@
 				$this->checkPlayers();
 				if($this->_players){		
 					$pass = Secure::hash($password);
-					var_dump($pass);
 					$sql = $this->_connexion->prepare("SELECT name, language FROM  players WHERE name = :name AND password = :pass");
 					$sql-> bindParam('name', $name, PDO::PARAM_STR);
 					$sql-> bindParam('pass', $pass, PDO::PARAM_STR);
