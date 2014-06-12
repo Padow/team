@@ -1,7 +1,7 @@
 <?php 
-	ob_start();
+  ob_start();
   session_name('IDSESSION');
-	session_start();
+  session_start();
   if ((!isset($_SESSION['logged'])) || (empty($_SESSION['logged'])))
   { 
     header ("location: login.php");
@@ -15,20 +15,18 @@
     require_once('language/'.$_SESSION['language'].'.php');
   }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-  	<title>Message Board</title>
-    <link rel="shortcut icon" href="style/favicon.ico" type="image/x-icon">
+<head>
+	<title>Matchs</title>
+	<meta charset="utf-8" >
+	<link rel="shortcut icon" href="style/favicon.ico" type="image/x-icon">
     <link rel="icon" href="style/favicon.ico" type="image/x-icon">
-    <meta name="author" content="Padow" />
-    <meta charset="utf-8">
+    <meta name="author" content="Padow" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Bootstrap -->
-    <link href="style/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="style/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,23 +34,36 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" href="style/index.css">
+   
+    
     <script src="jquery/jquery.js"></script>
-    <script src="jquery/index.js"></script>
-  </head>
+    <script type="text/javascript" src="jquery/index.js"></script>
+    <link rel="stylesheet" href="datepicker/css/datepicker3.css">
+    <script src="datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="datepicker/js/locales/bootstrap-datepicker.fr.js" charset="UTF-8"></script>
+	
+	<link rel="stylesheet" href="timepicker/css/bootstrap-timepicker.css">
+	<script type="text/javascript"  src="timepicker/js/bootstrap-timepicker.js"></script>
+	 <link rel="stylesheet" href="style/index.css">
+</head>
 <body>
 <div class="body">
   <?php  
   	require_once('php/pdo.class.php');
-    require_once('php/links.class.php');
-    require_once('php/message.class.php');
+  	require_once('php/match.class.php');
+  	require_once('php/links.class.php');
+  	require_once('php/historic.class.php');
+  	require_once('php/message.class.php');
     $messages = new Message();
     $page = $messages->nbpage();
+
+	$matchObjet = new Match();
+	$historic = new Historic();
 
   ?>
 <div class="wrap">
   <div class="content">
-  <nav class="navbar navbar-inverse" role="navigation">
+	<nav class="navbar navbar-inverse" role="navigation">
     <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -77,8 +88,8 @@
               <li><a href="player_setting.php">&rsaquo; <?php echo MENU_PLAYER; ?></a></li>
             </ul>
           </li>
-          <li class="active"><a href="message_board.php?page=<?php echo $page; ?>"><span class="glyphicon glyphicon-comment"></span> <?php echo MENU_MESSAGES; ?> <?php $messages->newMessage($_SESSION['logged']['name']); ?></a></li>
-          <li class="dropdown">
+          <li><a href="message_board.php?page=<?php echo $page; ?>"><span class="glyphicon glyphicon-comment"></span> <?php echo MENU_MESSAGES; ?> <?php $messages->newMessage($_SESSION['logged']['name']); ?></a></li>
+          <li class="dropdown active">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> <?php echo MENU_HISTORIC; ?> <b class="caret"></b></a>
           <ul class="dropdown-menu">
               <li><a href="historic.php">&rsaquo; <?php echo MENU_ADD; ?></a></li>
@@ -91,61 +102,68 @@
     </div><!-- /.container-fluid -->
   </nav>
 
-    <div class="container">
-      <?php 
-        $quote = $messages->quote($_GET['id']);
-        $mess = $quote[0]['message']; 
-        $message = str_replace("[br/]","\r",$mess);
-        $message = str_replace("\r","",$message);
-        if(isset($_POST['send'])){
-            $messages->modifyMessage($_SESSION['logged']['name'], $_POST['comment'], $_GET['id'], $_GET['page']);
-        }
-      ?>
-      <div class="col-md-12">
-        <div class="col-md-12 btstyle">    
-          <button title="<?php echo MESSAGE_BOLD; ?>" onclick="formatText(form_Commentaire,'b','b')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-bold"></span> </button>
-          <button title="<?php echo MESSAGE_ITALIC; ?>" onclick="formatText(form_Commentaire,'i','i')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-italic"></span> </button>
-          <button title="<?php echo MESSAGE_UNDERLINE; ?>" onclick="formatText(form_Commentaire,'u','u')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span><img class="underline_icon" src="style/images/icon_underline.png" alt=""></span> </button> 
-          <span class="infomatch">|</span> 
-          <button title="<?php echo MESSAGE_IMAGE; ?>" onclick="formatText(form_Commentaire,'img','img')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-picture"></span> </button>
-          <button title="<?php echo MESSAGE_LINK; ?>" onclick="formatText(form_Commentaire,'url','url')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-link"></span> </button>
-          <button title="<?php echo MESSAGE_QUOTE_FORM; ?>" onclick="formatText(form_Commentaire,'quote','quote')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-comment"></span> </button>
-        </div>
-
-        <form method="post">
-          <div class="col-md-12 no-padd">
-            <textarea id="form_Commentaire" class="textarea" wrap="soft" name="comment"  required><?php echo $message; ?></textarea>
-          </div>
-
-          <div class="col-md-3 no-padd">
-            <button type="submit" name="send" class="btn btn-sm btn-primary btn-block" style="margin-top: 10px;"><span class="glyphicon glyphicon-send"></span> <?php echo MESSAGE_SEND; ?></button>
-          </div>
-
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="bottompage">
+	<div class="container">
+		<div class="col-md-12">
+			<?php  
+				if(isset($_GET['league'])){
+					$filtre = $_GET['league'];
+				}else{
+					$filtre = "All";
+				}
+				$historic->filter($filtre);
+			?>
+		</div>
+		<div class="col-md-12">
+			<?php
+        $arraytrad = array("HISTORIC_VIEW_DATE" => HISTORIC_VIEW_DATE,
+                           "HISTORIC_VIEW_TIME" => HISTORIC_VIEW_TIME, 
+                           "HISTORIC_VIEW_LEAGUE" => HISTORIC_VIEW_LEAGUE, 
+                           "HISTORIC_VIEW_TEAM" => HISTORIC_VIEW_TEAM, 
+                           "HISTORIC_VIEW_SCORE" => HISTORIC_VIEW_SCORE, 
+                           "HISTORIC_VIEW_MAPS" => HISTORIC_VIEW_MAPS, 
+                           "HISTORIC_VIEW_LOGS" => HISTORIC_VIEW_LOGS, 
+                           "HISTORIC_VIEW_INFO" => HISTORIC_VIEW_INFO
+                           ); 
+				$historic->getHistoric($filtre, $arraytrad);
+			?>
+		</div>
+	</div>
+</div>
+<div class="bottompage">
     <div class="container">
       <div class="col-md-12 padd">
-        <div class="col-md-8">
+        <div class="col-md-8">  
         <?php  
           $links = new Links();
-        ?>  
+        ?> 
         </div>
-        <div class="col-md-4 pull-right">  
+        <div class="col-md-4 pull-right">
           © 2014 <a href="http://steamcommunity.com/id/padow/" target="_blank">Padow</a>. All rights reserved.
         </div>
       </div>
     </div>
-  </div>
 </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</div>
+    <script type="text/javascript">
+        $('#timepicker1').timepicker({showMeridian: false, minuteStep: 5, defaultTime: false});
+    </script>
+
+	<script type="text/javascript">
+    	$(".input-group.date").datepicker({ autoclose: true, todayHighlight: true, orientation: "top", language: "fr" });
+    </script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="style/bootstrap/js/bootstrap.min.js"></script>
-  </div>
+    <script>
+		$(document).ready(function(){
+			$('span').popover();
+		});
+
+
+	</script>
+</div>
     <div class="del"></div>
-  </body>
+</body>
 </html>
 <?php ob_end_flush(); ?>

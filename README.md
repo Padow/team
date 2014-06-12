@@ -44,13 +44,24 @@ git clone https://github.com/Padow/team.git
 * Optional
  * config/server.ini
  * config/liens.ini
- * config/teamif.ini --> allow sync match setting with ETF2L
- 
+ * config/teamif.ini --> allow sync with ETF2L for match schedule
+
+
+##### Language
+Default language is french. To change it remove "default.php" from "language" folder, then copy/paste the language file you wish as default and rename the copy  "default.php"
+
+* Add an other translation language 
+  * get your country_tag refer to [availables country tag]
+  * copy/paste "en.php" from "language" folder
+  * rename the copie "country_tag.php"
+  * open the new file with a text editor and translate.  /!\  DO NOT CHANGE WORDS IN CAPITAL LETTERS 
+
 
 --------------------------------------
 
 **Edited on : **[http://dillinger.io/]
 
+[availables country tag]:https://github.com/eternicode/bootstrap-datepicker/tree/master/js/locales
 [Bootstrap]:http://getbootstrap.com/
 [jQuery]:http://jquery.com
 [Bootstrap Timepicker]:https://github.com/jdewit/bootstrap-timepicker

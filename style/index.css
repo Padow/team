@@ -68,6 +68,13 @@ html,body{
 	margin: 0;
 	padding: 0 !important;
 	height: 100%;
+	background: #333;
+}
+
+.body{
+	margin: 0;
+	padding: 0 !important;
+	height: 100%;
 	overflow: auto;
 	background: #333;
 	-webkit-background-size: cover; /* pour Chrome et Safari */
@@ -263,4 +270,29 @@ a:hover{
 
 .imgmess{
 	max-width: 100%;
+}
+
+.draw{
+	color: orange;
+}
+
+.win{
+	color: green;
+}
+
+.lose{
+	color: red;
+}
+
+.hand:hover{
+	cursor: pointer;
+}
+
+.langue{
+	float: right;
+	color: black;
+}
+
+.langueselect{
+	color: white;
 }

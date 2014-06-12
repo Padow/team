@@ -12,7 +12,26 @@ class Etf2l extends Connexion{
 	    	$etf2lteamid = false;
 	    }
 	    if($etf2lteamid){
-	    	$shedull = $this->jsonparser($etf2lteamid);
+	    	$this->etf2lmatch($etf2lteamid);	    	
+	    }
+	}
+
+	public function jsonparser($etf2lteamid){
+		$url = "http://api.etf2l.org/team/" . $etf2lteamid . "/matches.json?&only_scheduled=1";
+		$json = file_get_contents($url);
+	    $array = json_decode($json, true); 	    
+	    if($array) {
+	        $etf2lschdul = $array;
+	    }else{
+	    	$etf2lschdul = null;
+	    }
+
+	    return $etf2lschdul;
+
+	}
+
+	public function etf2lmatch($etf2lteamid){
+		$shedull = $this->jsonparser($etf2lteamid);
 	    	if($shedull['matches']){
 	    		$etf2l = 1;
 	    		$sql = $this->_connexion->prepare("DELETE FROM matchs where etf2l = :etf2l");
@@ -45,22 +64,6 @@ class Etf2l extends Connexion{
 		    		}
 		    	}
 	    	}
-	    	
-	    }
-	}
-
-	public function jsonparser($etf2lteamid){
-		$url = "http://api.etf2l.org/team/" . $etf2lteamid . "/matches.json?&only_scheduled=1";
-		$json = file_get_contents($url);
-	    $array = json_decode($json, true); 	    
-	    if($array) {
-	        $etf2lschdul = $array;
-	    }else{
-	    	$etf2lschdul = null;
-	    }
-
-	    return $etf2lschdul;
-
 	}
 
 	public function addMap($name){

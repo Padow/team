@@ -9,6 +9,34 @@ function SetDispo(id){
      });
 }
 
+function setlanguage(id){
+  var lang = $( "select."+id ).val();
+  console.log(lang);
+  $.ajax({
+          url: "php/setlanguage.php",
+          type: "GET",
+          data: {key: lang},
+          success: function(){
+                    window.location.reload();
+                   }
+     });
+}
+
+function suppr(id){
+  var isGood=confirm('Delete match?');
+  if(isGood){
+    $.ajax({
+          url: "php/delete_row_historic.php",
+          type: "GET",
+          data: {key: id},
+          success: function(){
+                    window.location.reload();
+                   }
+     });
+  }
+  
+}
+
 function load(){
   $('#query').load('php/container.php').fadeIn("slow");
 }
@@ -22,6 +50,27 @@ function check(){
 	}
 }
 
+function createCookie(name,value,days) {
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime()+(days*24*60*60*1000));
+    var expires = "; expires="+date.toGMTString();
+  }
+  else var expires = "";
+  document.cookie = name+"="+value+expires+"; path=/";
+}
+      
+function readCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
+}
+
 var image_array = new Array();
     image_array[0] = "style/background/0.jpg";
     image_array[1] = "style/background/1.jpg";
@@ -30,10 +79,12 @@ var image_array = new Array();
 
     var rand_path = image_array[Math.floor(Math.random() * image_array.length)];
 
-$(window).ready(function(){
-	$('body').css({"background-image": 'url('+rand_path+')', "margin": '0px', "padding": '0px'});
+
+
+$(window).ready(function(){ 
+	$('.body').css({"background-image": 'url('+rand_path+')'});
 	$('#pass1').val("");
-  $('.del').nextAll().remove();
+  $('.del').nextAll().remove(); 
  });
 
 

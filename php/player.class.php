@@ -51,7 +51,7 @@
 								<div class="col-md-12">
 									<div class="alert alert-warning alert-dismissable">
 										  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-										  <strong>Attention! : </strong> Joueur <strong>'.htmlspecialchars($name).'</strong> existe déjà.
+										  <strong>Attention! : </strong>'.ADD_PLAYER_FAILURE_PRE.' <strong>'.htmlspecialchars($name).'</strong>'.ADD_PLAYER_FAILURE_POST.'
 									</div>
 								</div>
 							 ';
@@ -65,7 +65,7 @@
 								<div class="col-md-12">
 									<div class="alert alert-success alert-dismissable">
 										  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-										  <strong>Well done! : </strong> Joueur <strong>'.htmlspecialchars($name).'</strong> ajouté.
+										  <strong>Well done! : </strong>'.ADD_PLAYER_SUCCESS_PRE.'<strong>'.htmlspecialchars($name).'</strong> '.ADD_PLAYER_SUCCESS_POST.'
 									</div>
 								</div>
 								<script type="text/javascript">
@@ -81,7 +81,7 @@
 								<div class="col-md-12">
 									<div class="alert alert-warning alert-dismissable">
 										  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-										  <strong>Attention ! : </strong> Les caractères spéciaux sont interdis.
+										  <strong>Attention ! : </strong> '.ADD_PLAYER_SPECIAL_CHARS.'
 									</div>
 								</div>
 							 ';
@@ -114,17 +114,8 @@
 			    }
 			}
 			echo '
-							<div class="col-md-12">
-								<div class="alert alert-success alert-dismissable">
-									  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-									  <strong>Well done! : </strong> Joueur <strong>'.htmlspecialchars($name).'</strong> Supprimé.
-								</div>
-							</div>
 							<script type="text/javascript">
-								setTimeout( function() 
-		                        {
-		                          window.location.href="setting.php";
-		                        }, 3000);
+		                        window.location.href="setting.php";
 							</script>
 						 ';
 		}
@@ -139,7 +130,7 @@
 							<div class="col-md-12">
 								<div class="alert alert-success alert-dismissable">
 									  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-									  <strong>Well done! :</strong> Mot de passe changé avec succes.
+									  <strong>Well done! : </strong>'.CHANGE_PASSWORD_SUCCESS.'
 								</div>
 							</div>
 							<script type="text/javascript">
@@ -166,13 +157,13 @@
 	        $size = $file['size'];
 
 	        if (!file_exists($filename)) {
-	            $error = "Image non trouvée.";
+	            $error = FILE_NOT_FOUND;
 	        }else{
 	        	if(!in_array($extension, $extensions)){
-			   	 	$error = "Format supporté : png gif jpg jpeg .";
+			   	 	$error = SUPPORTED_EXTENTION;
 				}
 				if($size > $maxsize){
-					$error = "Taille max : 100Ko ";
+					$error = MAX_SIZE;//"Taille max : 100Ko ";
 				}
 	        }
 
@@ -203,9 +194,16 @@
 					<div class="col-md-12">
 						<div class="alert alert-success alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							<strong>Well Done! :</strong> Avatar mis à jour.
+							<strong>Well Done! :</strong> '.AVATAR_CHANGED.'
 						</div>
-					</div>';
+					</div>
+					<script type="text/javascript">
+						setTimeout( function() 
+	                    {
+	                      window.location.href="player_setting.php";
+	                    }, 3000);
+					</script>
+					';
 			     }
 			}
 	        

@@ -56,7 +56,7 @@
 						<div class="col-md-12">
 							<div class="alert alert-success alert-dismissable">
 								  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-								  <strong>Well done : </strong> Le match à été  programmé. 
+								  <strong>Well done : </strong> '.MATCHS_SCHEDULE_SUCCESS.' 
 							</div>
 						</div>
 						<script type="text/javascript">
@@ -73,7 +73,7 @@
 						<div class="col-md-12">
 							<div class="alert alert-warning alert-dismissable">
 								  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-								  <strong>Alerte : </strong> Un match est déjà programmé pour ce jour et à cette heure. 
+								  <strong>Alerte : </strong> '.MATCHS_SCHEDULE_FAILURE.' 
 							</div>
 						</div>
 					 ';
@@ -86,17 +86,8 @@
 			$sql-> bindParam('clee', $list, PDO::PARAM_STR);
 			$sql-> execute();
 			echo '
-						<div class="col-md-12">
-							<div class="alert alert-success alert-dismissable">
-								  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-								  <strong>Well done! : </strong> Le match à ete déprogrammé. 
-							</div>
-						</div>
 						<script type="text/javascript">
-							setTimeout( function() 
-	                        {
 	                          window.location.href="matchs.php";
-	                        }, 3000);
 						</script>
 					 ';
 		}

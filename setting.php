@@ -6,6 +6,11 @@
   { 
     header ("location: login.php");
   }
+  if ((!isset($_SESSION['language'])) || (empty($_SESSION['language']))){
+    require_once('language/default.php');
+  }else{
+    require_once('language/'.$_SESSION['language'].'.php');
+  }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -33,6 +38,7 @@
     <link rel="stylesheet" href="style/index.css">
 </head>
 <body>  
+<div class="body">
 <?php  
   	require_once('php/pdo.class.php');
   	require_once('php/player.class.php');
@@ -50,32 +56,44 @@
 ?>
 <div class="wrap">
   <div class="content">
-<nav class="navbar navbar-inverse" role="navigation">
-  <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="./"><span class="glyphicon glyphicon-home"></span></a>
-    </div>
+	<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="./"><span class="glyphicon glyphicon-home"></span></a>
+      </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a href="./"><span class="glyphicon glyphicon-list"></span> Dispo</a></li>
-        <li><a href="matchs.php"><span class="glyphicon glyphicon-wrench"></span> Matchs</a></li>
-        <li class="active"><a href="setting.php"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-        <li><a href="player_setting.php"><span class="glyphicon glyphicon-cog"></span> Player</a></li>
-        <li><a href="message_board.php?page=<?php echo $page; ?>"><span class="glyphicon glyphicon-comment"></span> Message Board <?php $messages->newMessage($_SESSION['logged']['name']); ?></a></li>
-       	<li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="./"><span class="glyphicon glyphicon-list"></span> <?php echo MENU_DISPO; ?></a></li>
+          <li><a href="matchs.php"><span class="glyphicon glyphicon-wrench"></span> <?php echo MENU_MATCHS; ?></a></li>
+           <li class="dropdown active">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> <?php echo MENU_OPTIONS; ?> <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="setting.php">&rsaquo; <?php echo MENU_COMMONS; ?></a></li>
+              <li><a href="player_setting.php">&rsaquo; <?php echo MENU_PLAYER; ?></a></li>
+            </ul>
+          </li>
+          <li><a href="message_board.php?page=<?php echo $page; ?>"><span class="glyphicon glyphicon-comment"></span> <?php echo MENU_MESSAGES; ?> <?php $messages->newMessage($_SESSION['logged']['name']); ?></a></li>
+          <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> <?php echo MENU_HISTORIC; ?> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+              <li><a href="historic.php">&rsaquo; <?php echo MENU_ADD; ?></a></li>
+              <li><a href="historic_view.php">&rsaquo; <?php echo MENU_VIEW; ?></a></li>
+          </ul>
+          </li>
+          <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> <?php echo MENU_LOGOUT; ?></a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
 
 <div class="container">
 	<?php  
@@ -104,29 +122,29 @@
 			}
 	?>
 	<div class="col-md-4">
-		<fieldset><legend class="legendh2">Ajouter Joueur</legend>
+		<fieldset><legend class="legendh2"><?php echo COMMON_ADD_PLAYER_LEGEND; ?></legend>
 		<form method="post" role="form">
 			<div class="form-group row">
 				<div class="col-md-12"> 
-					<label class="control-label">Pseudo</label>
-					<span class="glyphicon glyphicon-info-sign tool" data-toggle="tooltip" data-placement="right" title="Password = Pseudo"></span>
+					<label class="control-label"><?php echo COMMON_ADD_PLAYER_PSEUDO; ?></label>
+					<span class="glyphicon glyphicon-info-sign tool" data-toggle="tooltip" data-placement="right" title="<?php echo COMMON_ADD_PLAYER_INFO; ?>"></span>
 					<input type="text" class="form-control"  maxlength="25" name="pseudo" pattern="^((?![#@;]).)*$" title="Caractères interdis: #@;" required>
 				</div> 
 			</div>
 			<div class="form-group row">
 				<div class="col-md-12"> 
-					<button name="addplayer" type="submit" class="btn btn-default btn-primary btn-lg btn-block">Ajouter <span class="glyphicon glyphicon-save"></span></button>
+					<button name="addplayer" type="submit" class="btn btn-default btn-primary btn-lg btn-block"><?php echo COMMON_ADD_PLAYER_SUBMIT; ?> <span class="glyphicon glyphicon-save"></span></button>
 				</div>  
 			</div>
 		</form>	
 		</fieldset>
 	</div>
 	<div class="col-md-4">
-		<fieldset><legend class="legendh2">Supprimer Joueur</legend>
+		<fieldset><legend class="legendh2"><?php echo COMMON_DELETE_PLAYER_LEGEND; ?></legend>
 		<form method="post" role="form">
 			<div class="form-group row">
 				<div class="col-md-12"> 
-					<label class="control-label">Player list</label>
+					<label class="control-label"><?php echo COMMON_DELETE_PLAYER_LIST; ?></label>
 					<select name="playerdel" class="form-control" required>
 						<option></option>
 						<?php  
@@ -140,35 +158,35 @@
 			</div>
 			<div class="form-group row">
 				<div class="col-md-12"> 
-					<button name="deleteplayer" type="submit" class="btn btn-default btn-warning btn-lg btn-block">Delete <span class="glyphicon glyphicon-trash"></span></button>
+					<button name="deleteplayer" type="submit" class="btn btn-default btn-warning btn-lg btn-block"><?php echo COMMON_DELETE_PLAYER_SUBMIT; ?> <span class="glyphicon glyphicon-trash"></span></button>
 				</div>  
 			</div>
 		</form>
 		</fieldset>	
 	</div>
 	<div class="col-md-4">
-		<fieldset><legend class="legendh2">Ajouter league</legend>
+		<fieldset><legend class="legendh2"><?php echo COMMON_ADD_LEAGUE_LEGEND; ?></legend>
 		<form method="post" role="form">
 			<div class="form-group row">
 				<div class="col-md-12"> 
-					<label class="control-label">League</label>
+					<label class="control-label"><?php echo COMMON_ADD_LEAGUE_NAME; ?></label>
 					<input type="text" class="form-control" name="league" pattern="^((?![#@;]).)*$" title="Caractères interdis: #@;" required>
 				</div> 
 			</div>
 			<div class="form-group row">
 				<div class="col-md-12"> 
-					<button name="addleague" type="submit" class="btn btn-default btn-primary btn-lg btn-block">Ajouter <span class="glyphicon glyphicon-save"></span></button>
+					<button name="addleague" type="submit" class="btn btn-default btn-primary btn-lg btn-block"><?php echo COMMON_ADD_LEAGUE_SUBMIT; ?> <span class="glyphicon glyphicon-save"></span></button>
 				</div>  
 			</div>
 		</form>
 		</fieldset>	
 	</div>
 	<div class="col-md-4">
-		<fieldset><legend class="legendh2">Supprimer league</legend>
+		<fieldset><legend class="legendh2"><?php echo COMMON_DELETE_LEAGUE_LEGEND; ?></legend>
 		<form method="post" role="form">
 			<div class="form-group row">
 				<div class="col-md-12"> 
-					<label class="control-label">League list</label>
+					<label class="control-label"><?php echo COMMON_DELETE_LEAGUE_LIST; ?></label>
 					<select name="listleague" class="form-control" required>
 						<option></option>
 						<?php  
@@ -182,35 +200,35 @@
 			</div>
 			<div class="form-group row">
 				<div class="col-md-12"> 
-					<button name="deleteleague" type="submit" class="btn btn-default btn-warning btn-lg btn-block">Delete <span class="glyphicon glyphicon-trash"></span></button>
+					<button name="deleteleague" type="submit" class="btn btn-default btn-warning btn-lg btn-block"><?php echo COMMON_DELETE_LEAGUE_SUBMIT; ?> <span class="glyphicon glyphicon-trash"></span></button>
 				</div>  
 			</div>
 		</form>
 		</fieldset>
 	</div>
 	<div class="col-md-4">
-		<fieldset><legend class="legendh2">Ajouter map</legend>
+		<fieldset><legend class="legendh2"><?php echo COMMON_ADD_MAP_LEGEND; ?></legend>
 		<form method="post" role="form">
 			<div class="form-group row">
 				<div class="col-md-12"> 
-					<label class="control-label">Map</label>
+					<label class="control-label"><?php echo COMMON_ADD_MAP_NAME; ?></label>
 					<input type="text" class="form-control" name="map" pattern="^((?![#@;]).)*$" title="Caractères interdis: #@;" required>
 				</div> 
 			</div>
 			<div class="form-group row">
 				<div class="col-md-12"> 
-					<button name="addmap" type="submit" class="btn btn-default btn-primary btn-lg btn-block">Ajouter <span class="glyphicon glyphicon-save"></span></button>
+					<button name="addmap" type="submit" class="btn btn-default btn-primary btn-lg btn-block"><?php echo COMMON_ADD_MAP_SUBMIT; ?> <span class="glyphicon glyphicon-save"></span></button>
 				</div>  
 			</div>
 		</form>	
 		</fieldset>
 	</div>
 	<div class="col-md-4">
-		<fieldset><legend class="legendh2">Supprimer map</legend>
+		<fieldset><legend class="legendh2"><?php echo COMMON_DELETE_MAP_LEGEND; ?></legend>
 		<form method="post" role="form">
 			<div class="form-group row">
 				<div class="col-md-12"> 
-					<label class="control-label">Map list</label>
+					<label class="control-label"><?php echo COMMON_DELETE_MAP_LIST; ?></label>
 					<select name="listmap" class="form-control" required>
 						<option></option>
 						<?php  
@@ -224,7 +242,7 @@
 			</div>
 			<div class="form-group row">
 				<div class="col-md-12"> 
-					<button name="deletemap" type="submit" class="btn btn-default btn-warning btn-lg btn-block">Delete <span class="glyphicon glyphicon-trash"></span></button>
+					<button name="deletemap" type="submit" class="btn btn-default btn-warning btn-lg btn-block"><?php echo COMMON_DELETE_MAP_SUBMIT; ?> <span class="glyphicon glyphicon-trash"></span></button>
 				</div>  
 			</div>
 		</form>
@@ -256,6 +274,7 @@
 			$('span').tooltip();
 		});
 	</script>
+</div>
     <div class="del"></div>
 </body>
 </html>

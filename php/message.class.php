@@ -22,13 +22,14 @@
 			$sql-> bindParam('message', $message, PDO::PARAM_STR);
 			$sql-> execute();
 			$page =  $this->nbpage();
+			setcookie('scroll', 1, 0, "/");
 			echo '
 				<script type="text/javascript">
 			        window.location.href="message_board.php?page='.$page.'";
 				</script>';
 		}
 
-		public function parse_bbc($word){
+		public function parse_bbc($word, $trd){
 		    $find = array(
 		    	"/\[url\]\[img\](.+?)\[\/img\]\[\/url\]/is",
 		    	"/\[img\](.+?)\[\/img\]/is",
@@ -75,10 +76,10 @@
 		        "<del>",
 		        "</del>",
 		        "<code class=\"bbc_code\">$1</code>",
-		        "<div class=\"quoteheader\">Citation - $1</div><div class=\"bbc_standard_quote\">",
+		        "<div class=\"quoteheader\">".CLASS_MESSAGE_QUOTED." - $1</div><div class=\"bbc_standard_quote\">",
 		        "$1",
 		        "</div>",
-		        "<div class=\"quoteheader\">Citation</div><div class=\"bbc_standard_quote\">",
+		        "<div class=\"quoteheader\">".CLASS_MESSAGE_QUOTED."</div><div class=\"bbc_standard_quote\">",
 		        "<iframe wmode=\"transparent\" width=\"640\" height=\"480\" class=\"hidden-xs\" src=\"//www.youtube.com/embed/$1?wmode=transparent\" frameborder=\"0\" allowfullscreen seamless></iframe>",
 		        "<iframe frameborder=\"0\" width=\"480\" height=\"270\" src=\"http://www.dailymotion.com/embed/video/$1\"  allowfullscreen></iframe>",
 		        "<iframe src=\"//player.vimeo.com/video/$1\" width=\"500\" height=\"375\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>",
@@ -117,30 +118,37 @@
 
 		public function datemess($date_fr){
 			if($date_fr == date('d/m/Y')){
-				echo '<p class="nobr">Aujourd\'hui</p>';
+				echo '<p class="nobr">'.CLASS_MESSAGE_TODAY.'</p>';
 			}elseif($date_fr == date('d/m/Y', strtotime('-1 day'))){
-				echo '<p class="nobr">Hier</p>';
+				echo '<p class="nobr">'.CLASS_MESSAGE_YESTERDAY.'</p>';
 			}else{
 				echo '<p class="nobr">'.$date_fr.'</p>';
 			}
 		}
 
 
-		public function getMessages($page, $author){
+		public function getMessages($page, $author, $trd){
 			$sql = $this->_connexion->prepare("SELECT * FROM  messages ORDER BY id ");
 			$sql-> execute();
 			$rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 			if (!$rows) {
-				echo "No Message";
+				echo CLASS_MESSAGE_NO_MESSAGE;
 			}else{
 				$cpt = 0;
 				$deb = ($page-1)*20;
 				$fin = ($page*20)-1;
 				foreach($rows as $key => $value) {
 					if($cpt>=$deb && $cpt<= $fin){
-						echo '<div class="col-md-12 no-padd mess_board">';			
-							echo '<div class="col-md-12 no-padd mess_board messb">';			
+						echo '<div class="col-md-12 no-padd mess_board">';
+						
+						if ($value === end($rows)){
+							echo '<a class="anchor" id="anchor" href="#last_message"></a>';
+						}
+						elseif ($cpt == $fin) {
+							echo '<a class="anchor" id="anchor" href="#last_message"></a>';
+						}		
+							echo '<div id="'.$value['id'].'" class="col-md-12 no-padd mess_board messb">';			
 									echo '<div class="col-md-2 topspace poster messbp">';
 										echo '<p>'.htmlspecialchars($value['name']).'</p>';
 										$this->avatar($value['name']);
@@ -153,7 +161,7 @@
 									echo '</div>';
 			
 									echo '<div class="col-md-10 topspace messbm">';
-						 				echo $this->parse_bbc(htmlspecialchars($value['message']));
+						 				echo $this->parse_bbc(htmlspecialchars($value['message']), $trd);
 									echo '</div>';
 
 							echo '</div>';
@@ -164,9 +172,9 @@
 							
 								echo '<div class="txtright">';
 										echo "<p></p>";							
-										echo ' <a href="message_board_quote.php?id='.$value['id'].'" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-comment"></span> Citer </a> ';
+										echo ' <a href="message_board_quote.php?id='.$value['id'].'" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-comment"></span> '.CLASS_MESSAGE_QUOTE.' </a> ';
 										if ($author == $value['name'] ) {
-											echo ' <a href="message_board_modify.php?id='.$value['id'].'" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span> Modifier</a>';
+											echo ' <a href="message_board_modify.php?id='.$value['id'].'&page='.$page.'" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span> '.CLASS_MESSAGE_MODIFY.'</a>';
 										}
 								echo '</div>';
 							echo '</div>';
@@ -234,7 +242,7 @@
 
 		public function pagination($curentpage){
 			$page =  $this->nbpage();
-			if($curentpage>$page){
+			if(($curentpage>$page)||($curentpage<1)){
 				header('location: message_board.php?page='.$page);
 			}
 			$prev = $curentpage-1;
@@ -320,7 +328,7 @@
 			return $this->_quote;
 		}
 
-		public function modifyMessage($name, $message, $id){
+		public function modifyMessage($name, $message, $id, $page){
 			$message = nl2br($message);
 			$patterns = '/<br \/>/';
 			$replacements = '[br/]';
@@ -330,12 +338,10 @@
 			$sql-> bindParam('message', $message, PDO::PARAM_STR);
 			$sql-> bindParam('id', $id, PDO::PARAM_STR);
 			$sql-> execute();
-			$page =  $this->nbpage();
+			setcookie('scrollto', $id, 0, "/");
 			echo '
 				<script type="text/javascript">
 			        window.location.href="message_board.php?page='.$page.'";
-			        
-
 				</script>';
 
 		}

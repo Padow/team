@@ -33,7 +33,7 @@
 								<div class="col-md-12">
 									<div class="alert alert-warning alert-dismissable">
 										  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-										  <strong>Attention! : </strong> la league <strong>'.htmlspecialchars($name).'</strong> existe déjà.
+										  <strong>Attention! : </strong>'.ADD_LEAGUE_PRE.'<strong>'.htmlspecialchars($name).'</strong>'.ADD_LEAGUE_FAILURE_POST.'
 									</div>
 								</div>
 							 ';
@@ -45,7 +45,7 @@
 								<div class="col-md-12">
 									<div class="alert alert-success alert-dismissable">
 										  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-										  <strong>Well done! : </strong> La league <strong>'.htmlspecialchars($name).'</strong> ajouté.
+										  <strong>Well done! : </strong>'.ADD_LEAGUE_PRE.'<strong>'.htmlspecialchars($name).'</strong>'.ADD_LEAGUE_POST.'
 									</div>
 								</div>
 								<script type="text/javascript">
@@ -73,17 +73,8 @@
 			$sql-> bindParam('name', $name, PDO::PARAM_STR);
 			$sql-> execute();
 			echo '
-							<div class="col-md-12">
-								<div class="alert alert-success alert-dismissable">
-									  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-									  <strong>Well done! : </strong> La league <strong>'.htmlspecialchars($name).'</strong> à été supprimée.
-								</div>
-							</div>
 							<script type="text/javascript">
-								setTimeout( function() 
-		                        {
 		                          window.location.href="setting.php";
-		                        }, 3000);
 							</script>
 						 ';
 		}
@@ -100,7 +91,7 @@
 								<div class="col-md-12">
 									<div class="alert alert-warning alert-dismissable">
 										  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-										  <strong>Attention! : </strong> La map <strong>'.htmlspecialchars($name).'</strong> existe déjà.
+										  <strong>Attention! : </strong>'.ADD_MAP_PRE.'<strong>'.htmlspecialchars($name).'</strong> '.ADD_MAP_FAILURE_POST.'
 									</div>
 								</div>
 							 ';
@@ -112,7 +103,7 @@
 								<div class="col-md-12">
 									<div class="alert alert-success alert-dismissable">
 										  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-										  <strong>Well done! : </strong> La map <strong>'.htmlspecialchars($name).'</strong> a été ajouté.
+										  <strong>Well done! : </strong>'.ADD_MAP_PRE.'<strong>'.htmlspecialchars($name).'</strong> '.ADD_MAP_POST.'
 									</div>
 								</div>
 								<script type="text/javascript">
@@ -128,7 +119,7 @@
 								<div class="col-md-12">
 									<div class="alert alert-warning alert-dismissable">
 										  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-										  <strong>Attention ! : </strong> Les caractères spéciaux sont interdis.
+										  <strong>Attention ! : </strong> '.ADD_PLAYER_SPECIAL_CHARS.'
 									</div>
 								</div>
 							 ';
@@ -140,17 +131,8 @@
 			$sql-> bindParam('name', $name, PDO::PARAM_STR);
 			$sql-> execute();
 			echo '
-							<div class="col-md-12">
-								<div class="alert alert-success alert-dismissable">
-									  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-									  <strong>Well done! : </strong> La map <strong>'.htmlspecialchars($name).'</strong> à été supprimée.
-								</div>
-							</div>
 							<script type="text/javascript">
-								setTimeout( function() 
-		                        {
 		                          window.location.href="setting.php";
-		                        }, 3000);
 							</script>
 						 ';
 		}
@@ -171,7 +153,7 @@
 							<div class="col-md-12">
 								<div class="alert alert-success alert-dismissable">
 									  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-									  <strong>Well done! : </strong> Les dispo par défaut de <strong>'.htmlspecialchars($name).'</strong> à été mises à jours.
+									  <strong>Well done! : </strong>'.DEFAULT_DISPO_SUCCESS.'
 								</div>
 							</div>
 							<script type="text/javascript">
@@ -192,7 +174,7 @@
 							<div class="col-md-12">
 								<div class="alert alert-success alert-dismissable">
 									  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-									  <strong>Well done! : </strong> La classe jouée de <strong>'.htmlspecialchars($name).'</strong> à été mises à jours.
+									  <strong>Well done! : </strong> '.CLASS_UPDATE_SUCCESS.'
 								</div>
 							</div>
 							<script type="text/javascript">

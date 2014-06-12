@@ -9,6 +9,15 @@
   if ($_SESSION['logged']['name'] == "first_player_setting") {
     header ("location: setting.php");
   }
+    if ((!isset($_SESSION['logged'])) || (empty($_SESSION['logged'])))
+  { 
+    header ("location: login.php");
+  }
+  if ((!isset($_SESSION['language'])) || (empty($_SESSION['language']))){
+    require_once('language/default.php');
+  }else{
+    require_once('language/'.$_SESSION['language'].'.php');
+  }
 ?>
 
 <!DOCTYPE html>
@@ -34,8 +43,8 @@
     <link rel="stylesheet" href="style/index.css">
     <script src="jquery/jquery.js"></script>
     <script src="jquery/index.js"></script>
-  </head>
-<body>
+<body> 
+<div class="body">
   <?php  
   	require_once('php/pdo.class.php');
     require_once('php/links.class.php');
@@ -47,33 +56,44 @@
   ?>
 <div class="wrap">
   <div class="content">
-    <nav class="navbar navbar-inverse" role="navigation">
-      <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="./"><span class="glyphicon glyphicon-home"></span></a>
-        </div>
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="./"><span class="glyphicon glyphicon-home"></span></a>
+      </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li class=""><a href="./"><span class="glyphicon glyphicon-list"></span> Dispo</a></li>
-            <li class=""><a href="matchs.php"><span class="glyphicon glyphicon-wrench"></span> Matchs</a></li>
-            <li><a href="setting.php"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-            <li><a href="player_setting.php"><span class="glyphicon glyphicon-cog"></span> Player</a></li>
-            <li><a href="message_board.php?page=<?php echo $page; ?>"><span class="glyphicon glyphicon-comment"></span> Message Board</a></li>
-            <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="./"><span class="glyphicon glyphicon-list"></span> <?php echo MENU_DISPO; ?></a></li>
+          <li><a href="matchs.php"><span class="glyphicon glyphicon-wrench"></span> <?php echo MENU_MATCHS; ?></a></li>
+           <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> <?php echo MENU_OPTIONS; ?> <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="setting.php">&rsaquo; <?php echo MENU_COMMONS; ?></a></li>
+              <li><a href="player_setting.php">&rsaquo; <?php echo MENU_PLAYER; ?></a></li>
+            </ul>
+          </li>
+          <li class="active"><a href="message_board.php?page=<?php echo $page; ?>"><span class="glyphicon glyphicon-comment"></span> <?php echo MENU_MESSAGES; ?> <?php $messages->newMessage($_SESSION['logged']['name']); ?></a></li>
+          <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> <?php echo MENU_HISTORIC; ?> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+              <li><a href="historic.php">&rsaquo; <?php echo MENU_ADD; ?></a></li>
+              <li><a href="historic_view.php">&rsaquo; <?php echo MENU_VIEW; ?></a></li>
           </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
-
+          </li>
+          <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> <?php echo MENU_LOGOUT; ?></a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
     <div class="container">
       <div class="col-md-12">
         <?php  
@@ -81,8 +101,9 @@
         ?>
       </div>
       <div class="col-md-12">
+        <div id="query2"></div>
         <?php  
-          $messages->getMessages($_GET['page'], $_SESSION['logged']['name']);
+          $messages->getMessages($_GET['page'], $_SESSION['logged']['name'], CLASS_MESSAGE_QUOTED);
           if(isset($_POST['send'])){
             $messages->setMessage($_SESSION['logged']['name'], $_POST['comment']);
           }
@@ -95,13 +116,13 @@
       </div>
       <div class="col-md-12">
         <div class="col-md-12 btstyle">    
-          <button title="gras" onclick="formatText(form_Commentaire,'b','b')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-bold"></span> </button>
-          <button title="italic" onclick="formatText(form_Commentaire,'i','i')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-italic"></span> </button>
-          <button title="souligné" onclick="formatText(form_Commentaire,'u','u')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span><img class="underline_icon" src="style/images/icon_underline.png" alt=""></span> </button> 
+          <button title="<?php echo MESSAGE_BOLD; ?>" onclick="formatText(form_Commentaire,'b','b')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-bold"></span> </button>
+          <button title="<?php echo MESSAGE_ITALIC; ?>" onclick="formatText(form_Commentaire,'i','i')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-italic"></span> </button>
+          <button title="<?php echo MESSAGE_UNDERLINE; ?>" onclick="formatText(form_Commentaire,'u','u')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span><img class="underline_icon" src="style/images/icon_underline.png" alt=""></span> </button> 
           <span class="infomatch">|</span> 
-          <button title="insérer image" onclick="formatText(form_Commentaire,'img','img')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-picture"></span> </button>
-          <button title="insérer lien" onclick="formatText(form_Commentaire,'url','url')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-link"></span> </button>
-          <button title="citer" onclick="formatText(form_Commentaire,'quote','quote')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-comment"></span> </button>
+          <button title="<?php echo MESSAGE_IMAGE; ?>" onclick="formatText(form_Commentaire,'img','img')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-picture"></span> </button>
+          <button title="<?php echo MESSAGE_LINK; ?>" onclick="formatText(form_Commentaire,'url','url')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-link"></span> </button>
+          <button title="<?php echo MESSAGE_QUOTE_FORM; ?>" onclick="formatText(form_Commentaire,'quote','quote')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-comment"></span> </button>
         </div>
 
         <form method="post">
@@ -110,7 +131,7 @@
           </div>
 
           <div class="col-md-3 no-padd">
-            <button type="submit" name="send" class="btn btn-sm btn-primary btn-block" style="margin-top: 10px;"><span class="glyphicon glyphicon-send"></span> Envoyer</button>
+            <button type="submit" name="send" class="btn btn-sm btn-primary btn-block" style="margin-top: 10px;"><span class="glyphicon glyphicon-send"></span> <?php echo MESSAGE_SEND; ?></button>
           </div>
 
         </form>
@@ -137,10 +158,26 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="style/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript"> 
+    
+      
+
+if(readCookie('scroll') == 1){
+  $('.body').animate({
+      scrollTop: ($('#anchor').offset().top)
+  },100);
+   createCookie('scroll', "", -1);
+}
+
+if(readCookie('scrollto')){
+  var id = readCookie('scrollto');
+  $('.body').animate({
+      scrollTop: ($('#'+id).offset().top)
+  },100);
+   createCookie('scrollto', "", -1);
+}
 
 $(function(){
    function responsive(){
-
         $('.messb').each( function(){
             var heighttmp = $( this ).children('.messbp').height();
             var heighttmp2 = $( this ).children('.messbm').height();
@@ -162,10 +199,11 @@ $(function(){
 
         });
 
+
    };
    window.setTimeout( responsive, 100 ); 
 });
-    
+
       $( window ).resize(function() {
         $('.messb').each( function(){
            var heighttmp = $( this ).children('.messbp').height(); 
@@ -189,6 +227,7 @@ $(function(){
       });
       
     </script>
+  </div>
     <div class="del"></div>
   </body>
 </html>

@@ -1,5 +1,13 @@
 <div class="container">
-<?php  
+<?php 
+    session_name('IDSESSION');
+    session_start();
+    if ((!isset($_SESSION['language'])) || (empty($_SESSION['language']))){
+      require_once('../language/default.php');
+    }else{
+      require_once('../language/'.$_SESSION['language'].'.php');
+    }
+
     require_once('pdo.class.php');
     require_once('week.class.php');
     require_once('player.class.php');
@@ -7,8 +15,7 @@
     require_once('match.class.php');
     require_once('server.class.php');
     require_once('gamemode.class.php');
-    session_name('IDSESSION');
-    session_start();
+    
     $logged = $_SESSION['logged']['name'];
 
   $playerList = new Players();
@@ -20,7 +27,7 @@
     <div class="col-md-12">
       <div class="alert alert-danger alert-dismissable">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          <strong>Attention! : </strong>Veulliez ajouter au moins un joueur, puis vous logger avec ce pseudo.
+          <strong>Attention! : </strong>'.DISPO_ALERT.'
       </div>
     </div>
    ';
@@ -34,8 +41,11 @@
   $dispoObjet = new Dispo();
   $dispoObjet->getDispoList(); 
 
-  $dayList = new Weeks();
-  $dayList2 = new Weeks();
+  $days_of_the_week = array(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY);
+
+  $dayList = new Weeks($days_of_the_week);
+  $dayList2 = new Weeks($days_of_the_week);
+  $dayTr = new Weeks($days_of_the_week);
 
   $match = new Match();
   $match->getMatchList();
@@ -65,7 +75,7 @@
       $disp = $value3;
       foreach ($dayList3 as $key4 => $value4) {
         $DayWeek = explode(" ", $key4);
-        $DayWeek2 = $DayWeek[0];
+        $DayWeek2 = $dayTr->translatedfrfrom($DayWeek[0], $days_of_the_week);
         if($DayWeek2 == $days && $disp != null && $disp !=""){
           $defaultDispoList[$idnom.'@'.$value4] = $disp;
         }
@@ -118,7 +128,7 @@
 	    <div class="col-md-12 no-padd">
 	    	<table class="table bckg col-md-12">
 	    		<tr>
-		    		<th class="th_dispo">Date</th>
+		    		<th class="th_dispo"><?php echo DISPO_DATE; ?></th>
             <th class="th_dispo"></th>
 		    		<?php
               
@@ -237,14 +247,16 @@
                 /**
                     weeks delimiter
                 */
-                if (preg_match("/Dim/i", $key)) {
-                  echo '<tr><td class="separateur"></td>'; //date
-                  echo '<td class="separateur"></td>'; //nb dispo
-                  foreach ($playerList->getPlayersname() as $value) {
-                    echo '<td class="separateur"></td>'; // each player
+                  $reg = '/'.DISPO_LAST_DAY.'/i';
+                  if (preg_match($reg, $key)) {
+                    echo '<tr><td class="separateur"></td>'; //date
+                    echo '<td class="separateur"></td>'; //nb dispo
+                    foreach ($playerList->getPlayersname() as $value) {
+                      echo '<td class="separateur"></td>'; // each player
+                    }
+                    echo '</tr>'; 
                   }
-                  echo '</tr>'; 
-                }
+                
   						}
 
 		    		?>
@@ -261,7 +273,7 @@
       <div class="panel-group" id="accordion">
     	<?php  
         $nbdispo = $dispoObjet;
-        $matchdate = new Weeks();
+        $matchdate = new Weeks($days_of_the_week);
         $cpt = 0;
           /**
             loops to get info for each matchs
@@ -275,7 +287,7 @@
             $hour = $hour[0].'h'.$hour[1];
 
 
-            $datematche = $matchdate->dayOfTheWeek($value['date']);
+            $datematche = $matchdate->dayOfTheWeek($value['date'], $days_of_the_week);
 
             // get name of the aiviable players
             foreach ($nbdispo->getPseudo() as $values) {
@@ -301,17 +313,17 @@
         ?> 
                   <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#<?php echo $cpt; ?>">
-                      <?php echo $datematche.' à '.$hour; ?>
+                      <?php echo $datematche.' '.DISPO_AT.' '.$hour; ?>
                     </a>
                   </h4>
                 </div>
                 <div id="<?php echo $cpt; ?>" class="panel-collapse collapse in">
                   <div class="panel-body">
                     <?php 
-                      echo '<p class="infomatch"><strong>League : </strong>'.htmlspecialchars($value['league']).'</p>';
-                      echo '<p class="infomatch"><strong>Team : </strong>'.htmlspecialchars($value['team']).'</p>';
-                      echo '<p class="infomatch"><strong>Maps : </strong>'.htmlspecialchars($value['map1']).' / '.htmlspecialchars($value['map2']).'</p>';
-                      echo '<p class="infomatch"><strong>Joueurs dispo('.$nb.') : </strong>';
+                      echo '<p class="infomatch"><strong>'.DISPO_LEAGUE.' : </strong>'.htmlspecialchars($value['league']).'</p>';
+                      echo '<p class="infomatch"><strong>'.DISPO_TEAM.' : </strong>'.htmlspecialchars($value['team']).'</p>';
+                      echo '<p class="infomatch"><strong>'.DISPO_MAPS.' : </strong>'.htmlspecialchars($value['map1']).' / '.htmlspecialchars($value['map2']).'</p>';
+                      echo '<p class="infomatch"><strong>'.DISPO_PLAYERS.'('.$nb.') : </strong>';
                       foreach ($listejoueur as $pseudodsip) {
                         if ($pseudodsip === end($listejoueur))
                           echo htmlspecialchars($pseudodsip).'</p>';
@@ -319,7 +331,7 @@
                           echo htmlspecialchars($pseudodsip).' / ';
                       }
                       if(!empty($last)){
-                        echo '<p class="infomatch"><strong>Manque : </strong>';
+                        echo '<p class="infomatch"><strong>'.DISPO_MISSING.' : </strong>';
                         foreach ($last as $classelast) {
                           echo '<img class="classe_icon" src="style/classes/'.$classelast.'.png" alt=""> ';
                         }
@@ -344,7 +356,7 @@
         ?>
                   <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#<?php echo $cpt; ?>">
-                      <?php echo $datematche.' à '.$hour; ?>
+                      <?php echo $datematche.' '.DISPO_AT.' '.$hour; ?>
                     </a>
                   </h4>
                 </div>
