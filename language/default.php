@@ -170,6 +170,7 @@ define("HISTORIC_VIEW_SCORE", "Score");
 define("HISTORIC_VIEW_MAPS", "Map");
 define("HISTORIC_VIEW_LOGS", "Logs");
 define("HISTORIC_VIEW_INFO", "Info");
+define("HISTORIC_VIEW_CONFIRM_MESSAGE", "'Supprimer match?'"); //  /!\  keep the simple quote
 /**
 	login
 */

@@ -122,7 +122,8 @@
                            "HISTORIC_VIEW_SCORE" => HISTORIC_VIEW_SCORE, 
                            "HISTORIC_VIEW_MAPS" => HISTORIC_VIEW_MAPS, 
                            "HISTORIC_VIEW_LOGS" => HISTORIC_VIEW_LOGS, 
-                           "HISTORIC_VIEW_INFO" => HISTORIC_VIEW_INFO
+                           "HISTORIC_VIEW_INFO" => HISTORIC_VIEW_INFO, 
+                           "HISTORIC_VIEW_CONFIRM_MESSAGE" => HISTORIC_VIEW_CONFIRM_MESSAGE
                            ); 
 				$historic->getHistoric($filtre, $arraytrad);
 			?>

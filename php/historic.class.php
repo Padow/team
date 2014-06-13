@@ -178,7 +178,7 @@
 						echo '<td><p class="nobr"><a href="'.$value['logs1'].'" target="_blank">Logs</a></p><p class="nobr"><a href="'.$value['logs2'].'" target="_blank">Logs</a></p></td>';
 
 					echo '<td><span class="glyphicon glyphicon-info-sign tool" data-container="body" data-toggle="popover" data-placement="left" data-content="'.htmlspecialchars($value['comments']).'"></span></td>';
-					echo '<td><span id="'.urlencode($value['etf2lkey']).'" onClick="suppr(this.id);" class="glyphicon glyphicon-trash hand"></span></td></tr>';
+					echo '<td><span id="'.urlencode($value['etf2lkey']).'" onClick="suppr(this.id, '.$arraytrad['HISTORIC_VIEW_CONFIRM_MESSAGE'].');" class="glyphicon glyphicon-trash hand"></span></td></tr>';
 				}
 			}
 			

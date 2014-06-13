@@ -22,8 +22,8 @@ function setlanguage(id){
      });
 }
 
-function suppr(id){
-  var isGood=confirm('Delete match?');
+function suppr(id, mess){
+  var isGood=confirm(mess);
   if(isGood){
     $.ajax({
           url: "php/delete_row_historic.php",

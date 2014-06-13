@@ -171,6 +171,7 @@ define("HISTORIC_VIEW_SCORE", "Score");
 define("HISTORIC_VIEW_MAPS", "Map");
 define("HISTORIC_VIEW_LOGS", "Logs");
 define("HISTORIC_VIEW_INFO", "Comment");
+define("HISTORIC_VIEW_CONFIRM_MESSAGE", "'Delete match?'"); //  /!\  keep the simple quote
 /**
 	login
 */
