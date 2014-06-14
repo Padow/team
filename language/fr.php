@@ -102,7 +102,7 @@ define("ADD_MAP_POST", " à été ajoutée.");
 define("PLAYER_DISPO_LEGEND", "Dispo par défaut");
 define("PLAYER_MON", "Lundi");
 define("PLAYER_TUE", "Mardi");
-define("PLAYER_WED", "Merecrdi");
+define("PLAYER_WED", "Mercredi");
 define("PLAYER_THU", "Jeudi");
 define("PLAYER_FRI", "Vendredi");
 define("PLAYER_SAT", "Samedi");
