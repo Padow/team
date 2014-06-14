@@ -394,7 +394,7 @@
       ?>
 </div>
 <?php }else{
-  echo "<h3>Pas de match programmé.</h3>";
+  echo "<h3>".DISPO_NO_MATCHES."</h3>";
 } 
   $serv = new Server();
 ?>

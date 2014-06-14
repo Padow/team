@@ -45,6 +45,7 @@ define("THURSDAY", "Thu");
 define("FRIDAY", "Fri");
 define("SATURDAY", "Sat");
 define("SUNDAY", "Sun");
+define("DISPO_NO_MATCHES", "No matches scheduled.");
 /**
 	matchs.php
 */

@@ -44,6 +44,7 @@ define("THURSDAY", "Jeu");
 define("FRIDAY", "Ven");
 define("SATURDAY", "Sam");
 define("SUNDAY", "Dim");
+define("DISPO_NO_MATCHES", "Pas de match programmé.");
 /**
 	matchs.php
 */
