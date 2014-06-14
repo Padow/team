@@ -80,7 +80,7 @@
 		        "$1",
 		        "</div>",
 		        "<div class=\"quoteheader\">".CLASS_MESSAGE_QUOTED."</div><div class=\"bbc_standard_quote\">",
-		        "<iframe wmode=\"transparent\" width=\"640\" height=\"480\" class=\"hidden-xs\" src=\"//www.youtube.com/embed/$1?wmode=transparent\" frameborder=\"0\" allowfullscreen seamless></iframe>",
+		        "<div class=\"flex-video widescreen\"><iframe wmode=\"transparent\"  src=\"//www.youtube.com/embed/$1?wmode=transparent\" frameborder=\"0\" allowfullscreen seamless></iframe></div>",
 		        "<iframe frameborder=\"0\" width=\"480\" height=\"270\" src=\"http://www.dailymotion.com/embed/video/$1\"  allowfullscreen></iframe>",
 		        "<iframe src=\"//player.vimeo.com/video/$1\" width=\"500\" height=\"375\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>",
 		        "<font color=\"$1\">$2</font>",
