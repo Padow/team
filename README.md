@@ -24,9 +24,9 @@ Team Dispo uses a number of open source projects to work properly:
 
 Server requirements
 -------------------
-* PHP 5.4.12  
-* Apache 2.4.4  
-* MySQL 5.6.12  
+* PHP 5.3
+* Apache 2.2  
+* MySQL 5  
 
 Installation
 --------------
@@ -50,11 +50,24 @@ git clone https://github.com/Padow/team.git
 ##### Language
 Default language is french. To change it remove "default.php" from "language" folder, then copy/paste the language file you wish as default and rename the copy  "default.php"
 
+* available languages
+ * french
+ * english
+ * russian - done by Shog
+
+it may have  mistakes translations or some inappropriate translations, so please feel free to report them.
+
 * Add an other translation language 
   * get your country_tag refer to [availables country tag]
   * copy/paste "en.php" from "language" folder
   * rename the copie "country_tag.php"
   * open the new file with a text editor and translate.  /!\  DO NOT CHANGE WORDS IN CAPITAL LETTERS 
+
+
+##### First login
+ * enter whatever you want as login and password
+ * create a new player
+ * then logout and relog with the new player account 
 
 
 --------------------------------------

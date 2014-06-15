@@ -7,8 +7,8 @@
  /**
 	menu 
 */
-define("MENU_DISPO", "Dispo");
-define("MENU_MATCHS", "Games");
+define("MENU_DISPO", "Availability");
+define("MENU_MATCHS", "Match");
 define("MENU_OPTIONS", "Settings");
 define("MENU_COMMONS", "Commons");
 define("MENU_PLAYER", "Player");
@@ -20,7 +20,7 @@ define("MENU_LOGOUT", "Logout");
 /**
 	login.php
 */
-define("LOGIN_LANGUAGE", "Country");
+define("LOGIN_LANGUAGE", "Language");
 define("LOGIN_LEGEND", "Login");
 define("LOGIN_PSEUDO", "Nickname");
 define("LOGIN_PASSWORD", "Password");
@@ -35,7 +35,7 @@ define("DISPO_AT", "at");
 define("DISPO_LEAGUE", "League");
 define("DISPO_TEAM", "Team");
 define("DISPO_MAPS", "Maps");
-define("DISPO_PLAYERS", "Available's gamer");
+define("DISPO_PLAYERS", "Available's players");
 define("DISPO_MISSING", "Missing");
 define("DISPO_LAST_DAY", "Sat");
 define("MONDAY", "Mon");
