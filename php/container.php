@@ -363,10 +363,10 @@
                 <div id="<?php echo $cpt; ?>" class="panel-collapse collapse">
                   <div class="panel-body">
                     <?php 
-                      echo '<p class="infomatch"><strong>League : </strong>'.htmlspecialchars($value['league']).'</p>';
-                      echo '<p class="infomatch"><strong>Team : </strong>'.htmlspecialchars($value['team']).'</p>';
-                      echo '<p class="infomatch"><strong>Maps : </strong>'.htmlspecialchars($value['map1']).' / '.htmlspecialchars($value['map2']).'</p>';
-                      echo '<p class="infomatch"><strong>Joueurs dispo('.$nb.') : </strong>';
+                      echo '<p class="infomatch"><strong>'.DISPO_LEAGUE.'</strong>'.htmlspecialchars($value['league']).'</p>';
+                      echo '<p class="infomatch"><strong>'.DISPO_TEAM.'</strong>'.htmlspecialchars($value['team']).'</p>';
+                      echo '<p class="infomatch"><strong>'.DISPO_MAPS.'</strong>'.htmlspecialchars($value['map1']).' / '.htmlspecialchars($value['map2']).'</p>';
+                      echo '<p class="infomatch"><strong>'.DISPO_PLAYERS.'('.$nb.') : </strong>';
                       foreach ($listejoueur as $pseudodsip) {
                         if ($pseudodsip === end($listejoueur))
                           echo htmlspecialchars($pseudodsip).'</p>';
@@ -374,7 +374,7 @@
                           echo htmlspecialchars($pseudodsip).' / ';
                       }
                       if(!empty($last)){
-                        echo '<p class="infomatch"><strong>Manque : </strong>';
+                        echo '<p class="infomatch"><strong>'.DISPO_MISSING.' : </strong>';
                         foreach ($last as $classelast) {
                           echo '<img class="classe_icon" src="style/classes/'.$classelast.'.png" alt=""> ';
                         }
