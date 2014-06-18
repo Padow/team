@@ -35,7 +35,7 @@ define("DISPO_AT", "at");
 define("DISPO_LEAGUE", "League");
 define("DISPO_TEAM", "Team");
 define("DISPO_MAPS", "Maps");
-define("DISPO_PLAYERS", "Available's players");
+define("DISPO_PLAYERS", "Available players");
 define("DISPO_MISSING", "Missing");
 define("DISPO_LAST_DAY", "Sat");
 define("MONDAY", "Mon");
