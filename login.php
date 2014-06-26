@@ -65,7 +65,7 @@
            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> <?php echo MENU_OPTIONS; ?> <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="setting.php">&rsaquo; <?php echo MENU_COMMONS; ?></a></li>
-              <li><a href="player_setting.php">&rsaquo; Joueur</a></li>
+              <li><a href="player_setting.php">&rsaquo; <?php echo MENU_PLAYER; ?></a></li>
             </ul>
           </li>
           <li><a href="message_board.php"><span class="glyphicon glyphicon-comment"></span> <?php echo MENU_MESSAGES; ?></a></li>
