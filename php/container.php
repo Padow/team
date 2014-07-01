@@ -363,9 +363,9 @@
                 <div id="<?php echo $cpt; ?>" class="panel-collapse collapse">
                   <div class="panel-body">
                     <?php 
-                      echo '<p class="infomatch"><strong>'.DISPO_LEAGUE.'</strong>'.htmlspecialchars($value['league']).'</p>';
-                      echo '<p class="infomatch"><strong>'.DISPO_TEAM.'</strong>'.htmlspecialchars($value['team']).'</p>';
-                      echo '<p class="infomatch"><strong>'.DISPO_MAPS.'</strong>'.htmlspecialchars($value['map1']).' / '.htmlspecialchars($value['map2']).'</p>';
+                      echo '<p class="infomatch"><strong>'.DISPO_LEAGUE.' : </strong>'.htmlspecialchars($value['league']).'</p>';
+                      echo '<p class="infomatch"><strong>'.DISPO_TEAM.' : </strong>'.htmlspecialchars($value['team']).'</p>';
+                      echo '<p class="infomatch"><strong>'.DISPO_MAPS.' : </strong>'.htmlspecialchars($value['map1']).' / '.htmlspecialchars($value['map2']).'</p>';
                       echo '<p class="infomatch"><strong>'.DISPO_PLAYERS.'('.$nb.') : </strong>';
                       foreach ($listejoueur as $pseudodsip) {
                         if ($pseudodsip === end($listejoueur))
