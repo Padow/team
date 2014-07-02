@@ -39,7 +39,9 @@
     
     <script src="jquery/jquery.js"></script>
     <script type="text/javascript" src="jquery/index.js"></script>
-	 <link rel="stylesheet" href="style/index.css">
+	<link rel="stylesheet" href="style/index.css">
+	<link rel="stylesheet" href="selectpicker/bootstrap-select.css">
+	<script src="selectpicker/bootstrap-select.js"></script>
 </head>
 <body>
 <div class="body">  
@@ -337,8 +339,8 @@
 		<fieldset><legend class="legendh2"><?php echo PLAYER_LANGUAGE_LEGEND; ?></legend>
 		<form method="post" role="form">
 			<div class="form-group row">
-				<div class="col-md-12 langue">	
-					<select name="languesel" required>
+				<div class="col-md-12">	
+					<select name="languesel" class="form-control selectpicker" required>
 						<option></option>
 						<?php 
 							$opt = $lang->getLanguage(); 
@@ -381,7 +383,8 @@
     <script src="jquery/bootstrapfileinput.js"></script>
     <script type="text/javascript">
     	$('input[type=file]').bootstrapFileInput();
-		$('.file-inputs').bootstrapFileInput()
+		$('.file-inputs').bootstrapFileInput();
+		$('.selectpicker').selectpicker('render');
     </script>
 </div>
     <div class="del"></div>

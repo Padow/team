@@ -44,7 +44,9 @@
 	
 	<link rel="stylesheet" href="timepicker/css/bootstrap-timepicker.css">
 	<script type="text/javascript"  src="timepicker/js/bootstrap-timepicker.js"></script>
-	 <link rel="stylesheet" href="style/index.css">
+	<link rel="stylesheet" href="style/index.css">
+	<link rel="stylesheet" href="selectpicker/bootstrap-select.css">
+	<script src="selectpicker/bootstrap-select.js"></script>
 </head>
 <body>
 <div class="body">
@@ -124,7 +126,7 @@
 			</div>  
 			<div class="col-md-2"> 
 				<label class="control-label"><?php echo HISTORIC_ADD_LEAGUE; ?></label>
-				<select name="league" class="form-control" required>
+				<select name="league" class="form-control selectpicker" required>
 					<option></option>
 					<?php 
 						$matchObjet->getLeagueList();
@@ -144,7 +146,7 @@
 		<div class="col-md-12">
 			<div class="col-md-2"> 
 				<label class="control-label"><?php echo HISTORIC_ADD_MAP1; ?></label>
-				<select name="map1" class="form-control" required>
+				<select name="map1" class="form-control selectpicker" required>
 					<option></option>
 					<?php  
 						$matchObjet->getMapList();
@@ -172,7 +174,7 @@
 		<div class="col-md-12"> 
 			<div class="col-md-2"> 
 				<label class="control-label"><?php echo HISTORIC_ADD_MAP2; ?></label>
-				<select name="map2" class="form-control">
+				<select name="map2" class="form-control selectpicker">
 					<option></option>
 					<?php  
 						foreach ($matchObjet->getMap() as  $value) {
@@ -263,7 +265,7 @@
 			$('span').popover();
 		});
 
-
+		$('.selectpicker').selectpicker('render');
 	</script>
 </div>
     <div class="del"></div>

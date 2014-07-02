@@ -36,13 +36,16 @@
     <script src="jquery/jquery.js"></script>
     <script type="text/javascript" src="jquery/index.js"></script>
     <link rel="stylesheet" href="datepicker/css/datepicker3.css">
+    
     <script src="datepicker/js/bootstrap-datepicker.js"></script>
     <?php 
         echo '<script src="datepicker/js/locales/bootstrap-datepicker.'.$_SESSION['language'].'.js" charset="UTF-8"></script>';
     ?>	
 	<link rel="stylesheet" href="timepicker/css/bootstrap-timepicker.css">
 	<script type="text/javascript"  src="timepicker/js/bootstrap-timepicker.js"></script>
-	 <link rel="stylesheet" href="style/index.css">
+	<link rel="stylesheet" href="style/index.css">
+	<link rel="stylesheet" href="selectpicker/bootstrap-select.css">
+	<script src="selectpicker/bootstrap-select.js"></script>
 </head>
 <body>
 <div class="body">
@@ -124,7 +127,7 @@
 				<div class="form-group row">
 					<div class="col-md-6"> 
 						<label class="control-label"><?php echo MATCHS_LEAGUE; ?></label>
-						<select name="league" class="form-control" required>
+						<select name="league" class="form-control selectpicker" required>
 							<option></option>
 							<?php 
 								$matchObjet->getLeagueList();
@@ -142,7 +145,7 @@
 				<div class="form-group row">
 					<div class="col-md-6"> 
 						<label class="control-label"><?php echo MATCHS_MAP1; ?></label>
-						<select name="map1" class="form-control" required>
+						<select name="map1" class="form-control selectpicker" required>
 							<option></option>
 							<?php  
 								$matchObjet->getMapList();
@@ -154,7 +157,7 @@
 					</div>  
 					<div class="col-md-6"> 
 						<label class="control-label"><?php echo MATCHS_MAP2; ?></label>
-						<select name="map2" class="form-control" required>
+						<select name="map2" class="form-control selectpicker" required>
 							<option></option>
 							<?php  
 								foreach ($matchObjet->getMap() as  $value) {
@@ -188,7 +191,7 @@
 				<div class="form-group row">
 					<div class="col-md-8"> 
 						<label class="control-label"><?php echo MATCHS_LIST; ?></label>
-						<select name="matchdel" class="form-control" required>
+						<select name="matchdel" class="form-control selectpicker" required>
 							<option></option>
 							<?php  
 								$matchObjet->getMatchList();
@@ -242,6 +245,9 @@
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="style/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+		$('.selectpicker').selectpicker('render');
+	</script>
 </div>
     <div class="del"></div>
 </body>

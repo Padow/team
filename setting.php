@@ -36,6 +36,8 @@
     <script src="jquery/jquery.js"></script>
     <script type="text/javascript" src="jquery/index.js"></script>
     <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="selectpicker/bootstrap-select.css">
+	<script src="selectpicker/bootstrap-select.js"></script>
 </head>
 <body>  
 <div class="body">
@@ -121,6 +123,7 @@
 				$settingObjet->deleteMap($_POST['listmap']);
 			}
 	?>
+	<div class="col-md-12">
 	<div class="col-md-4">
 		<fieldset><legend class="legendh2"><?php echo COMMON_ADD_PLAYER_LEGEND; ?></legend>
 		<form method="post" role="form">
@@ -145,7 +148,7 @@
 			<div class="form-group row">
 				<div class="col-md-12"> 
 					<label class="control-label"><?php echo COMMON_DELETE_PLAYER_LIST; ?></label>
-					<select name="playerdel" class="form-control" required>
+					<select name="playerdel" class="form-control selectpicker" required>
 						<option></option>
 						<?php  
 							$playerObjet->getPlayerList();
@@ -181,13 +184,15 @@
 		</form>
 		</fieldset>	
 	</div>
+	</div>
+	<div class="col-md-12">
 	<div class="col-md-4">
 		<fieldset><legend class="legendh2"><?php echo COMMON_DELETE_LEAGUE_LEGEND; ?></legend>
 		<form method="post" role="form">
 			<div class="form-group row">
 				<div class="col-md-12"> 
 					<label class="control-label"><?php echo COMMON_DELETE_LEAGUE_LIST; ?></label>
-					<select name="listleague" class="form-control" required>
+					<select name="listleague" class="form-control selectpicker" required>
 						<option></option>
 						<?php  
 							$settingObjet->getLeagueList();
@@ -229,7 +234,7 @@
 			<div class="form-group row">
 				<div class="col-md-12"> 
 					<label class="control-label"><?php echo COMMON_DELETE_MAP_LIST; ?></label>
-					<select name="listmap" class="form-control" required>
+					<select name="listmap" class="form-control selectpicker" required>
 						<option></option>
 						<?php  
 							$matchObjet->getMapList();
@@ -247,6 +252,7 @@
 			</div>
 		</form>
 	</fieldset>
+	</div>
 	</div>
 </div>
 </div>
@@ -273,6 +279,8 @@
 		$(document).ready(function(){
 			$('span').tooltip();
 		});
+
+		$('.selectpicker').selectpicker('render');
 	</script>
 </div>
     <div class="del"></div>
