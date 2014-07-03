@@ -40,6 +40,9 @@
     <script type="text/javascript" src="jquery/index.js"></script>
     <link rel="stylesheet" href="datepicker/css/datepicker3.css">
     <script src="datepicker/js/bootstrap-datepicker.js"></script>
+    <?php 
+        echo '<script src="datepicker/js/locales/bootstrap-datepicker.'.$_SESSION['language'].'.js" charset="UTF-8"></script>';
+    ?>	
     <script src="datepicker/js/locales/bootstrap-datepicker.fr.js" charset="UTF-8"></script>
 	
 	<link rel="stylesheet" href="timepicker/css/bootstrap-timepicker.css">
@@ -254,7 +257,7 @@
     </script>
 
 	<script type="text/javascript">
-    	$(".input-group.date").datepicker({ autoclose: true, todayHighlight: true, orientation: "top", language: "fr" });
+    	$(".input-group.date").datepicker({ autoclose: true, todayHighlight: true, orientation: "top", language: "<?php echo DATEPICKER_LANGUAGE ?>" });
     </script>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
