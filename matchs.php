@@ -195,9 +195,12 @@
 							<option></option>
 							<?php  
 								$matchObjet->getMatchList();
-								foreach ($matchObjet->getMatch() as  $value) {
-									echo '<option>'.$value['clee'].'</option>';
+								if ($matchObjet->getMatch() != null) {
+									foreach ($matchObjet->getMatch() as  $value) {
+										echo '<option>'.$value['clee'].'</option>';
+									}
 								}
+								
 							?>
 						</select>
 					</div>

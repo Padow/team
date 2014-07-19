@@ -70,7 +70,7 @@
 		    	"<a href=\"$1\" target=\"_blank\">$1</a>",
 		        "<a href=\"$1\" target=\"_blank\">$2</a>",
 		        "<strong>$1</strong>",
-		        "</br>",
+		        "<br>",
 		        "<a href=\"$1\" target=\"_blank\">$1</a>",
 		        "<a href=\"$1\" target=\"_blank\">$1</a>",
 		        "<a href=\"$1\" target=\"_blank\">$1</a>",
