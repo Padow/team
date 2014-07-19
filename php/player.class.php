@@ -153,7 +153,7 @@
 	        $extensions = array('.png', '.gif', '.jpg', '.jpeg');
 	        $maxsize  = 200000;
 	        $filename = $file['tmp_name'];
-	        $extension = strrchr($file['name'], '.');
+	        $extension =  strtolower(strrchr($file['name'], '.'));
 	        $size = $file['size'];
 
 	        if (!file_exists($filename)) {
