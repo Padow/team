@@ -89,7 +89,7 @@
 		        "<div class=\"flex-video widescreen\"><iframe wmode=\"transparent\"  src=\"//www.youtube.com/embed/$1?wmode=transparent\" frameborder=\"0\" allowfullscreen seamless></iframe></div>",
 		        "<iframe frameborder=\"0\" width=\"480\" height=\"270\" src=\"http://www.dailymotion.com/embed/video/$1\"  allowfullscreen></iframe>",
 		        "<iframe src=\"//player.vimeo.com/video/$1\" width=\"500\" height=\"375\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>",
-		        "<font color=\"$1\">$2</font>",
+		        "<span style=\"color:$1\">$2</span>",
 		        "<span style=\"font-size:$1\">$2</span>",
 		        "<span style=\"font-family: $1\">$2</span>",
 		        "<div style=\"text-align:center;\">$1</div>",
@@ -132,6 +132,33 @@
 			}
 		}
 
+		public function viewby($id, $author){
+			$sql = $this->_connexion->prepare("SELECT name FROM players WHERE lastmess >= :id");
+			$sql-> bindParam('id', $id, PDO::PARAM_STR);
+			$sql-> execute();
+			$rows = $sql->fetchAll(PDO::FETCH_ASSOC);
+			foreach ($rows as $value) {
+				if ($value['name'] != $author){
+					$rows2[] = $value['name'];
+				}
+			}
+			$tooltip = "";
+			$tooltip =  '<span class="glyphicon glyphicon-eye-open tool" data-toggle="tooltip" data-placement="right" title="';
+			if ($rows2) {
+				foreach ($rows2 as $value) {
+					if ($value === end($rows2)) {
+						$tooltip .= $value;
+					}else{
+						$tooltip .= $value.' / ';
+					}
+				}
+			}
+			
+			$tooltip .= '"></span>';
+			echo $tooltip;
+
+		}
+
 
 		public function getMessages($page, $author, $trd){
 			$sql = $this->_connexion->prepare("SELECT * FROM  messages ORDER BY id ");
@@ -164,6 +191,7 @@
 										$date_fr = $datefr[2].'/'.$datefr[1].'/'.$datefr[0];
 										$this->datemess($date_fr);
 										echo '<p>'.$heure[0].':'.$heure[1].'</p>';
+										$this->viewby($value['id'], $value['name']);
 									echo '</div>';
 			
 									echo '<div class="col-md-10 topspace messbm">';
@@ -186,7 +214,7 @@
 							echo '</div>';
 							echo '</div>';
 						echo '</div>';
-						echo '<div class="col-md-12 sepmess">&nbsp;</div>';
+						echo '<div class="col-md-12 sepmess"></div>';
 					}
 					$cpt++;
 				}
