@@ -97,19 +97,21 @@
     		$login->checkLogin($_POST['pseudo'], $_POST['password'], $remember);		
     	}
     ?>
-    <div class="langue" >
-      <div class="form-group row">
-        <label class="control-label langueselect"><?php echo LOGIN_LANGUAGE; ?></label>
-        <select  id="languagesetting" class="languagesetting" onChange="setlanguage(this.id);">
-          <option></option>
-          <?php $opt = $lang->getLanguage(); 
-          foreach ($opt as $value) {
-            echo $value;
-          }
-          ?>
-        </select>
+
+      <div class="col-md-2 pull-right langue" >
+        <div class="form-group row">
+          <label class="control-label langueselect"><?php echo LOGIN_LANGUAGE; ?></label>
+          <select  id="languagesetting" class="languagesetting" onChange="setlanguage(this.id);">
+            <option></option>
+            <?php $opt = $lang->getLanguage(); 
+            foreach ($opt as $value) {
+              echo $value;
+            }
+            ?>
+          </select>
+        </div>
       </div>
-    </div>
+    
     <div class="col-md-4">
     	<fieldset><legend class="legendh2"><?php echo LOGIN_LEGEND; ?></legend>
     		<form method="post" role="form">

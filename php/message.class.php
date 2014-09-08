@@ -144,7 +144,7 @@
 			}
 			$tooltip = "";
 			$tooltip =  '<span class="glyphicon glyphicon-eye-open tool" data-toggle="tooltip" data-placement="right" title="';
-			if ($rows2) {
+			if (isset($rows2)) {
 				foreach ($rows2 as $value) {
 					if ($value === end($rows2)) {
 						$tooltip .= $value;

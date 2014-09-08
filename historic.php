@@ -41,7 +41,7 @@
     <link rel="stylesheet" href="datepicker/css/datepicker3.css">
     <script src="datepicker/js/bootstrap-datepicker.js"></script>
     <?php 
-        echo '<script src="datepicker/js/locales/bootstrap-datepicker.'.$_SESSION['language'].'.js" charset="UTF-8"></script>';
+        echo '<script src="datepicker/js/locales/bootstrap-datepicker.'.DATEPICKER_LANGUAGE.'.js" charset="UTF-8"></script>';
     ?>	
     <script src="datepicker/js/locales/bootstrap-datepicker.fr.js" charset="UTF-8"></script>
 	

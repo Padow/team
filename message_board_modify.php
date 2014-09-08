@@ -114,7 +114,7 @@
 
         <form method="post">
           <div class="col-md-12 no-padd">
-            <textarea id="form_Commentaire" class="textarea" wrap="soft" name="comment"  required><?php echo $message; ?></textarea>
+            <textarea id="form_Commentaire" class="textarea long" wrap="soft" name="comment"  required><?php echo $message; ?></textarea>
           </div>
 
           <div class="col-md-3 no-padd">

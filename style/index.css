@@ -184,6 +184,10 @@ a:hover{
 	height: 200px; 
 }
 
+.long{
+	height: 400px !important; 
+}
+
 .underline_icon{
 	height: 14px;
 	width: 10px;
@@ -289,8 +293,8 @@ a:hover{
 }
 
 .langue{
-	float: right;
 	color: black;
+	z-index: 999;
 }
 
 .langueselect{

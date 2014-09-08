@@ -1,16 +1,17 @@
 <?php  
- class Links{
+class Links{
 
-    public function __construct(){
-      $links = __DIR__."../../config/liens.ini";
-      if(@$links_array = parse_ini_file($links)){
-        foreach ($links_array as $key => $value) {
-           if ($value === end($links_array))
-            echo '<a href="'.$value.'" target="_blank">'.htmlspecialchars($key).'</a>';
-          else
-           echo '<a href="'.$value.'" target="_blank">'.htmlspecialchars($key).'</a> / ';
-        }
+  public function __construct(){
+    $path = __DIR__."../../config/links.json";
+    if (file_exists($path)) {
+      $array = json_decode(file_get_contents($path));
+      foreach ($array->{'links'} as $value) {
+        if ($value === end($array->{'links'}))
+          echo '<a href="'.$value->{'link'}.'" target="_blank">'.htmlspecialchars($value->{'name'}).'</a>';
+        else
+         echo '<a href="'.$value->{'link'}.'" target="_blank">'.htmlspecialchars($value->{'name'}).'</a> / ';
       }
-    } 
- }
+    }
+  }
+}
 ?>

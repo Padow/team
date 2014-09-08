@@ -2,32 +2,24 @@
 class Etf2l extends Connexion{
 	public function __construct(){
 		$this->_connexion = parent::__construct();
-		$teamid = __DIR__."../../config/teamid.ini";
-	    if(@$id = parse_ini_file($teamid)){
-	    	foreach ($id as $value) {
-	        	$etf2lid = $value;
-	        }
-	        $etf2lteamid = $etf2lid;
-	    }else{
-	    	$etf2lteamid = false;
-	    }
+		$path = __DIR__."../../config/teamid.json";
+		if (file_exists($path)) {
+        	$array = json_decode(file_get_contents($path));
+        	$etf2lteamid = $array->{'team'}->{'id'};
+		}
 	    if($etf2lteamid){
-	    	$this->etf2lmatch($etf2lteamid);	    	
+	    	$this->etf2lmatch($etf2lteamid);	
 	    }
 	}
 
 	public function jsonparser($etf2lteamid){
 		$url = "http://api.etf2l.org/team/" . $etf2lteamid . "/matches.json?&only_scheduled=1";
-		$json = file_get_contents($url);
-	    $array = json_decode($json, true); 	    
-	    if($array) {
-	        $etf2lschdul = $array;
-	    }else{
+		if(@$json = file_get_contents($url)){
+			$etf2lschdul = json_decode($json, true);
+		}else{
 	    	$etf2lschdul = null;
 	    }
-
 	    return $etf2lschdul;
-
 	}
 
 	public function etf2lmatch($etf2lteamid){

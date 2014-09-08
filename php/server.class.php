@@ -2,41 +2,26 @@
  class Server{
 
     public function __construct(){
-      $server = __DIR__."../../config/server.ini";
-      if(@$server_array = parse_ini_file($server)){
-        $array_keys = array_keys($server_array);
-        $key = array('IP', 'Port', 'Password');
-        foreach ($key as $value) {
-          if(in_array($value, $array_keys)){
-            $verifkey = true;
-          }else{
-            $verifkey = false;
-            break;
-          }
+      $path = __DIR__."../../config/server.json";
+      if (file_exists($path)) {
+        $array = json_decode(file_get_contents($path)); 
+        $ip = $this->ifnotnull($array->{'server'}->{'ip'})?$array->{'server'}->{'ip'}:false;
+        $port = $this->ifnotnull($array->{'server'}->{'port'})?$array->{'server'}->{'port'}:false;
+        $password = $this->ifnotnull($array->{'server'}->{'password'})?$array->{'server'}->{'password'}:"";
+        if ($ip && $port) {
+          echo '<p><a href="steam://connect/'; 
+          echo $ip.":";
+          echo $port."/";
+          echo $password; 
+          echo'" class="btn btn-default btn-block"><span class="glyphicon glyphicon-fire"></span> Connect</a></p>';
+
+          echo "<p> connect ".$ip.":".$port.";password ".$password."</p>";
         }
-
-        if($verifkey){
-
-          foreach ($server_array as  $value) {
-            if($value !="")
-              $verifvalue = true;
-            else{
-              $verifvalue = false;
-              break;
-            }
-          }
-
-          if($verifvalue){
-            echo '<p><a href="steam://connect/'; 
-            echo $server_array['IP'].":";
-            echo $server_array['Port']."/";
-            echo $server_array['Password']; 
-            echo'" class="btn btn-default btn-block"><span class="glyphicon glyphicon-fire"></span> Connect</a></p>';
-
-            echo "<p> connect ".$server_array['IP'].":".$server_array['Port']."/".$server_array['Password']."</p>";
-          } 
-        }      
       }
     }  
+
+    public function ifnotnull($array){
+      return !empty($array);
+    }
  }
 ?>

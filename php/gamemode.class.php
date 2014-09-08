@@ -2,16 +2,13 @@
 class Game_mode{
 	private $_mode;
 	public function __construct(){
-		$mode = __DIR__."../../config/game_mode.ini";
-	    if(@$selected_mode = parse_ini_file($mode)){
-	    	foreach ($selected_mode as $value) {
-	        	$choose_mode = $value;
-	        }
-	        $this->_mode = $choose_mode;
-	    }else{
-	    	$this->_mode = "6v6";
-	    }
-		
+		$path = __DIR__."../../config/gamemode.json";	
+		if (file_exists($path)) {
+			$array = json_decode(file_get_contents($path));
+			if (isset($array->{'gamemode'})) {
+				$this->_mode = $array->{'gamemode'};
+			}	
+		}		
 	}
 
 	public function getmode(){
