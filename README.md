@@ -37,14 +37,14 @@ git clone https://github.com/Padow/team.git
 ##### Deploy database.
 * dispo.sql
 
-##### Configure .ini files.
+##### Configure .json files.
 * Required
- * config/config.ini
- * config/game_mode.ini
+ * config/config.json
+ * config/gamemode.json --> 6v6 by default
 * Optional
- * config/server.ini
- * config/liens.ini
- * config/teamid.ini --> allow sync with ETF2L for match schedule
+ * config/server.json
+ * config/links.json
+ * config/teamid.json --> allow sync with ETF2L for match schedule
 
 
 ##### Language
