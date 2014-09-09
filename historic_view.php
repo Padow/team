@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<title>Matchs</title>
+	<title>Historic</title>
 	<meta charset="utf-8" >
 	<link rel="shortcut icon" href="style/favicon.ico" type="image/x-icon">
     <link rel="icon" href="style/favicon.ico" type="image/x-icon">

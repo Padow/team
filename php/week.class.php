@@ -16,7 +16,7 @@ class Weeks{
 	}
 
 	/**
-	* tradui le jour de la semaine en fonction de la langue choisie
+	* traduit le jour de la semaine en fonction de la langue choisie
 	* @param String, array()
 	* @return String
 	*/
