@@ -131,12 +131,14 @@
 				<div class="col-md-12"> 
 					<label class="control-label"><?php echo COMMON_ADD_PLAYER_PSEUDO; ?></label>
 					<span class="glyphicon glyphicon-info-sign tool" data-toggle="tooltip" data-placement="right" title="<?php echo COMMON_ADD_PLAYER_INFO; ?>"></span>
-					<input type="text" class="form-control"  maxlength="25" name="pseudo" pattern="^((?![#@;]).)*$" title="Caractères interdis: #@;" required>
+					<div class="input-group">
+						<input type="text" onKeyup="pseudoCheck()" class="form-control"  maxlength="25" name="pseudo" id="pseudo" pattern="^((?![#@;]).)*$" title="Caractères interdis: #@;" required><span class="input-group-addon"><img class="check_icon" id="chkimg" src="style/images/default.png" alt=""></span>
+					</div>
 				</div> 
 			</div>
 			<div class="form-group row">
 				<div class="col-md-12"> 
-					<button name="addplayer" type="submit" class="btn btn-default btn-primary btn-lg btn-block"><?php echo COMMON_ADD_PLAYER_SUBMIT; ?> <span class="glyphicon glyphicon-save"></span></button>
+					<button name="addplayer" id="addplayer" type="submit" class="btn btn-default btn-primary btn-lg btn-block" disabled><?php echo COMMON_ADD_PLAYER_SUBMIT; ?> <span class="glyphicon glyphicon-save"></span></button>
 				</div>  
 			</div>
 		</form>	

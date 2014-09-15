@@ -12,10 +12,18 @@
 		}
 
 		public function getPlayerList(){
-			$sql = ("SELECT name, classe FROM players");
-			$req = $this->_connexion-> query($sql);
-			$rows = $req->fetchAll(PDO::FETCH_ASSOC);
+			$sql = $this->_connexion->prepare("SELECT name, classe FROM players");
+			$sql-> execute();
+			$rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 			$this->_players = $rows;
+		}
+
+		public function isPlayerExist($name){
+			$sql = $this->_connexion->prepare("SELECT name FROM players WHERE name = :name");
+			$sql-> bindParam('name', $name, PDO::PARAM_STR);
+			$sql-> execute();
+			$rows = $sql->fetchAll(PDO::FETCH_ASSOC);
+			return empty($rows);
 		}
 
 		public function getPlayerDispoList(){

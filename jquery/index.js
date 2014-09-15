@@ -50,6 +50,36 @@ function check(){
 	}
 }
 
+function pseudoCheck(){
+  var pseudo = $('#pseudo').val();
+  if (pseudo == "") {
+    $( "#addplayer" ).prop( "disabled", true );
+    $( '#chkimg' ).attr("src","style/images/default.png");
+  }else{
+    $.ajax({
+    url: "php/player.ajax.php",
+    type: "GET",
+    data: {key: pseudo},
+    dataType: "json",
+    success: function(response){
+      switch(response.status){
+        case 'success':
+          $( "#addplayer" ).prop( "disabled", false );
+          $( '#chkimg' ).attr("src","style/images/valide.png");
+          break;
+        case 'fail':
+          $( "#addplayer" ).prop( "disabled", true );
+          $( '#chkimg' ).attr("src","style/images/warning_orange.png");
+          break;
+        default:
+          alert("unknown response");
+      }  
+    }
+    });   
+  }
+
+}
+
 function createCookie(name,value,days) {
   if (days) {
     var date = new Date();
