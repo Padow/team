@@ -2,7 +2,9 @@
 class Etf2l extends Connexion{
 	public function __construct(){
 		$this->_connexion = parent::__construct();
-		$path = __DIR__."../../config/teamid.json";
+	    $path = __DIR__;
+	    $path = substr($path, 0, -3);
+	    $path .= "config/teamid.json";		
 		if (file_exists($path)) {
         	$array = json_decode(file_get_contents($path));
         	$etf2lteamid = $array->{'team'}->{'id'};
