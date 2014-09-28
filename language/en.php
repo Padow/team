@@ -76,7 +76,7 @@ define("COMMON_DELETE_PLAYER_SUBMIT", "Remove");
 define("COMMON_ADD_LEAGUE_LEGEND", "Add league");
 define("COMMON_ADD_LEAGUE_NAME", "League's name");
 define("COMMON_ADD_LEAGUE_SUBMIT", "Add");
-define("COMMON_DELETE_LEAGUE_LEGEND", "Add league");
+define("COMMON_DELETE_LEAGUE_LEGEND", "Remove league");
 define("COMMON_DELETE_LEAGUE_LIST", "Leagues list");
 define("COMMON_DELETE_LEAGUE_SUBMIT", "Remove");
 define("COMMON_ADD_MAP_LEGEND", "Add map");
