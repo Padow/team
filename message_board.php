@@ -104,8 +104,12 @@
         <div id="query2"></div>
         <?php  
           $messages->getMessages($_GET['page'], $_SESSION['logged']['name'], CLASS_MESSAGE_QUOTED);
-          if(isset($_POST['send'])){
-            $messages->setMessage($_SESSION['logged']['name'], $_POST['comment']);
+          if (isset($_POST['send'])) {
+            if (!preg_match("/\S/", $_POST['comment'])) {
+              $error = 'Le message ne peut être vide.';   
+            } else {
+              $messages->setMessage($_SESSION['logged']['name'], $_POST['comment']);
+            }
           }
         ?>
       </div>
@@ -115,6 +119,13 @@
         ?>
       </div>
       <div class="col-md-12">
+        <?php if (isset($error)) { ?>
+        <div class="alert alert-warning alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span><span class="sr-only">Close</span></button>
+          <p><strong>Attention !</strong><p>
+          <p><?php echo $error; ?></p>
+        </div>
+        <?php } ?>
         <div class="col-md-12 btstyle">    
           <button title="<?php echo MESSAGE_BOLD; ?>" onclick="formatText(form_Commentaire,'b','b')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-bold"></span> </button>
           <button title="<?php echo MESSAGE_ITALIC; ?>" onclick="formatText(form_Commentaire,'i','i')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-italic"></span> </button>
@@ -127,7 +138,7 @@
 
         <form method="post">
           <div class="col-md-12 no-padd">
-            <textarea id="form_Commentaire" class="textarea" wrap="soft" name="comment" required></textarea>
+            <textarea id="form_Commentaire" class="textarea form-control" wrap="soft" name="comment" required></textarea>
           </div>
 
           <div class="col-md-3 no-padd">
