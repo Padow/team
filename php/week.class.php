@@ -56,4 +56,3 @@ class Weeks{
 		return $this->_weeks;
 	}
 }
-?>

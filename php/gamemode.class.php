@@ -114,5 +114,3 @@ class Game_mode{
 
 
 }	
-
-?>

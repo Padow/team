@@ -30,5 +30,3 @@ class Connexion{
 		return $this->_connexion;
 	}
 }	
-
-?>

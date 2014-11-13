@@ -112,4 +112,3 @@ class Etf2l extends Connexion{
 		}
 	}
 }
-?>

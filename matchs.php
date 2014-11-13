@@ -175,12 +175,38 @@
 			</form>	
 			<?php  
 				if(isset($_POST['save'])){
-					$list = array('date'=>$_POST['date'], 'time'=>$_POST['time'], 'league'=>$_POST['league'], 'team'=>$_POST['team'], 'map1'=>$_POST['map1'], 'map2'=>$_POST['map2']);
-					$match = new Match();
-					$match->setMatch($list);
+					$error = "";
+					if (!preg_match("/\S/", $_POST['date'])) {
+                        $error .= '<ul>Veuillez sélectionner une date.</ul>';   
+                    }
+                    if (!preg_match("/\S/", $_POST['time'])) {
+                        $error .= '<ul>Veuillez sélectionner une heure.</ul>';   
+                    } 
+                    if (!preg_match("/\S/", $_POST['league'])) {
+                        $error .= '<ul>Veuillez sélectionner une league.</ul>';   
+                    }
+                    if (!preg_match("/\S/", $_POST['team'])) {
+                        $error .= '<ul>Veuillez saisir une team.</ul>';   
+                    }
+                    if (!preg_match("/\S/", $_POST['map1'])) {
+                        $error .= '<ul>Veuillez sélectionner une map.</ul>';   
+                    }
+                    if (!isset($error)) {
+                    	$list = array('date'=>$_POST['date'], 'time'=>$_POST['time'], 'league'=>$_POST['league'], 'team'=>$_POST['team'], 'map1'=>$_POST['map1'], 'map2'=>$_POST['map2']);
+					    $match = new Match();
+					    $match->setMatch($list);
+                    }
+					
 				}
 			?>
 		</fieldset>
+		<?php if (isset($error)) { ?>
+        <div class="alert alert-warning alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span><span class="sr-only">Close</span></button>
+          <p><strong>Attention !</strong><p>
+          <p><?php echo $error; ?></p>
+        </div>
+        <?php } ?>
 		</div>
 		<div class="col-md-2">
 			&nbsp;

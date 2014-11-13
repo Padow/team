@@ -100,7 +100,11 @@
 <div class="container">
 	<?php  
 			if(isset($_POST['addplayer'])){
-				$playerObjet->addPlayer($_POST['pseudo']);
+				if (!preg_match("/\S/", $_POST['addplayer'])) {
+                    $error = 'Le nom du joueur ne peut être vide.';   
+                } else {
+				    $playerObjet->addPlayer($_POST['pseudo']);
+				}
 			}
 
 			if(isset($_POST['deleteplayer'])){
@@ -108,7 +112,11 @@
 			}
 
 			if(isset($_POST['addleague'])){
-				$settingObjet->addLeague($_POST['league']);
+				if (!preg_match("/\S/", $_POST['addleague'])) {
+                    $error = 'Le nom de la league ne peut être vide.';   
+                } else {
+				    $settingObjet->addLeague($_POST['league']);
+				}
 			}
 
 			if(isset($_POST['deleteleague'])){
@@ -116,14 +124,22 @@
 			}
 
 			if(isset($_POST['addmap'])){
-				$settingObjet->addMap($_POST['map']);
+				if (!preg_match("/\S/", $_POST['addmap'])) {
+                    $error = 'Le nom de la map ne peut être vide.';   
+                } else {
+				    $settingObjet->addMap($_POST['map']);
+				}
 			}
 
-			if(isset($_POST['deletemap'])){
-				$settingObjet->deleteMap($_POST['listmap']);
-			}
 	?>
 	<div class="col-md-12">
+		<?php if (isset($error)) { ?>
+        <div class="alert alert-warning alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span><span class="sr-only">Close</span></button>
+          <p><strong>Attention !</strong><p>
+          <p><?php echo $error; ?></p>
+        </div>
+        <?php } ?>
 	<div class="col-md-4">
 		<fieldset><legend class="legendh2"><?php echo COMMON_ADD_PLAYER_LEGEND; ?></legend>
 		<form method="post" role="form">
