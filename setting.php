@@ -100,7 +100,7 @@
 <div class="container">
 	<?php  
 			if(isset($_POST['addplayer'])){
-				if (!preg_match("/\S/", $_POST['addplayer'])) {
+				if (!preg_match("/\S/", $_POST['pseudo'])) {
                     $error = 'Le nom du joueur ne peut être vide.';   
                 } else {
 				    $playerObjet->addPlayer($_POST['pseudo']);
@@ -112,7 +112,7 @@
 			}
 
 			if(isset($_POST['addleague'])){
-				if (!preg_match("/\S/", $_POST['addleague'])) {
+				if (!preg_match("/\S/", $_POST['league'])) {
                     $error = 'Le nom de la league ne peut être vide.';   
                 } else {
 				    $settingObjet->addLeague($_POST['league']);
@@ -124,7 +124,7 @@
 			}
 
 			if(isset($_POST['addmap'])){
-				if (!preg_match("/\S/", $_POST['addmap'])) {
+				if (!preg_match("/\S/", $_POST['map'])) {
                     $error = 'Le nom de la map ne peut être vide.';   
                 } else {
 				    $settingObjet->addMap($_POST['map']);
