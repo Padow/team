@@ -114,7 +114,9 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="style/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-      load();
+      var lang = <?php if(isset($_SESSION['language'])){$sesslang = $_SESSION['language'];}else{$sesslang = "NULL";} echo '"'.$sesslang.'"'; ?>;
+      var name = <?php echo '"'.$_SESSION['logged']['name'].'"'; ?>;
+      loadin(lang, name);
     </script>
   </div>
     <div class="del"></div>

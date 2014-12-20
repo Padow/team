@@ -1,11 +1,9 @@
 <div class="container">
 <?php 
-    session_name('IDSESSION');
-    session_start();
-    if ((!isset($_SESSION['language'])) || (empty($_SESSION['language']))){
+    if ($_GET['sessionlang'] == "NULL"){
       require_once('../language/default.php');
     }else{
-      require_once('../language/'.$_SESSION['language'].'.php');
+      require_once('../language/'.$_GET['sessionlang'].'.php');
     }
 
     require_once('pdo.class.php');
@@ -16,7 +14,9 @@
     require_once('server.class.php');
     require_once('gamemode.class.php');
     
-    $logged = $_SESSION['logged']['name'];
+    $logged = $_GET['sessionlog'];
+    $sesslang = "'".$_GET['sessionlang']."'";
+    $sessname = "'".$_GET['sessionlog']."'";
     $connexion = new Connexion();
     $playerList = new Players($connexion->getConnexion());
     $playerList->getPlayerList();
@@ -207,9 +207,9 @@
   										echo '<td class="white">';
   									}	
       								echo '
-      								<button onClick="SetDispo(this.id);" id="'.htmlspecialchars($nameButton).'@'.htmlspecialchars($idDate).'#oui" class="btn btn-default btn-success btn-xs"><span class="glyphicon glyphicon-ok-sign"></span></button> 
-      								<button onClick="SetDispo(this.id);" id="'.htmlspecialchars($nameButton).'@'.htmlspecialchars($idDate).'#non" class="btn btn-default btn-danger btn-xs"><span class="glyphicon glyphicon-remove-sign"></span></button> 
-      								<button onClick="SetDispo(this.id);" id="'.htmlspecialchars($nameButton).'@'.htmlspecialchars($idDate).'#idk" class="btn btn-default btn-info btn-xs"><span class="glyphicon glyphicon-question-sign"></span></button></td>';
+      								<button onClick="SetDispo(this.id, '.$sesslang.', '.$sessname.' );" id="'.htmlspecialchars($nameButton).'@'.htmlspecialchars($idDate).'#oui" class="btn btn-default btn-success btn-xs"><span class="glyphicon glyphicon-ok-sign"></span></button> 
+      								<button onClick="SetDispo(this.id, '.$sesslang.', '.$sessname.');" id="'.htmlspecialchars($nameButton).'@'.htmlspecialchars($idDate).'#non" class="btn btn-default btn-danger btn-xs"><span class="glyphicon glyphicon-remove-sign"></span></button> 
+      								<button onClick="SetDispo(this.id, '.$sesslang.', '.$sessname.');" id="'.htmlspecialchars($nameButton).'@'.htmlspecialchars($idDate).'#idk" class="btn btn-default btn-info btn-xs"><span class="glyphicon glyphicon-question-sign"></span></button></td>';
 
                   }
   							}

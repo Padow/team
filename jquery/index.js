@@ -1,10 +1,10 @@
-function SetDispo(id){
+function SetDispo(id, language, name){
   $.ajax({
           url: "php/dispo.php",
           type: "GET",
           data: {key: id},
           success: function(){
-                    load();
+                    loadin(language, name);
                    }
      });
 }
@@ -37,8 +37,8 @@ function suppr(id, mess){
   
 }
 
-function load(){
-  $('#query').load('php/container.php').fadeIn("slow");
+function loadin(language, name){
+  $('#query').load('php/container.php?sessionlang='+language+'&sessionlog='+name).fadeIn("slow");
 }
 
 
