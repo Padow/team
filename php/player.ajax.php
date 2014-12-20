@@ -2,7 +2,8 @@
 	require_once('pdo.class.php');
 	require_once('player.class.php');
 	$name = urldecode($_GET['key']);
-	$p = new Players();
+	$connexion = new Connexion();
+	$p = new Players($connexion->getConnexion());
 	$return_arr["status"] = ($p->isPlayerExist($name))?"success":"fail";
     echo json_encode($return_arr);
     exit();

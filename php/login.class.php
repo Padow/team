@@ -1,14 +1,15 @@
 <?php
 
 	require_once('secure.class.php');
-	class Login extends Connexion{
+	class Login{
 
 		private $_players;
 		private $_encrypt;
+		private $_connexion; 
 
-		public function __construct()
+		public function __construct($connexion)
 		{
-			$this->_connexion = parent::__construct();
+			$this->_connexion = $connexion;
 		}
 
 		public function checkPlayers(){

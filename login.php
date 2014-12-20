@@ -40,6 +40,7 @@
     require_once('php/login.class.php');
     require_once('php/links.class.php');
     require_once('php/language.class.php');
+    $connexion = new Connexion();
   ?>
 <div class="wrap">
   <div class="content">
@@ -83,9 +84,9 @@
 
     <div class="container">
     <?php 
-      $lang = new Language();
+      $lang = new Language($connexion->getConnexion());
 
-      $login = new Login();
+      $login = new Login($connexion->getConnexion());
       $login->checkRemind();
     	if(isset($_POST['login'])){	
     		

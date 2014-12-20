@@ -1,15 +1,16 @@
 <?php  
-	class Message extends Connexion{
+	class Message{
 
 		private $_word;
 		private $_numMess;
 		private $_page;
 		private $_lastid;
 		private $_quote;
+		private $_connexion; 
 
-		public function __construct()
+		public function __construct($connexion)
 		{
-			$this->_connexion = parent::__construct();
+			$this->_connexion = $connexion;
 		}
 
 		public function setMessage($name, $message){

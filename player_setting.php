@@ -54,13 +54,14 @@
   	require_once('php/gamemode.class.php');
   	require_once('php/message.class.php');
   	require_once('php/language.class.php');
-    $messages = new Message();
+  	$connexion = new Connexion();
+    $messages = new Message($connexion->getConnexion());
     $page = $messages->nbpage();
 
-    $lang = new Language();
-	$playerObjet = new Players();
-	$settingObjet = new Setting();
-	$matchObjet = new Match();
+    $lang = new Language($connexion->getConnexion());
+	$playerObjet = new Players($connexion->getConnexion());
+	$settingObjet = new Setting($connexion->getConnexion());
+	$matchObjet = new Match($connexion->getConnexion());
 	$gamemode = new Game_mode();
 	$gm = $gamemode->getmode();
 	

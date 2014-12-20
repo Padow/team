@@ -49,7 +49,8 @@
   	require_once('php/pdo.class.php');
     require_once('php/links.class.php');
     require_once('php/message.class.php');
-    $messages = new Message();
+    $connexion = new Connexion();
+    $messages = new Message($connexion->getConnexion());
     $page = $messages->nbpage();
     $messages->lastmess($_SESSION['logged']['name']);
 

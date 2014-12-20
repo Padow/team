@@ -11,8 +11,8 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Dumping database structure for dispo
-CREATE DATABASE IF NOT EXISTS `dispo` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `dispo`;
+-- CREATE DATABASE IF NOT EXISTS `dispo` /*!40100 DEFAULT CHARACTER SET latin1 */;
+-- USE `dispo`;
 
 
 -- Dumping structure for table dispo.dispo

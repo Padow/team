@@ -2,6 +2,7 @@
 	require_once('pdo.class.php');
 	require_once('dispo.class.php');
 	$key = $_GET['key'];
-	$dispoObjet = new Dispo();
+	$connexion = new Connexion();
+	$dispoObjet = new Dispo($connexion->getConnexion());
 	$dispoObjet->setDispo($key);
 ?>

@@ -17,9 +17,9 @@
     require_once('gamemode.class.php');
     
     $logged = $_SESSION['logged']['name'];
-
-  $playerList = new Players();
-  $playerList->getPlayerList();
+    $connexion = new Connexion();
+    $playerList = new Players($connexion->getConnexion());
+    $playerList->getPlayerList();
   
   //check if at least one player exist
   if($playerList->getPlayersname() == null){
@@ -35,10 +35,10 @@
   }
   // end if no one player exist
 
-  $playerListDispo = new Players();
+  $playerListDispo = new Players($connexion->getConnexion());
   $playerListDispo->getPlayerDispoList();
 
-  $dispoObjet = new Dispo();
+  $dispoObjet = new Dispo($connexion->getConnexion());
   $dispoObjet->getDispoList(); 
 
   $days_of_the_week = array(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY);
@@ -47,7 +47,7 @@
   $dayList2 = new Weeks($days_of_the_week);
   $dayTr = new Weeks($days_of_the_week);
 
-  $match = new Match();
+  $match = new Match($connexion->getConnexion());
   $match->getMatchList();
 
   $gamemode = new Game_mode();

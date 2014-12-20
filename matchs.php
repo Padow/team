@@ -54,10 +54,11 @@
   	require_once('php/match.class.php');
   	require_once('php/links.class.php');
   	require_once('php/message.class.php');
-    $messages = new Message();
+  	$connexion = new Connexion();
+    $messages = new Message($connexion->getConnexion());
     $page = $messages->nbpage();
 
-	$matchObjet = new Match();
+	$matchObjet = new Match($connexion->getConnexion());
   ?>
 <div class="wrap">
   <div class="content">
@@ -194,8 +195,8 @@
                     }
                     if (!$error) {
                     	$list = array('date'=>$_POST['date'], 'time'=>$_POST['time'], 'league'=>$_POST['league'], 'team'=>$_POST['team'], 'map1'=>$_POST['map1'], 'map2'=>$_POST['map2']);
-					    $match = new Match();
-					    $match->setMatch($list);
+					    // $match = new Match($connexion);
+					    $matchObjet->setMatch($list);
                     }
 					
 				}
@@ -241,8 +242,8 @@
 			<?php 
 				if(isset($_POST['delete'])){
 					$list = $_POST['matchdel'];
-					$match = new Match();
-					$match->DelMatch($list);
+					// $match = new Match();
+					$matchObjet->DelMatch($list);
 				}
 			?>
 		</fieldset>

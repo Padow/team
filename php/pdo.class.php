@@ -27,6 +27,9 @@ class Connexion{
 			echo '<div class="alert alert-danger"><strong>Warning!</strong> Database is not configured please watch : "'.CONFIG.'"</div>';
 			die();
 		}
+	}
+
+	public function getConnexion(){
 		return $this->_connexion;
 	}
 }	

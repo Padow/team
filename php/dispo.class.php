@@ -1,5 +1,5 @@
 <?php  
-	class Dispo extends Connexion{
+	class Dispo{
 		
 		private $_dispo;
 		private $_nbdispo;
@@ -11,9 +11,9 @@
 		private $_clee;
 		private $_lastclasse;
 
-		public function __construct()
+		public function __construct($connexion)
 		{
-			$this->_connexion  = parent::__construct();
+			$this->_connexion  = $connexion;
 			$date = date("Y-m-d");
 			$sql = $this->_connexion->prepare("DELETE FROM dispo WHERE date < :date");
 			$sql-> bindParam('date', $date, PDO::PARAM_STR);

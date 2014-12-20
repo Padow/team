@@ -48,12 +48,13 @@
   	require_once('php/setting.class.php');
   	require_once('php/links.class.php');
   	require_once('php/message.class.php');
-    $messages = new Message();
+  	$connexion = new Connexion();
+    $messages = new Message($connexion->getConnexion());
     $page = $messages->nbpage();
 
-	$playerObjet = new Players();
-	$settingObjet = new Setting();
-	$matchObjet = new Match();
+	$playerObjet = new Players($connexion->getConnexion());
+	$settingObjet = new Setting($connexion->getConnexion());
+	$matchObjet = new Match($connexion->getConnexion());
 	
 ?>
 <div class="wrap">
@@ -128,6 +129,14 @@
                     $error = 'Le nom de la map ne peut être vide.';   
                 } else {
 				    $settingObjet->addMap($_POST['map']);
+				}
+			}
+
+			if(isset($_POST['deletemap'])){
+				if (!preg_match("/\S/", $_POST['listmap'])) {
+                    $error = 'Le nom de la map ne peut être vide.';   
+                } else {
+				    $settingObjet->deleteMap($_POST['listmap']);
 				}
 			}
 

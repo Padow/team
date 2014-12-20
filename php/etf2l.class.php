@@ -1,7 +1,9 @@
 <?php 
-class Etf2l extends Connexion{
-	public function __construct(){
-		$this->_connexion = parent::__construct();
+class Etf2l{
+	private $_connexion; 
+	
+	public function __construct($connexion){
+		$this->_connexion = $connexion;
 	    $path = __DIR__;
 	    $path = substr($path, 0, -3);
 	    $path .= "config/teamid.json";		

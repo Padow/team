@@ -1,11 +1,12 @@
 <?php 
 
-	class Language extends Connexion{
+	class Language{
 		private $_options;
+		private $_connexion; 
 		
-		public function __construct()
+		public function __construct($connexion)
 		{
-			$this->_connexion = parent::__construct();
+			$this->_connexion = $connexion;
 		}
 
 		public function encrypt($data) {

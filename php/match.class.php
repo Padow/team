@@ -1,5 +1,5 @@
 <?php
-	class Match extends Connexion{
+	class Match{
 
 		private $_connexion;
 		private $_map;
@@ -7,9 +7,9 @@
 		private $_date;
 		private $_match;
 
-		public function __construct()
+		public function __construct($connexion)
 		{
-			$this->_connexion = parent::__construct();
+			$this->_connexion = $connexion;
 		}
 
 		public function getMapList(){
