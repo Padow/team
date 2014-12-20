@@ -4,7 +4,7 @@
   session_start();
   if ((!isset($_SESSION['logged'])) || (empty($_SESSION['logged'])))
   { 
-    header ("location: login.php");
+    header ("location: login");
   }
   if ((!isset($_SESSION['language'])) || (empty($_SESSION['language']))){
     require_once('language/default.php');
@@ -76,23 +76,23 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><a href="./"><span class="glyphicon glyphicon-list"></span> <?php echo MENU_DISPO; ?></a></li>
-          <li><a href="matchs.php"><span class="glyphicon glyphicon-wrench"></span> <?php echo MENU_MATCHS; ?></a></li>
+          <li><a href="matchs"><span class="glyphicon glyphicon-wrench"></span> <?php echo MENU_MATCHS; ?></a></li>
            <li class="dropdown active">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> <?php echo MENU_OPTIONS; ?> <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="setting.php">&rsaquo; <?php echo MENU_COMMONS; ?></a></li>
-              <li><a href="player_setting.php">&rsaquo; <?php echo MENU_PLAYER; ?></a></li>
+              <li><a href="setting">&rsaquo; <?php echo MENU_COMMONS; ?></a></li>
+              <li><a href="player_setting">&rsaquo; <?php echo MENU_PLAYER; ?></a></li>
             </ul>
           </li>
-          <li><a href="message_board.php?page=<?php echo $page; ?>"><span class="glyphicon glyphicon-comment"></span> <?php echo MENU_MESSAGES; ?> <?php $messages->newMessage($_SESSION['logged']['name']); ?></a></li>
+          <li><a href="message_board?page=<?php echo $page; ?>"><span class="glyphicon glyphicon-comment"></span> <?php echo MENU_MESSAGES; ?> <?php $messages->newMessage($_SESSION['logged']['name']); ?></a></li>
           <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> <?php echo MENU_HISTORIC; ?> <b class="caret"></b></a>
           <ul class="dropdown-menu">
-              <li><a href="historic.php">&rsaquo; <?php echo MENU_ADD; ?></a></li>
-              <li><a href="historic_view.php">&rsaquo; <?php echo MENU_VIEW; ?></a></li>
+              <li><a href="historic">&rsaquo; <?php echo MENU_ADD; ?></a></li>
+              <li><a href="historic_view">&rsaquo; <?php echo MENU_VIEW; ?></a></li>
           </ul>
           </li>
-          <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> <?php echo MENU_LOGOUT; ?></a></li>
+          <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> <?php echo MENU_LOGOUT; ?></a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
