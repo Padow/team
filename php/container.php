@@ -177,7 +177,7 @@
                     second col
                 */
                 $tempdate =explode("/", $idDate);
-                $dateday = $tempdate[2].'-'.$tempdate[1].'-;'.$tempdate[0];
+                $dateday = $tempdate[2].'-'.$tempdate[1].'-'.$tempdate[0];
                 $dispoObjet->getNbDispo($dateday);
                 $nbd = $dispoObjet->getNumDispo();
                 if($gm == "9v9")
