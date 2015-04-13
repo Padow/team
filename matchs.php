@@ -158,7 +158,7 @@
 					</div>  
 					<div class="col-md-6"> 
 						<label class="control-label"><?php echo MATCHS_MAP2; ?></label>
-						<select name="map2" class="form-control selectpicker" required>
+						<select name="map2" class="form-control selectpicker">
 							<option></option>
 							<?php  
 								foreach ($matchObjet->getMap() as  $value) {
@@ -193,9 +193,13 @@
                     if (!preg_match("/\S/", $_POST['map1'])) {
                         $error .= '<ul>Veuillez sélectionner une map.</ul>';   
                     }
+                    if (!$_POST['map2']) {
+                    	$map2 = NULL;
+                    }else{
+                    	$map2 = $_POST['map2'];
+                    }
                     if (!$error) {
-                    	$list = array('date'=>$_POST['date'], 'time'=>$_POST['time'], 'league'=>$_POST['league'], 'team'=>$_POST['team'], 'map1'=>$_POST['map1'], 'map2'=>$_POST['map2']);
-					    // $match = new Match($connexion);
+                    	$list = array('date'=>$_POST['date'], 'time'=>$_POST['time'], 'league'=>$_POST['league'], 'team'=>$_POST['team'], 'map1'=>$_POST['map1'], 'map2'=>$map2);
 					    $matchObjet->setMatch($list);
                     }
 					

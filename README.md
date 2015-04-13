@@ -6,6 +6,8 @@ Team dispo is an app to set TF2 player disponibility
   - 6vs6
   - 9vs9
 
+  - Counter Strike 5v5
+
 Version
 ----
 

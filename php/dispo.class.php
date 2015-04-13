@@ -236,6 +236,10 @@
 			return $this->_lastclasse;
 		}
 
+		public function lastCs($array, $allPlayer){
+			return false;
+		}
+
 
 
 		public function getDispo(){

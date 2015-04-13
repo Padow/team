@@ -112,5 +112,23 @@ class Game_mode{
 	    }
 	}
 
+	public function num5v5($nbd){
+		if ($nbd < 2) {
+	      echo '<td class="white"><span class="badge nbd">'.$nbd.'</span></td>';
+	    }
+	    if (($nbd > 1) && ($nbd < 3)) {
+	      echo '<td class="nb1"><span class="badge nbd">'.$nbd.'</span></td>';
+	    }
+	    if (($nbd > 2) && ($nbd < 4)) {
+	      echo '<td class="nb2"><span class="badge nbd">'.$nbd.'</span></td>';
+	    }
+	    if (($nbd > 3) && ($nbd < 5)) {
+	      echo '<td class="nb3"><span class="badge nbd">'.$nbd.'</span></td>';
+	    }
+	    if ($nbd > 4 ) {
+	     echo '<td class="war"><span class="badge nbd">'.$nbd.'</span></td>';
+	    }
+	}
+
 
 }	

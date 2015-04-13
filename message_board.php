@@ -19,7 +19,6 @@
     require_once('language/'.$_SESSION['language'].'.php');
   }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
   <head>

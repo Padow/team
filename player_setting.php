@@ -268,6 +268,7 @@
 	<div class="col-md-2">
 		&nbsp;
 	</div>
+	<?php if($gm != "cs") {?>
 	<div class="col-md-5">
 		<fieldset><legend class="legendh2"><?php echo PLAYER_CLASS_LEGEND; ?></legend>
 		<form method="post" role="form">
@@ -278,6 +279,8 @@
 						    <?php 
 						    	if($gm == "9v9")
 						    		$gamemode->classe9v9();
+						    	elseif($gm == "cs")
+						    		$gamemode->classeCS();
 						    	else
 						    		$gamemode->classe6v6();
 						     ?>
@@ -293,6 +296,7 @@
 		</form>
 		</fieldset>
 	</div>
+	<?php } ?>
 	<div class="col-md-2">
 		&nbsp;
 	</div>

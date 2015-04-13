@@ -137,10 +137,14 @@
               */
   						foreach ($playerList->getPlayersname() as $value) {
                 if(strtoupper($logged) == strtoupper($value['name'])){
-                  if($value['classe'] == ""){
-                    $value['classe'] = "last";
+                  if($gm != "cs"){
+                    if($value['classe'] == ""){
+                      $value['classe'] = "last";
+                    }
+                    echo '<th class="th_dispo"><img class="classe_icon" src="style/classes/'.$value['classe'].'.png" alt=""> '.htmlspecialchars($value['name']).'</th>';
+                  }else{
+                    echo '<th class="th_dispo">'.htmlspecialchars($value['name']).'</th>';
                   }
-                  echo '<th class="th_dispo"><img class="classe_icon" src="style/classes/'.$value['classe'].'.png" alt=""> '.htmlspecialchars($value['name']).'</th>';
                 }     
   						}
               /**
@@ -148,10 +152,14 @@
               */
               foreach ($playerList->getPlayersname() as $value) {
                 if(strtoupper($logged) != strtoupper($value['name'])){
-                  if($value['classe'] == ""){
-                    $value['classe'] = "last";
+                  if($gm != "cs"){
+                    if($value['classe'] == ""){
+                      $value['classe'] = "last";
+                    }
+                    echo '<th class="th_dispo"><img class="classe_icon" src="style/classes/'.$value['classe'].'.png" alt=""> '.htmlspecialchars($value['name']).'</th>';
+                  }else{
+                    echo '<th class="th_dispo">'.htmlspecialchars($value['name']).'</th>';
                   }
-                  echo '<th class="th_dispo"><img class="classe_icon" src="style/classes/'.$value['classe'].'.png" alt=""> '.htmlspecialchars($value['name']).'</th>';
                 }
               }
 /**
@@ -182,6 +190,8 @@
                 $nbd = $dispoObjet->getNumDispo();
                 if($gm == "9v9")
                   $gamemode->num9v9($nbd);
+                elseif($gm == "cs")
+                  $gamemode->num5v5($nbd);
                 else
                   $gamemode->num6v6($nbd);
   							
@@ -297,6 +307,8 @@
             $allPlayer = $playerList->getPlayersname();
             if($gm == "9v9")
               $last = $nbdispo->last9v9($listejoueur, $allPlayer);
+            elseif($gm == "cs")
+              $last = $nbdispo->lastCs($listejoueur, $allPlayer);
             else
               $last = $nbdispo->last6v6($listejoueur, $allPlayer);
             /**
@@ -322,7 +334,12 @@
                     <?php 
                       echo '<p class="infomatch"><strong>'.DISPO_LEAGUE.' : </strong>'.htmlspecialchars($value['league']).'</p>';
                       echo '<p class="infomatch"><strong>'.DISPO_TEAM.' : </strong>'.htmlspecialchars($value['team']).'</p>';
-                      echo '<p class="infomatch"><strong>'.DISPO_MAPS.' : </strong>'.htmlspecialchars($value['map1']).' / '.htmlspecialchars($value['map2']).'</p>';
+                      if($value['map2']){
+                        echo '<p class="infomatch"><strong>'.DISPO_MAPS.' : </strong>'.htmlspecialchars($value['map1']).' / '.htmlspecialchars($value['map2']).'</p>';
+                      }else{
+                        echo '<p class="infomatch"><strong>'.DISPO_MAPS.' : </strong>'.htmlspecialchars($value['map1']).'</p>';
+                      }
+
                       echo '<p class="infomatch"><strong>'.DISPO_PLAYERS.'('.$nb.') : </strong>';
                       foreach ($listejoueur as $pseudodsip) {
                         if ($pseudodsip === end($listejoueur))
@@ -365,7 +382,11 @@
                     <?php 
                       echo '<p class="infomatch"><strong>'.DISPO_LEAGUE.' : </strong>'.htmlspecialchars($value['league']).'</p>';
                       echo '<p class="infomatch"><strong>'.DISPO_TEAM.' : </strong>'.htmlspecialchars($value['team']).'</p>';
-                      echo '<p class="infomatch"><strong>'.DISPO_MAPS.' : </strong>'.htmlspecialchars($value['map1']).' / '.htmlspecialchars($value['map2']).'</p>';
+                      if($value['map2']){
+                        echo '<p class="infomatch"><strong>'.DISPO_MAPS.' : </strong>'.htmlspecialchars($value['map1']).' / '.htmlspecialchars($value['map2']).'</p>';
+                      }else{
+                        echo '<p class="infomatch"><strong>'.DISPO_MAPS.' : </strong>'.htmlspecialchars($value['map1']).'</p>';
+                      }
                       echo '<p class="infomatch"><strong>'.DISPO_PLAYERS.'('.$nb.') : </strong>';
                       foreach ($listejoueur as $pseudodsip) {
                         if ($pseudodsip === end($listejoueur))
