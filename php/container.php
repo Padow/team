@@ -239,7 +239,11 @@
                       {
                         echo '<td class="green"></td>';
                       }if($dispoList[$comp]=="non"){
-                        echo '<td class="red2"><img class="classe_icon" src="style/classes/'.$value['classe'].'.png" alt=""></td>';
+                        if($gm != "cs"){
+                          echo '<td class="red2"><img class="classe_icon" src="style/classes/'.$value['classe'].'.png" alt=""></td>';
+                        }else{
+                          echo '<td class="red2"></td>';
+                        }
                       }if($dispoList[$comp]=="idk"){
                         echo '<td class="blue"></td>';
                       }
