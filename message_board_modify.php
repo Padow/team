@@ -94,10 +94,22 @@
 
     <div class="container">
       <?php 
+        // $forbiden = false;
         $quote = $messages->quote($_GET['id']);
         $mess = $quote[0]['message']; 
+        
         $message = str_replace("[br/]","\r",$mess);
         $message = str_replace("\r","",$message);
+        if($quote[0]['name'] != $_SESSION['logged']['name']){
+          $forbiden = "you are not allowed to modify this message";
+      ?>
+        <div class="alert alert-warning alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span><span class="sr-only">Close</span></button>
+          <p><strong>Attention !</strong><p>
+          <p><?php echo $forbiden; ?></p>
+        </div>
+      <?php
+        }
         if(isset($_POST['send'])){
           if (!preg_match("/\S/", $_POST['comment'])) {
               $error = 'Le message ne peut être vide.';   
@@ -114,6 +126,7 @@
           <p><?php echo $error; ?></p>
         </div>
         <?php } ?>
+        <?php if(!$forbiden){ ?>
         <div class="col-md-12 btstyle">    
           <button title="<?php echo MESSAGE_BOLD; ?>" onclick="formatText(form_Commentaire,'b','b')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-bold"></span> </button>
           <button title="<?php echo MESSAGE_ITALIC; ?>" onclick="formatText(form_Commentaire,'i','i')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-italic"></span> </button>
@@ -123,7 +136,7 @@
           <button title="<?php echo MESSAGE_LINK; ?>" onclick="formatText(form_Commentaire,'url','url')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-link"></span> </button>
           <button title="<?php echo MESSAGE_QUOTE_FORM; ?>" onclick="formatText(form_Commentaire,'quote','quote')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-comment"></span> </button>
         </div>
-
+        
         <form method="post">
           <div class="col-md-12 no-padd">
             <textarea id="form_Commentaire" class="textarea long form-control" wrap="soft" name="comment"  required><?php echo $message; ?></textarea>
@@ -134,6 +147,7 @@
           </div>
 
         </form>
+        <?php } ?>
       </div>
     </div>
   </div>
