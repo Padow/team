@@ -141,6 +141,8 @@ define("MESSAGE_ITALIC", "Курсив");
 define("MESSAGE_IMAGE", "Вставить картину");
 define("MESSAGE_LINK", "Вставить связку");
 define("MESSAGE_QUOTE_FORM", "Вставить цитату");
+define("MESSAGE_FORBIDEN", "You're not allowed to modify this message");
+define("MESSAGE_ERROR", "The message cannot be empty");
 define("CLASS_MESSAGE_MODIFY", "Изменить");
 define("CLASS_MESSAGE_QUOTE", "Цитировать");
 define("CLASS_MESSAGE_TODAY", "Сегодня");

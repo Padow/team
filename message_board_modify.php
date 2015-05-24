@@ -94,36 +94,37 @@
 
     <div class="container">
       <?php 
-        // $forbiden = false;
+        $forbiden = false;
         $quote = $messages->quote($_GET['id']);
         $mess = $quote[0]['message']; 
         
         $message = str_replace("[br/]","\r",$mess);
         $message = str_replace("\r","",$message);
         if($quote[0]['name'] != $_SESSION['logged']['name']){
-          $forbiden = "you are not allowed to modify this message";
+          $forbiden = true;
       ?>
         <div class="alert alert-warning alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span><span class="sr-only">Close</span></button>
           <p><strong>Attention !</strong><p>
-          <p><?php echo $forbiden; ?></p>
+          <p><?php echo MESSAGE_FORBIDEN; ?></p>
         </div>
       <?php
         }
         if(isset($_POST['send'])){
+          $error = false;
           if (!preg_match("/\S/", $_POST['comment'])) {
-              $error = 'Le message ne peut être vide.';   
+              $error = true;   
             } else {
               $messages->modifyMessage($_SESSION['logged']['name'], $_POST['comment'], $_GET['id'], $_GET['page']);
             } 
         }
       ?>
       <div class="col-md-12">
-        <?php if (isset($error)) { ?>
+        <?php if ($error) { ?>
         <div class="alert alert-warning alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span><span class="sr-only">Close</span></button>
           <p><strong>Attention !</strong><p>
-          <p><?php echo $error; ?></p>
+          <p><?php echo MESSAGE_ERROR; ?></p>
         </div>
         <?php } ?>
         <?php if(!$forbiden){ ?>

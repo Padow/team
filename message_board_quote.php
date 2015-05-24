@@ -103,19 +103,20 @@
         $value .= $message;
         $value .= "[/quote]";
         if(isset($_POST['send'])){
+          $error = false;
           if (!preg_match("/\S/", $_POST['comment'])) {
-              $error = 'Le message ne peut être vide.';   
+              $error = true;   
           } else {
             $messages->setMessage($_SESSION['logged']['name'], $_POST['comment']);
           }
         }
       ?>
       <div class="col-md-12">
-        <?php if (isset($error)) { ?>
+        <?php if ($error) { ?>
         <div class="alert alert-warning alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span><span class="sr-only">Close</span></button>
           <p><strong>Attention !</strong><p>
-          <p><?php echo $error; ?></p>
+          <p><?php echo MESSAGE_ERROR; ?></p>
         </div>
         <?php } ?>
         <div class="col-md-12 btstyle">    

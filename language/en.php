@@ -140,6 +140,8 @@ define("MESSAGE_ITALIC", "Italic");
 define("MESSAGE_IMAGE", "Insert picture");
 define("MESSAGE_LINK", "Insert link");
 define("MESSAGE_QUOTE_FORM", "Insert quote");
+define("MESSAGE_FORBIDEN", "You're not allowed to modify this message");
+define("MESSAGE_ERROR", "The message cannot be empty");
 define("CLASS_MESSAGE_MODIFY", "Modify");
 define("CLASS_MESSAGE_QUOTE", "Quote");
 define("CLASS_MESSAGE_TODAY", "Today");

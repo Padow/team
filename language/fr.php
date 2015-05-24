@@ -140,6 +140,8 @@ define("MESSAGE_ITALIC", "Italique");
 define("MESSAGE_IMAGE", "Insérer une image");
 define("MESSAGE_LINK", "Insérer un lien");
 define("MESSAGE_QUOTE_FORM", "Insérer une citation");
+define("MESSAGE_FORBIDEN", "Vous n'êtes pas autorisé à modifier ce message");
+define("MESSAGE_ERROR", "Le message ne peut être vide");
 define("CLASS_MESSAGE_MODIFY", "Modifier");
 define("CLASS_MESSAGE_QUOTE", "Citer");
 define("CLASS_MESSAGE_TODAY", "Aujourd'hui");
