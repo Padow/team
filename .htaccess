@@ -2,13 +2,5 @@
 #	Rewriting
 #
 RewriteEngine On
-RewriteRule ^login$ login.php [L]
-RewriteRule ^matchs$ matchs.php [L]
-RewriteRule ^message_board$ message_board.php [L]
-RewriteRule ^message_board_modify$ message_board_modify.php [L]
-RewriteRule ^message_board_quote$ message_board_quote.php [L]
-RewriteRule ^historic$ historic.php [L]
-RewriteRule ^historic_view$ historic_view.php [L]
-RewriteRule ^setting$ setting.php [L]
-RewriteRule ^player_setting$ player_setting.php [L]
-RewriteRule ^logout$ logout.php [L]
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule !.*\.php$ %{REQUEST_FILENAME}.php [QSA,L]

@@ -60,11 +60,11 @@
   	require_once('php/historic.class.php');
   	require_once('php/message.class.php');
   	$connexion = new Connexion();
-    $messages = new Message($connexion->getConnexion());
+    $messages = new Message($connexion::getInstance());
     $page = $messages->nbpage();
 
-	$matchObjet = new Match($connexion->getConnexion());
-	$historic = new Historic($connexion->getConnexion());
+	$matchObjet = new Match($connexion::getInstance());
+	$historic = new Historic($connexion::getInstance());
   ?>
 <div class="wrap">
   <div class="content">

@@ -1,4 +1,4 @@
-<?php 
+<?php
   ob_start();
 	session_name('IDSESSION');
 	session_start();
@@ -35,7 +35,7 @@
   </head>
 <body>
 <div class="body">
-  <?php  
+  <?php
   	require_once('php/pdo.class.php');
     require_once('php/login.class.php');
     require_once('php/links.class.php');
@@ -83,19 +83,18 @@
   </nav>
 
     <div class="container">
-    <?php 
-      $lang = new Language($connexion->getConnexion());
-
-      $login = new Login($connexion->getConnexion());
+    <?php
+      $lang = new Language($connexion::getInstance());
+      $login = new Login($connexion::getInstance());
       $login->checkRemind();
-    	if(isset($_POST['login'])){	
-    		
+    	if(isset($_POST['login'])){
+
         if(isset($_POST["checkboxe"])){
           $remember = true;
         }else{
           $remember = false;
         }
-    		$login->checkLogin($_POST['pseudo'], $_POST['password'], $remember);		
+    		$login->checkLogin($_POST['pseudo'], $_POST['password'], $remember);
     	}
     ?>
 
@@ -104,7 +103,7 @@
           <label class="control-label langueselect"><?php echo LOGIN_LANGUAGE; ?></label>
           <select  id="languagesetting" class="languagesetting" onChange="setlanguage(this.id);">
             <option></option>
-            <?php $opt = $lang->getLanguage(); 
+            <?php $opt = $lang->getLanguage();
             foreach ($opt as $value) {
               echo $value;
             }
@@ -112,17 +111,17 @@
           </select>
         </div>
       </div>
-    
+
     <div class="col-md-4">
     	<fieldset><legend class="legendh2"><?php echo LOGIN_LEGEND; ?></legend>
     		<form method="post" role="form">
     			<div class="form-group row">
-    				<div class="col-md-12 padd"> 
+    				<div class="col-md-12 padd">
     					 <input type="text" class="form-control" pattern="^((?![#@;]).)*$" title="Caractères interdis: #@;" maxlength="20" placeholder="<?php echo LOGIN_PSEUDO; ?>" name="pseudo" autofocus required>
               <div class="padd">
                 <input type="password" name="password" class="form-control" placeholder="<?php echo LOGIN_PASSWORD; ?>" data-toggle="tooltip" title="Password par defaut = pseudo, /!\ sensible à la casse" required>
               </div>
-              
+
               <label class="checkbox-inline log2" for="checkboxes-0">
                 <input id="checkboxes-0" type="checkbox" name="checkboxe">
               </label>
@@ -132,12 +131,12 @@
       			</div>
     			</div>
     			<div class="form row">
-    				<div class="col-md-12"> 
+    				<div class="col-md-12">
     					<button name="login" type="submit" class="btn btn-default btn-primary btn-lg btn-block"><?php echo LOGIN_SUBMIT; ?> <span class="glyphicon glyphicon-log-in"></span></button>
-    				</div>  
+    				</div>
     			</div>
     		</form>
-    		</fieldset>	
+    		</fieldset>
     	</div>
     </div>
   </div>
@@ -145,11 +144,11 @@
     <div class="container">
       <div class="col-md-12 padd">
         <div class="col-md-8">
-        <?php  
+        <?php
           $links = new Links();
-        ?>  
+        ?>
         </div>
-        <div class="col-md-4 pull-right">  
+        <div class="col-md-4 pull-right">
           © 2014 <a href="http://steamcommunity.com/id/padow/" target="_blank">Padow</a>. All rights reserved.
         </div>
       </div>

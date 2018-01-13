@@ -1,9 +1,9 @@
-<?php 
+<?php
   ob_start();
   session_name('IDSESSION');
   session_start();
   if ((!isset($_SESSION['logged'])) || (empty($_SESSION['logged'])))
-  { 
+  {
     header ("location: login");
   }
   if ((!isset($_SESSION['language'])) || (empty($_SESSION['language']))){
@@ -40,14 +40,14 @@
   </head>
 <body>
 <div class="body">
-  <?php  
+  <?php
   	require_once('php/pdo.class.php');
     require_once('php/message.class.php');
     require_once('php/links.class.php');
     require_once('php/etf2l.class.php');
     $connexion = new Connexion();
-    $etf2l = new Etf2l($connexion->getConnexion());
-    $messages = new Message($connexion->getConnexion());
+    $etf2l = new Etf2l($connexion::getInstance());
+    $messages = new Message($connexion::getInstance());
     $page = $messages->nbpage();
 
   ?>
@@ -97,10 +97,10 @@
   <div class="bottompage">
     <div class="container">
       <div class="col-md-12 padd">
-        <div class="col-md-8">  
-        <?php  
+        <div class="col-md-8">
+        <?php
           $links = new Links();
-        ?> 
+        ?>
         </div>
         <div class="col-md-4 pull-right">
           © 2014 <a href="http://steamcommunity.com/id/padow/" target="_blank">Padow</a>. All rights reserved.

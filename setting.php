@@ -49,12 +49,12 @@
   	require_once('php/links.class.php');
   	require_once('php/message.class.php');
   	$connexion = new Connexion();
-    $messages = new Message($connexion->getConnexion());
+    $messages = new Message($connexion::getInstance());
     $page = $messages->nbpage();
 
-	$playerObjet = new Players($connexion->getConnexion());
-	$settingObjet = new Setting($connexion->getConnexion());
-	$matchObjet = new Match($connexion->getConnexion());
+	$playerObjet = new Players($connexion::getInstance());
+	$settingObjet = new Setting($connexion::getInstance());
+	$matchObjet = new Match($connexion::getInstance());
 	
 ?>
 <div class="wrap">

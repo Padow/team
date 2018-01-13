@@ -1,5 +1,5 @@
 <div class="container">
-<?php 
+<?php
     if ($_GET['sessionlang'] == "NULL"){
       require_once('../language/default.php');
     }else{
@@ -13,14 +13,14 @@
     require_once('match.class.php');
     require_once('server.class.php');
     require_once('gamemode.class.php');
-    
+
     $logged = $_GET['sessionlog'];
     $sesslang = "'".$_GET['sessionlang']."'";
     $sessname = "'".$_GET['sessionlog']."'";
     $connexion = new Connexion();
-    $playerList = new Players($connexion->getConnexion());
+    $playerList = new Players($connexion::getInstance());
     $playerList->getPlayerList();
-  
+
   //check if at least one player exist
   if($playerList->getPlayersname() == null){
     echo '
@@ -35,11 +35,11 @@
   }
   // end if no one player exist
 
-  $playerListDispo = new Players($connexion->getConnexion());
+  $playerListDispo = new Players($connexion::getInstance());
   $playerListDispo->getPlayerDispoList();
 
-  $dispoObjet = new Dispo($connexion->getConnexion());
-  $dispoObjet->getDispoList(); 
+  $dispoObjet = new Dispo($connexion::getInstance());
+  $dispoObjet->getDispoList();
 
   $days_of_the_week = array(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY);
 
@@ -47,7 +47,7 @@
   $dayList2 = new Weeks($days_of_the_week);
   $dayTr = new Weeks($days_of_the_week);
 
-  $match = new Match($connexion->getConnexion());
+  $match = new Match($connexion::getInstance());
   $match->getMatchList();
 
   $gamemode = new Game_mode();
@@ -66,7 +66,7 @@
   foreach ($dayList2->getWeeks() as $key => $value) {
     $dayList3[$key] = $value;
   }
-  
+
   // set array of dispo for each players for each programmable days
   foreach ($defaultDispo as $key => $value) {
     $idnom = $key;
@@ -83,7 +83,7 @@
     }
   }
 
-  // get each date where match is programmed 
+  // get each date where match is programmed
   if($match->getMatch() != null){
     foreach ($match->getMatch() as $key => $value) {
       $date = explode("-", $value['date']);
@@ -94,7 +94,7 @@
     $array_match = array("null");
   }
 
-  
+
   // get each setted dispo
   foreach ($dispoObjet->getDispo() as $value) {
       $dispoList[$value['clee']] = $value['dispo'];
@@ -131,7 +131,7 @@
 		    		<th class="th_dispo"><?php echo DISPO_DATE; ?></th>
             <th class="th_dispo"></th>
 		    		<?php
-              
+
               /**
                   logged player table headline
               */
@@ -145,7 +145,7 @@
                   }else{
                     echo '<th class="th_dispo">'.htmlspecialchars($value['name']).'</th>';
                   }
-                }     
+                }
   						}
               /**
                   other player table headline
@@ -165,7 +165,7 @@
 /**
     loop to build table cells
 */
-  						foreach ($dayList->getWeeks() as $key => $value) {	
+  						foreach ($dayList->getWeeks() as $key => $value) {
   							$idDate = $value;
                 /**
                     new row
@@ -194,7 +194,7 @@
                   $gamemode->num5v5($nbd);
                 else
                   $gamemode->num6v6($nbd);
-  							
+
                 /**
                     logged player cells
                     third col
@@ -215,10 +215,10 @@
   										}
   									}else{
   										echo '<td class="white">';
-  									}	
+  									}
       								echo '
-      								<button onClick="SetDispo(this.id, '.$sesslang.', '.$sessname.' );" id="'.htmlspecialchars($nameButton).'@'.htmlspecialchars($idDate).'#oui" class="btn btn-default btn-success btn-xs"><span class="glyphicon glyphicon-ok-sign"></span></button> 
-      								<button onClick="SetDispo(this.id, '.$sesslang.', '.$sessname.');" id="'.htmlspecialchars($nameButton).'@'.htmlspecialchars($idDate).'#non" class="btn btn-default btn-danger btn-xs"><span class="glyphicon glyphicon-remove-sign"></span></button> 
+      								<button onClick="SetDispo(this.id, '.$sesslang.', '.$sessname.' );" id="'.htmlspecialchars($nameButton).'@'.htmlspecialchars($idDate).'#oui" class="btn btn-default btn-success btn-xs"><span class="glyphicon glyphicon-ok-sign"></span></button>
+      								<button onClick="SetDispo(this.id, '.$sesslang.', '.$sessname.');" id="'.htmlspecialchars($nameButton).'@'.htmlspecialchars($idDate).'#non" class="btn btn-default btn-danger btn-xs"><span class="glyphicon glyphicon-remove-sign"></span></button>
       								<button onClick="SetDispo(this.id, '.$sesslang.', '.$sessname.');" id="'.htmlspecialchars($nameButton).'@'.htmlspecialchars($idDate).'#idk" class="btn btn-default btn-info btn-xs"><span class="glyphicon glyphicon-question-sign"></span></button></td>';
 
                   }
@@ -249,7 +249,7 @@
                       }
                     }else{
                       echo '<td class="white"></td>';
-                    }      
+                    }
                   }
                 }
 
@@ -268,9 +268,9 @@
                     foreach ($playerList->getPlayersname() as $value) {
                       echo '<td class="separateur"></td>'; // each player
                     }
-                    echo '</tr>'; 
+                    echo '</tr>';
                   }
-                
+
   						}
 
 		    		?>
@@ -278,14 +278,14 @@
 		</div>
    	</div>
     <div class="col-md-3">
-      <?php 
+      <?php
         /**
             check if matchs are programmed
         */
-        if($match->getMatch() != null){ 
+        if($match->getMatch() != null){
       ?>
       <div class="panel-group" id="accordion">
-    	<?php  
+    	<?php
         $nbdispo = $dispoObjet;
         $matchdate = new Weeks($days_of_the_week);
         $cpt = 0;
@@ -305,7 +305,7 @@
 
             // get name of the aiviable players
             foreach ($nbdispo->getPseudo() as $values) {
-              $listejoueur[] =  $values['pseudo'];         
+              $listejoueur[] =  $values['pseudo'];
             }
             // get last classe needed
             $allPlayer = $playerList->getPlayersname();
@@ -326,7 +326,7 @@
                 echo '<div class="panel-heading today">';
               else
                 echo '<div class="panel-heading">';
-        ?> 
+        ?>
                   <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#<?php echo $cpt; ?>">
                       <?php echo $datematche.' '.DISPO_AT.' '.$hour; ?>
@@ -335,7 +335,7 @@
                 </div>
                 <div id="<?php echo $cpt; ?>" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    <?php 
+                    <?php
                       echo '<p class="infomatch"><strong>'.DISPO_LEAGUE.' : </strong>'.htmlspecialchars($value['league']).'</p>';
                       echo '<p class="infomatch"><strong>'.DISPO_TEAM.' : </strong>'.htmlspecialchars($value['team']).'</p>';
                       if($value['map2']){
@@ -383,7 +383,7 @@
                 </div>
                 <div id="<?php echo $cpt; ?>" class="panel-collapse collapse">
                   <div class="panel-body">
-                    <?php 
+                    <?php
                       echo '<p class="infomatch"><strong>'.DISPO_LEAGUE.' : </strong>'.htmlspecialchars($value['league']).'</p>';
                       echo '<p class="infomatch"><strong>'.DISPO_TEAM.' : </strong>'.htmlspecialchars($value['team']).'</p>';
                       if($value['map2']){
@@ -411,7 +411,7 @@
         <?php
             $cpt++;
             }
-            
+
           }
       /**
           if no one match is programmed
@@ -420,7 +420,7 @@
 </div>
 <?php }else{
   echo "<h3>".DISPO_NO_MATCHES."</h3>";
-} 
+}
   $serv = new Server();
 ?>
     </div>
@@ -429,4 +429,3 @@
 <script type="text/javascript">
   $('.del').nextAll().remove();
 </script>
-

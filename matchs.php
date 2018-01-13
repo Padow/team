@@ -55,10 +55,10 @@
   	require_once('php/links.class.php');
   	require_once('php/message.class.php');
   	$connexion = new Connexion();
-    $messages = new Message($connexion->getConnexion());
+    $messages = new Message($connexion::getInstance());
     $page = $messages->nbpage();
 
-	$matchObjet = new Match($connexion->getConnexion());
+	$matchObjet = new Match($connexion::getInstance());
   ?>
 <div class="wrap">
   <div class="content">

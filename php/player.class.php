@@ -5,9 +5,8 @@
 		private $_classe;
 		private $_connexion;
 		private $_hashpass;
-		
-		public function __construct($connexion)
-		{
+
+		public function __construct($connexion){
 			$this->_connexion = $connexion;
 		}
 
@@ -77,7 +76,7 @@
 									</div>
 								</div>
 								<script type="text/javascript">
-									setTimeout( function() 
+									setTimeout( function()
 			                        {
 			                          window.location.href="setting.php";
 			                        }, 3000);
@@ -93,7 +92,7 @@
 									</div>
 								</div>
 							 ';
-			}	
+			}
 		}
 
 		public function deletePlayer($name){
@@ -142,7 +141,7 @@
 								</div>
 							</div>
 							<script type="text/javascript">
-								setTimeout( function() 
+								setTimeout( function()
 		                        {
 		                          window.location.href="player_setting.php";
 		                        }, 3000);
@@ -154,7 +153,7 @@
 	        /**
 	         * Charger le fichier
 	         */
-	      
+
 	        $dir = __DIR__;
 			$dir = substr($dir, 0, -3);
 			$dir .= "uploads/";
@@ -189,7 +188,7 @@
 				} else {
 				   $fichier = $name.$extension;
 				}
-				
+
 			     if(move_uploaded_file($filename, $dir.$fichier)){
 			     	$arr = glob($dir.$name.".*");
 			     	foreach ($arr as $avatar) {
@@ -206,7 +205,7 @@
 						</div>
 					</div>
 					<script type="text/javascript">
-						setTimeout( function() 
+						setTimeout( function()
 	                    {
 	                      window.location.href="player_setting.php";
 	                    }, 3000);
@@ -214,9 +213,9 @@
 					';
 			     }
 			}
-	        
+
 	    }
-	    
+
 
 		public function getPlayersname(){
 			return $this->_players;

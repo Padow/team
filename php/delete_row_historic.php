@@ -3,6 +3,6 @@
 	require_once('historic.class.php');
 	$connexion = new Connexion();
 	$etf2lkey = urldecode($_GET['key']);
-	$historic = new Historic($connexion->getConnexion());
+	$historic = new Historic($connexion::getInstance());
 	$historic->deletefromhistoric($etf2lkey);
 ?>
