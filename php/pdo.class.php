@@ -16,9 +16,7 @@ class Connexion{
 	public static function getInstance(){
 		if (self::$_connexion == null) {
 			try	{
-
-			    @$connexion = new PDO('mysql:host='.DBHOST.';dbname='.DBNAME.'', DBUSER, DBPASSWORD);
-			    self::$_connexion = $connexion;
+			    self::$_connexion = new PDO('mysql:host='.DBHOST.';dbname='.DBNAME.'', DBUSER, DBPASSWORD);
 			}	catch(Exception $e)	{
 				echo 'Erreur : '.$e->getMessage().'<br />';
 				echo 'N° : '.$e->getCode();
