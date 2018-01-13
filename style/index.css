@@ -97,11 +97,11 @@ a:hover{
 }
 
 .log{
-	margin-top: 0.5em; 
+	margin-top: 0.5em;
 }
 
 .log2{
-	margin-top: -0.5em; 
+	margin-top: -0.5em;
 }
 
 .chkbx{
@@ -180,15 +180,15 @@ a:hover{
 .textarea{
 
   background-color: #333 !important;
-  resize: none !important; 
-  width: 100% !important; 
-  height: 200px !important; 
-  border-radius: 0px !important; 
+  resize: none !important;
+  width: 100% !important;
+  height: 200px !important;
+  border-radius: 0px !important;
   color: #FFF !important;
 }
 
 .long{
-	height: 400px !important; 
+	height: 400px !important;
 }
 
 .underline_icon{
@@ -227,7 +227,7 @@ a:hover{
     font-size: x-small;
     color: #000;
     line-height: 1.4em;
-    background: url('../style/images/quote.png') no-repeat scroll 0.1em 0.1em #D7DAEC;
+    background: url('../style/images/quote.png') no-repeat scroll 0.1em 0.1em lightgrey;
     border-top: 2px solid #99A;
     border-bottom: 2px solid #99A;
     padding: 1.1em 1.4em;
@@ -314,14 +314,14 @@ max-width: 640px;
 max-height: 360px;
 overflow: hidden;
 }
- 
-.flex-video.widescreen { 
+
+.flex-video.widescreen {
 	padding-bottom: 40.25%;
 	max-width: 640px;
 	max-height: 360px;
  }
 .flex-video.vimeo { padding-top: 0; }
- 
+
 .flex-video iframe,
 .flex-video object,
 .flex-video embed {
