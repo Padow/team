@@ -1,9 +1,9 @@
-<?php 
+<?php
 	ob_start();
   session_name('IDSESSION');
 	session_start();
   if ((!isset($_SESSION['logged'])) || (empty($_SESSION['logged'])))
-  { 
+  {
     header ("location: login");
   }
   if ($_SESSION['logged']['name'] == "first_player_setting") {
@@ -42,7 +42,7 @@
   </head>
 <body>
 <div class="body">
-  <?php  
+  <?php
   	require_once('php/pdo.class.php');
     require_once('php/links.class.php');
     require_once('php/message.class.php');
@@ -93,37 +93,37 @@
   </nav>
 
     <div class="container">
-      <?php 
+      <?php
         $quote = $messages->quote($_GET['id']);
-        $mess = $quote[0]['message']; 
+        $mess = $quote[0]['message'];
         $message = str_replace("[br/]","\n",$mess);
         $message = str_replace("[br/]","\r",$mess);
-        $message = str_replace("\r","",$message); 
+        $message = str_replace("\r","",$message);
         $value = "[quote=".$quote[0]['name']."]";
         $value .= $message;
         $value .= "[/quote]";
         if(isset($_POST['send'])){
           $error = false;
           if (!preg_match("/\S/", $_POST['comment'])) {
-              $error = true;   
+              $error = true;
           } else {
             $messages->setMessage($_SESSION['logged']['name'], $_POST['comment']);
           }
         }
       ?>
       <div class="col-md-12">
-        <?php if ($error) { ?>
+        <?php if (isset($error)) { ?>
         <div class="alert alert-warning alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span><span class="sr-only">Close</span></button>
           <p><strong>Attention !</strong><p>
           <p><?php echo MESSAGE_ERROR; ?></p>
         </div>
         <?php } ?>
-        <div class="col-md-12 btstyle">    
+        <div class="col-md-12 btstyle">
           <button title="<?php echo MESSAGE_BOLD; ?>" onclick="formatText(form_Commentaire,'b','b')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-bold"></span> </button>
           <button title="<?php echo MESSAGE_ITALIC; ?>" onclick="formatText(form_Commentaire,'i','i')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-italic"></span> </button>
-          <button title="<?php echo MESSAGE_UNDERLINE; ?>" onclick="formatText(form_Commentaire,'u','u')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span><img class="underline_icon" src="style/images/icon_underline.png" alt=""></span> </button> 
-          <span class="infomatch">|</span> 
+          <button title="<?php echo MESSAGE_UNDERLINE; ?>" onclick="formatText(form_Commentaire,'u','u')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span><img class="underline_icon" src="style/images/icon_underline.png" alt=""></span> </button>
+          <span class="infomatch">|</span>
           <button title="<?php echo MESSAGE_IMAGE; ?>" onclick="formatText(form_Commentaire,'img','img')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-picture"></span> </button>
           <button title="<?php echo MESSAGE_LINK; ?>" onclick="formatText(form_Commentaire,'url','url')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-link"></span> </button>
           <button title="<?php echo MESSAGE_QUOTE_FORM; ?>" onclick="formatText(form_Commentaire,'quote','quote')" class="btn btn-sm btn-default" style="background: transparent; border: none;"><span class="glyphicon glyphicon-comment"></span> </button>
@@ -146,11 +146,11 @@
     <div class="container">
       <div class="col-md-12 padd">
         <div class="col-md-8">
-        <?php  
+        <?php
           $links = new Links();
-        ?>  
+        ?>
         </div>
-        <div class="col-md-4 pull-right">  
+        <div class="col-md-4 pull-right">
           © 2014 <a href="http://steamcommunity.com/id/padow/" target="_blank">Padow</a>. All rights reserved.
         </div>
       </div>
