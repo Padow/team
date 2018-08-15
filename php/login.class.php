@@ -5,7 +5,7 @@
 
 		private $_players;
 		private $_encrypt;
-		private $_connexion; 
+		private $_connexion;
 
 		public function __construct($connexion)
 		{
@@ -25,34 +25,6 @@
 			}
 		}
 
-		public function encrypt($data) {
-		    $key = "eryzing";  // Clé de 8 caractères max
-		    $data = serialize($data);
-		    $td = mcrypt_module_open(MCRYPT_DES,"",MCRYPT_MODE_ECB,"");
-		    $iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
-		    mcrypt_generic_init($td,$key,$iv);
-		    $data = base64_encode(mcrypt_generic($td, '!'.$data));
-		    mcrypt_generic_deinit($td);
-		    $this->_encrypt = $data;
-		    return $this->_encrypt;
-		}
-		 
-		public function decrypt($data) {
-		    $key = "eryzing";
-		    $td = mcrypt_module_open(MCRYPT_DES,"",MCRYPT_MODE_ECB,"");
-		    $iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
-		    mcrypt_generic_init($td,$key,$iv);
-		    $data = mdecrypt_generic($td, base64_decode($data));
-		    mcrypt_generic_deinit($td);
-		 
-		    if (substr($data,0,1) != '!')
-		        return false;
-		 
-		    $data = substr($data,1,strlen($data)-1);
-		    $this->_encrypt = unserialize($data);
-		    return $this->_encrypt;
-		}
-
 		public function easter_egg($var){
 			if (strtolower($var) == "ron") {
 				header('location: http://noelswf.info/swf/3200.swf');
@@ -68,7 +40,7 @@
 			if(!strstr($name, "@") && !strstr($name, "#") && !strstr($name, ";")){
 				$this->easter_egg($name);
 				$this->checkPlayers();
-				if($this->_players){		
+				if($this->_players){
 					$pass = Secure::hash($password);
 					$sql = $this->_connexion->prepare("SELECT name, language FROM  players WHERE name = :name AND password = :pass");
 					$sql-> bindParam('name', $name, PDO::PARAM_STR);
@@ -87,12 +59,12 @@
 								 ';
 					}else{
 						if($remind){
-							$rmbnp = $this->encrypt($rows[0]['name']);
+							$rmbnp = Secure::encrypt($rows[0]['name']);
 							setcookie("__rmbpn", $rmbnp, time()+365*24*3600,'/');
 							if($rows[0]['language'] != "")
-								$rmblp = $this->encrypt($rows[0]['language']);
+								$rmblp = Secure::encrypt($rows[0]['language']);
 							elseif ($_SESSION['language'] != "")
-								$rmblp = $this->encrypt($_SESSION['language']);
+								$rmblp = Secure::encrypt($_SESSION['language']);
 							else
 								$rmblp = "";
 							setcookie("__rmblp", $rmblp, time()+365*24*3600,'/');
@@ -115,7 +87,7 @@
 									</div>
 								</div>
 							 ';
-			}		
+			}
 		}
 
 		public function checkRemind(){
@@ -124,7 +96,7 @@
 					$lang = $this->decrypt($_COOKIE["__rmblp"]);
 					$_SESSION['language'] = $lang;
 				}
-				$name = $this->decrypt($_COOKIE["__rmbpn"]);
+				$name = Secure::decrypt($_COOKIE["__rmbpn"]);
 				$sql = $this->_connexion->prepare("SELECT name FROM  players WHERE name = :name ");
 				$sql-> bindParam('name', $name, PDO::PARAM_STR);
 				$sql-> execute();
@@ -136,7 +108,7 @@
 					header('location: ./');
 				}
 
-				
+
 			}
 
 		}
